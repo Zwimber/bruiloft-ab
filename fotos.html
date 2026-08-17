@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deel uw foto&rsquo;s &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF4E6;--navy:#11203F;--navy-deep:#0A1428;--plum:#2E2148;--gold:#C9A24B;--gold-light:#E9D198;--gold-deep:#9C7528;--cream-text:#EDE2C6;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(120% 80% at 50% 120%, rgba(224,164,92,.4) 0%, rgba(224,164,92,0) 46%),
+    radial-gradient(90% 70% at 50% 4%, rgba(46,33,72,.6) 0%, rgba(46,33,72,0) 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--plum) 100%);}
+.bar{max-width:820px;margin:0 auto;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar a.back{color:var(--cream-text);text-decoration:none;font-size:.95rem;letter-spacing:.04em;opacity:.85;transition:.25s}
+.bar a.back:hover{opacity:1;color:#fff}
+.flags{display:flex;gap:.4rem}
+.flag{display:flex;align-items:center;gap:.4rem;cursor:pointer;padding:.28rem .55rem;border-radius:999px;border:1px solid transparent;background:rgba(255,255,255,.05);transition:.25s}
+.flag svg{width:22px;height:14px;border-radius:2px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.flag .lbl{color:var(--cream-text);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.flag.active{border-color:var(--gold);background:rgba(201,162,75,.16)}
+.wrap{max-width:600px;margin:0 auto;padding:2rem 1.4rem 5rem;text-align:center}
+.crest{width:104px;margin:1rem auto 1.1rem}
+.crest svg{width:104px;height:auto;display:block;margin:0 auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.72rem;color:var(--gold-light);margin-bottom:.8rem}
+h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(2.3rem,8vw,3.4rem);line-height:1.05;color:#fff}
+.divider{display:flex;align-items:center;gap:1rem;max-width:280px;margin:1.3rem auto}
+.divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.divider .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+.divider .dia{width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+.lead{font-size:1.1rem;color:#d4c9aa;max-width:520px;margin:0 auto 2.2rem}
+form{text-align:left;display:block}
+label{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.4rem}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,75,.4);color:var(--cream-text);font-family:var(--serif-body);font-size:1.05rem;padding:.75rem .95rem;border-radius:1px}
+select option{color:#111;background:#fff}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,select:focus,textarea:focus,input[type=file]:focus{outline:none;border-color:var(--gold)}
+input[type=file]{width:100%;background:rgba(255,255,255,.05);border:1px dashed rgba(201,162,75,.55);color:var(--cream-text);font-family:var(--serif-body);font-size:.95rem;padding:.8rem .95rem;border-radius:1px}
+input[type=file]::file-selector-button{font-family:var(--serif-body);background:transparent;border:1px solid var(--gold);color:var(--gold-light);padding:.4rem .9rem;border-radius:1px;margin-right:.9rem;cursor:pointer}
+.field{margin-bottom:1.2rem}
+.photo-slot{border:1px solid rgba(201,162,75,.28);border-radius:4px;padding:1.1rem;display:grid;gap:1rem;margin-bottom:1.1rem}
+.slot-head{font-family:var(--serif-display);font-size:1.35rem;color:var(--gold-light)}
+.preview{display:none;align-items:center;gap:.9rem}
+.preview img{width:104px;height:78px;object-fit:cover;border-radius:3px;border:2px solid var(--gold);display:block}
+.preview .fsize{font-size:.85rem;color:#b9ad8e;font-style:italic}
+.addphoto{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;background:none;border:1px dashed rgba(201,162,75,.5);color:var(--gold-light);font-family:var(--serif-body);font-size:.95rem;letter-spacing:.04em;padding:.7rem 1.2rem;border-radius:2px;margin-bottom:1.3rem}
+.addphoto:hover{border-color:var(--gold);background:rgba(201,162,75,.08)}
+#total{display:none;font-size:.95rem;font-style:italic;margin:.2rem 0 .6rem}
+#total-warn{display:none;color:#e5a3a3;font-size:.9rem;margin-bottom:1rem;line-height:1.5}
+.btn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:var(--serif-body);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;padding:1rem 2.1rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;width:100%}
+.btn:hover{background:var(--gold);color:var(--navy-deep)}
+.note{font-size:.9rem;color:#b9ad8e;font-style:italic;margin-top:.9rem;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back" href="/" data-i18n="back">&larr; Terug naar de uitnodiging</a>
+  <div class="flags">
+    <div class="flag active" data-lang="nl" title="Nederlands"><svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#AE1C28"/><rect y="13.3" width="60" height="13.4" fill="#fff"/><rect y="26.7" width="60" height="13.3" fill="#21468B"/></svg><span class="lbl">NL</span></div>
+    <div class="flag" data-lang="en" title="English"><svg viewBox="0 0 60 30"><clipPath id="uk2"><rect width="60" height="30"/></clipPath><g clip-path="url(#uk2)"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="3.5"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="lbl">EN</span></div>
+    <div class="flag" data-lang="de" title="Deutsch"><svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.4" fill="#DD0000"/><rect y="26.7" width="60" height="13.3" fill="#FFCE00"/></svg><span class="lbl">DE</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="crest"><svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9C7528"/><stop offset="0.35" stop-color="#E9D198"/>
+    <stop offset="0.55" stop-color="#C9A24B"/><stop offset="1" stop-color="#9C7528"/></linearGradient></defs>
+  <g stroke="url(#g)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/>
+    <circle cx="65" cy="13" r="2.3" fill="url(#g)"/><circle cx="80" cy="7" r="2.7" fill="url(#g)"/><circle cx="95" cy="13" r="2.3" fill="url(#g)"/>
+    <path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/>
+    <path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/>
+  </g>
+  <g><ellipse cx="103.0" cy="141.0" rx="8" ry="2.7" transform="rotate(152.9 103.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="112.0" cy="133.4" rx="8" ry="2.7" transform="rotate(139.5 112.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="119.0" cy="123.6" rx="8" ry="2.7" transform="rotate(125.2 119.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="123.7" cy="112.1" rx="8" ry="2.7" transform="rotate(110.2 123.7 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.9" cy="99.6" rx="8" ry="2.7" transform="rotate(94.5 125.9 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.3" cy="87.0" rx="8" ry="2.7" transform="rotate(78.7 125.3 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="122.0" cy="74.8" rx="8" ry="2.7" transform="rotate(63.3 122.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="116.2" cy="64.0" rx="8" ry="2.7" transform="rotate(48.5 116.2 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="108.3" cy="55.0" rx="8" ry="2.7" transform="rotate(34.6 108.3 55.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="57.0" cy="141.0" rx="8" ry="2.7" transform="rotate(207.1 57.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="48.0" cy="133.4" rx="8" ry="2.7" transform="rotate(220.5 48.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="41.0" cy="123.6" rx="8" ry="2.7" transform="rotate(234.8 41.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="36.3" cy="112.1" rx="8" ry="2.7" transform="rotate(249.8 36.3 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.1" cy="99.6" rx="8" ry="2.7" transform="rotate(265.5 34.1 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.7" cy="87.0" rx="8" ry="2.7" transform="rotate(-78.7 34.7 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="38.0" cy="74.8" rx="8" ry="2.7" transform="rotate(-63.3 38.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="43.8" cy="64.0" rx="8" ry="2.7" transform="rotate(-48.5 43.8 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="51.7" cy="55.0" rx="8" ry="2.7" transform="rotate(-34.6 51.7 55.0)" fill="url(#g)" opacity="0.92"/></g>
+  <text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="url(#g)">A&amp;B</text>
+</svg></div>
+  <div class="eyebrow" data-i18n="eyebrow">Voor de ceremonie</div>
+  <h1 data-i18n="title">Deel uw foto&rsquo;s</h1>
+  <div class="divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>
+  <p class="lead" data-i18n="intro">Heeft u mooie of grappige foto&rsquo;s van Anna en/of Balraz? Upload ze hier, met bij elke foto een korte toelichting. Aan het begin van de ceremonie tonen wij een selectie.</p>
+
+  <form name="fotos" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/bedankt.html">
+    <input type="hidden" name="form-name" value="fotos">
+    <p style="display:none"><label>Niet invullen: <input name="bot-field"></label></p>
+    <div class="field"><label data-i18n="l_naam">Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)</label><input type="text" name="naam" required data-i18n-ph="ph_naam" placeholder="Uw naam"></div>
+    <div class="field"><label data-i18n="l_email">E-mailadres</label><input type="email" name="email" required></div>
+    <div class="field"><label data-i18n="l_phone">Telefoonnummer</label>
+      <div style="display:flex;gap:.6rem">
+        <select name="landcode" aria-label="Landcode" style="width:auto;flex:0 0 auto;min-width:118px"><option value="+31" selected>+31 Nederland</option><option value="+32">+32 Belgi&euml;</option><option value="+49">+49 Deutschland</option><option value="+44">+44 United Kingdom</option><option value="+33">+33 France</option><option value="+34">+34 Espa&ntilde;a</option><option value="+39">+39 Italia</option><option value="+41">+41 Schweiz</option><option value="+43">+43 &Ouml;sterreich</option><option value="+1">+1 USA / Canada</option><option value="+353">+353 Ireland</option><option value="+351">+351 Portugal</option><option value="+45">+45 Danmark</option><option value="+46">+46 Sverige</option><option value="+47">+47 Norge</option><option value="+48">+48 Polska</option><option value="+90">+90 T&uuml;rkiye</option><option value="+91">+91 India</option><option value="+61">+61 Australia</option></select>
+        <input type="tel" name="telefoon" placeholder="6 12345678" style="flex:1">
+      </div>
+    </div>
+
+    <div class="photo-slot" data-slot="1">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 1</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto1" accept="image/*" required data-slot="1"></div>
+        <div class="preview" data-slot="1"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar1" required data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer1" required data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving1" rows="2" required data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+      <div class="photo-slot" data-slot="2" style="display:none">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 2</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto2" accept="image/*" data-slot="2"></div>
+        <div class="preview" data-slot="2"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar2" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer2" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving2" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+      <div class="photo-slot" data-slot="3" style="display:none">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 3</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto3" accept="image/*" data-slot="3"></div>
+        <div class="preview" data-slot="3"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar3" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer3" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving3" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+      <div class="photo-slot" data-slot="4" style="display:none">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 4</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto4" accept="image/*" data-slot="4"></div>
+        <div class="preview" data-slot="4"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar4" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer4" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving4" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+      <div class="photo-slot" data-slot="5" style="display:none">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 5</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto5" accept="image/*" data-slot="5"></div>
+        <div class="preview" data-slot="5"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar5" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer5" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving5" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+      <div class="photo-slot" data-slot="6" style="display:none">
+        <div class="slot-head"><span data-i18n="foto_word">Foto</span> 6</div>
+        <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto6" accept="image/*" data-slot="6"></div>
+        <div class="preview" data-slot="6"><img alt=""><span class="fsize"></span></div>
+        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar6" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
+        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer6" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
+        <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving6" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
+      </div>
+
+    <button type="button" id="addphoto" class="addphoto" data-i18n="add_photo">+ Nog een foto toevoegen</button>
+    <div id="total"></div>
+    <div id="total-warn" data-i18n="warn">Te groot: Netlify staat maximaal 8 MB per verzending toe. Verwijder een foto of verstuur er minder tegelijk.</div>
+    <button class="btn" type="submit" data-i18n="submit">Verstuur</button>
+    <p class="note" data-i18n="note">U kunt meerdere foto&rsquo;s toevoegen. Grote foto&rsquo;s worden licht verkleind; per verzending geldt een limiet van 8 MB. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen.</p>
+  </form>
+</div>
+<script>
+const T = {"nl": {"back": "&larr; Terug naar de uitnodiging", "eyebrow": "Voor de ceremonie", "title": "Deel uw foto&rsquo;s", "intro": "Heeft u mooie of grappige foto&rsquo;s van Anna en/of Balraz? Upload ze hier, met bij elke foto een korte toelichting. Aan het begin van de ceremonie tonen wij een selectie.", "l_naam": "Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)", "ph_naam": "Uw naam", "l_email": "E-mailadres", "l_phone": "Telefoonnummer", "foto_word": "Foto", "l_foto": "De foto", "l_waar": "Waar is dit?", "ph_waar": "Bijv. op vakantie in Rome", "l_wanneer": "Wanneer (ongeveer)?", "ph_wanneer": "Bijv. zomer 2019", "l_oms": "Welke leuke herinnering heb je aan deze foto?", "ph_oms": "Beschrijf de foto in een zin", "add_photo": "+ Nog een foto toevoegen", "total": "Totaal", "warn": "Te groot: Netlify staat maximaal 8 MB per verzending toe. Verwijder een foto of verstuur er minder tegelijk.", "submit": "Verstuur", "note": "U kunt meerdere foto&rsquo;s toevoegen. Grote foto&rsquo;s worden licht verkleind; per verzending geldt een limiet van 8 MB. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen."}, "en": {"back": "&larr; Back to the invitation", "eyebrow": "For the ceremony", "title": "Share your photos", "intro": "Do you have lovely or funny photos of Anna and/or Balraz? Upload them here, with a short note for each. We&rsquo;ll show a selection at the start of the ceremony.", "l_naam": "Your name (so we know whose photos these are)", "ph_naam": "Your name", "l_email": "Email address", "l_phone": "Phone number", "foto_word": "Photo", "l_foto": "The photo", "l_waar": "Where is this?", "ph_waar": "e.g. on holiday in Rome", "l_wanneer": "When (approximately)?", "ph_wanneer": "e.g. summer 2019", "l_oms": "What lovely memory do you have of this photo?", "ph_oms": "Describe the photo in one line", "add_photo": "+ Add another photo", "total": "Total", "warn": "Too large: Netlify allows a maximum of 8 MB per submission. Please remove a photo or send fewer at once.", "submit": "Send", "note": "You can add several photos. Large photos are lightly compressed; there is an 8 MB limit per submission. By uploading you agree to the photo being shown during the ceremony."}, "de": {"back": "&larr; Zur&uuml;ck zur Einladung", "eyebrow": "F&uuml;r die Trauung", "title": "Teilen Sie Ihre Fotos", "intro": "Haben Sie sch&ouml;ne oder lustige Fotos von Anna und/oder Balraz? Laden Sie sie hier hoch, mit einer kurzen Notiz zu jedem Foto. Zu Beginn der Trauung zeigen wir eine Auswahl.", "l_naam": "Ihr Name (damit wir wissen, von wem die Fotos stammen)", "ph_naam": "Ihr Name", "l_email": "E-Mail-Adresse", "l_phone": "Telefonnummer", "foto_word": "Foto", "l_foto": "Das Foto", "l_waar": "Wo ist das?", "ph_waar": "z. B. im Urlaub in Rom", "l_wanneer": "Wann (ungef&auml;hr)?", "ph_wanneer": "z. B. Sommer 2019", "l_oms": "Welche sch&ouml;ne Erinnerung haben Sie an dieses Foto?", "ph_oms": "Beschreiben Sie das Foto in einem Satz", "add_photo": "+ Weiteres Foto hinzuf&uuml;gen", "total": "Gesamt", "warn": "Zu gro&szlig;: Netlify erlaubt maximal 8 MB pro &Uuml;bermittlung. Bitte entfernen Sie ein Foto oder senden Sie weniger auf einmal.", "submit": "Senden", "note": "Sie k&ouml;nnen mehrere Fotos hinzuf&uuml;gen. Gro&szlig;e Fotos werden leicht verkleinert; pro &Uuml;bermittlung gilt ein Limit von 8 MB. Mit dem Hochladen stimmen Sie zu, dass das Foto w&auml;hrend der Trauung gezeigt wird."}};
+const MAX = 6;
+let LANG='nl';
+function fmt(b){return (b/1048576).toFixed(1)+' MB';}
+function slotEl(i){return document.querySelector('.photo-slot[data-slot="'+i+'"]');}
+function setReq(i,on){const s=slotEl(i);['waar','wanneer','omschrijving'].forEach(function(n){var el=s.querySelector('[name="'+n+i+'"]');if(el){if(on)el.setAttribute('required','');else el.removeAttribute('required');}});}
+function total(){var t=0;document.querySelectorAll('input[type=file]').forEach(function(inp){if(inp.files[0])t+=inp.files[0].size;});return t;}
+function updateTotal(){var t=total();var el=document.getElementById('total');var warn=t>8*1048576;
+  if(t===0){el.style.display='none';document.getElementById('total-warn').style.display='none';return;}
+  el.style.display='block';el.textContent=((T[LANG]&&T[LANG].total)||'Totaal')+': '+fmt(t);el.style.color=warn?'#e5a3a3':'#b9ad8e';
+  document.getElementById('total-warn').style.display=warn?'block':'none';}
+var THRESH=2*1048576;
+function setFile(input,file){try{var dt=new DataTransfer();dt.items.add(file);input.files=dt.files;}catch(e){}}
+function process(file,cb){
+  if(!file.type||file.type.indexOf('image/')!==0||file.size<=THRESH){cb(file);return;}
+  var img=new Image();var url=URL.createObjectURL(file);
+  img.onload=function(){URL.revokeObjectURL(url);
+    var max=2200;var w=img.naturalWidth,h=img.naturalHeight;
+    if(w>max||h>max){var sc=Math.min(max/w,max/h);w=Math.round(w*sc);h=Math.round(h*sc);}
+    var c=document.createElement('canvas');c.width=w;c.height=h;
+    c.getContext('2d').drawImage(img,0,0,w,h);
+    c.toBlob(function(blob){
+      if(blob&&blob.size<file.size){var base=(file.name||'foto').split('.').slice(0,-1).join('.')||'foto';cb(new File([blob],base+'.jpg',{type:'image/jpeg'}));}
+      else{cb(file);}
+    },'image/jpeg',0.85);
+  };
+  img.onerror=function(){URL.revokeObjectURL(url);cb(file);};
+  img.src=url;
+}
+document.querySelectorAll('input[type=file]').forEach(function(inp){
+  var i=+inp.dataset.slot;
+  inp.addEventListener('change',function(){
+    var s=slotEl(i);var pv=s.querySelector('.preview');var img=pv.querySelector('img');var sz=pv.querySelector('.fsize');
+    var f=inp.files[0];
+    if(!f){pv.style.display='none';if(i>1)setReq(i,false);updateTotal();return;}
+    process(f,function(out){setFile(inp,out);var u=URL.createObjectURL(out);img.src=u;sz.textContent=fmt(out.size);pv.style.display='flex';if(i>1)setReq(i,true);updateTotal();});
+  });
+});
+var addBtn=document.getElementById('addphoto');
+addBtn.addEventListener('click',function(){
+  for(var i=2;i<=MAX;i++){var s=slotEl(i);if(s.style.display==='none'){s.style.display='grid';break;}}
+  var anyHidden=false;for(var j=2;j<=MAX;j++){if(slotEl(j).style.display==='none')anyHidden=true;}
+  if(!anyHidden)addBtn.style.display='none';
+});
+document.querySelector('form').addEventListener('submit',function(e){
+  if(total()>8*1048576){e.preventDefault();var w=document.getElementById('total-warn');w.style.display='block';w.scrollIntoView({behavior:'smooth',block:'center'});}
+});
+function applyLang(lang){LANG=lang;document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang]&&T[lang][k]!=null)el.innerHTML=T[lang][k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var k=el.getAttribute('data-i18n-ph');if(T[lang]&&T[lang][k]!=null)el.setAttribute('placeholder',T[lang][k]);});
+  document.querySelectorAll('.flag').forEach(function(f){f.classList.toggle('active',f.dataset.lang===lang);});
+  updateTotal();
+}
+document.querySelectorAll('.flag').forEach(function(f){f.addEventListener('click',function(){applyLang(f.dataset.lang);});});
+applyLang('nl');
+</script>
+</body>
+</html>
