@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Het Verdrag van Anna &amp; Balraz &middot; Artikel</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF4E6;--navy:#11203F;--navy-deep:#0A1428;--plum:#2E2148;--gold:#C9A24B;--gold-light:#E9D198;--gold-deep:#9C7528;--cream-text:#EDE2C6;--ink:#202a3f;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;
+  --rule:rgba(156,117,40,.55);}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(120% 80% at 50% 120%, rgba(224,164,92,.4) 0%, rgba(224,164,92,0) 46%),
+    radial-gradient(90% 70% at 50% 4%, rgba(46,33,72,.6) 0%, rgba(46,33,72,0) 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--plum) 100%);}
+
+/* ---------- screen chrome (hidden on print) ---------- */
+.bar{max-width:920px;margin:0 auto;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar a.back{color:var(--cream-text);text-decoration:none;font-size:.95rem;letter-spacing:.04em;opacity:.85;transition:.25s}
+.bar a.back:hover{opacity:1;color:#fff}
+.flags{display:flex;gap:.4rem}
+.flag{display:flex;align-items:center;gap:.4rem;cursor:pointer;padding:.28rem .55rem;border-radius:999px;border:1px solid transparent;background:rgba(255,255,255,.05);transition:.25s}
+.flag svg{width:22px;height:14px;border-radius:2px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.flag .lbl{color:var(--cream-text);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.flag.active{border-color:var(--gold);background:rgba(201,162,75,.16)}
+.intro{max-width:680px;margin:.6rem auto 2rem;padding:0 1.4rem;text-align:center}
+.intro .eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.72rem;color:var(--gold-light);margin-bottom:.6rem}
+.intro h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;color:#fff;margin-bottom:.8rem}
+.intro p{font-size:1.08rem;color:#d4c9aa;line-height:1.65}
+.intro p.lead{font-size:1.18rem;color:#e3d8ba}
+.intro .rules{display:grid;gap:.9rem;text-align:left;margin:1.6rem auto 1.4rem;max-width:560px}
+.intro .rule{border:1px solid rgba(201,162,75,.35);border-radius:4px;padding:.85rem 1.1rem;background:rgba(255,255,255,.04);font-size:1rem;color:#d4c9aa;line-height:1.55}
+.intro .rule b{display:block;font-family:var(--serif-display);font-weight:600;font-size:1.25rem;color:var(--gold-light);margin-bottom:.15rem}
+.intro .rule a{color:var(--gold-light);text-decoration:none;border-bottom:1px solid rgba(201,162,75,.5)}
+.intro .rule .chaps{display:grid;gap:.2rem;margin-top:.4rem}
+.intro .rule .chaps a{border:0;color:#d4c9aa}
+.intro .rule .chaps a:hover{color:var(--gold-light)}
+.intro .rule .chaps b{display:inline;font-family:var(--serif-body);font-size:1rem;color:var(--gold-light);margin:0 .3rem 0 0}
+.intro .rule .draw{margin-top:.9rem;text-align:center}
+.intro .rule small{display:block;margin-top:.6rem;font-size:.9rem;font-style:italic;color:#b9ad8e}
+.btn.small{font-size:.74rem;padding:.7rem 1.4rem;margin-top:0}
+.btn.ghost{border-color:rgba(201,162,75,.45);color:#d4c9aa;margin-left:.6rem}
+.hw{font-family:'Caveat',cursive;font-size:15.5pt;color:#1d2a6b;line-height:1;padding-bottom:1.1mm;white-space:nowrap;flex:1;overflow:hidden}
+.hw.sig{font-size:22pt;transform:rotate(-4deg);display:inline-block;flex:0 0 auto}
+.line{overflow:hidden}.sig .fld{display:flex;align-items:flex-end}
+.intro p.closing{font-style:italic;font-size:1rem;color:#b9ad8e}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;cursor:pointer;font-family:var(--serif-body);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;padding:.95rem 2.1rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;text-decoration:none;margin-top:1.3rem}
+.btn:hover{background:var(--gold);color:var(--navy-deep)}
+.btn svg{width:16px;height:16px}
+.sheet-wrap{display:flex;justify-content:center;padding:0 1rem 4rem;overflow:hidden}
+.scaler{transform-origin:top center}
+
+/* ---------- the A4 sheet ---------- */
+.sheet{width:210mm;height:297mm;background:#fff;color:var(--ink);padding:13mm 15mm 11mm;position:relative;
+  box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(201,162,75,.25);font-size:10.5pt;line-height:1.45;
+  display:flex;flex-direction:column}
+.sheet::before{content:"";position:absolute;inset:6mm;border:1px solid var(--gold);pointer-events:none}
+.sheet::after{content:"";position:absolute;inset:7.2mm;border:.4pt solid var(--gold-deep);opacity:.7;pointer-events:none}
+.corner{position:absolute;width:6mm;height:6mm;pointer-events:none}
+.corner svg{width:100%;height:100%;display:block}
+.corner.tl{top:4.4mm;left:4.4mm}.corner.tr{top:4.4mm;right:4.4mm;transform:rotate(90deg)}
+.corner.br{bottom:4.4mm;right:4.4mm;transform:rotate(180deg)}.corner.bl{bottom:4.4mm;left:4.4mm;transform:rotate(270deg)}
+
+.head{text-align:center}
+.head .crest{width:19mm;margin:0 auto 1.2mm}
+.head .crest svg{width:19mm;height:auto;display:block}
+.head .eyebrow{text-transform:uppercase;letter-spacing:.38em;font-size:7pt;color:var(--gold-deep);margin-bottom:1.2mm}
+.head h2{font-family:var(--serif-display);font-weight:600;font-size:24pt;line-height:1.05;color:var(--navy)}
+.head .sub{font-style:italic;font-size:10pt;color:#4a5370;margin-top:1mm}
+.divider{display:flex;align-items:center;gap:3mm;max-width:70mm;margin:2.6mm auto 3mm}
+.divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.divider .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+.divider .dia{width:2mm;height:2mm;background:var(--gold);transform:rotate(45deg)}
+
+.preamble{font-style:italic;font-size:9.6pt;line-height:1.5;color:#33405f;text-align:center;max-width:165mm;margin:0 auto 4mm}
+.preamble b{font-style:normal;font-weight:500;color:var(--navy)}
+
+.sec-title{font-family:var(--serif-body);text-transform:uppercase;letter-spacing:.3em;font-size:7.2pt;color:var(--gold-deep);
+  display:flex;align-items:center;gap:2.5mm;margin:0 0 1.6mm}
+.sec-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+
+.art-row{display:flex;align-items:baseline;gap:3mm;margin-bottom:2.2mm}
+.art-row .art{font-family:var(--serif-display);font-weight:600;font-size:16pt;color:var(--navy);letter-spacing:.06em;text-transform:uppercase;line-height:1}
+.art-row .numbox{display:inline-block;width:16mm;height:8mm;border:1px solid var(--gold-deep);vertical-align:bottom;transform:translateY(1.6mm)}
+.art-row .hint{font-size:8pt;font-style:italic;color:#6b7390}
+.art-row .concerning{flex:1;display:flex;align-items:baseline;gap:2mm;margin-left:2mm}
+.art-row .concerning span{font-size:9.5pt;color:var(--navy);white-space:nowrap;font-style:italic}
+.art-row .concerning i{flex:1;border-bottom:1px solid var(--rule);height:6mm;display:block}
+
+.chap-row{display:flex;align-items:baseline;gap:2mm;margin:0 0 1.2mm}
+.chap-row span{font-size:9.5pt;color:var(--navy);white-space:nowrap;font-style:italic}
+.chap-row i{flex:1;border-bottom:1px solid var(--rule);height:6.4mm;display:block;font-style:normal;font-family:var(--serif-display);font-weight:600;font-size:12pt;color:var(--navy);line-height:6.4mm;padding-left:1mm}
+.lines{display:block}
+.line{height:8.4mm;border-bottom:1px solid var(--rule);display:flex;align-items:flex-end;gap:2mm}
+.line .prefix{font-family:var(--serif-display);font-weight:600;font-size:11.5pt;color:var(--navy);padding-bottom:.6mm;white-space:nowrap}
+
+.section{margin-top:3.4mm}
+.desc{font-size:9.2pt;font-style:italic;color:#4a5370;line-height:1.4;margin-bottom:.4mm}
+
+.sign{display:grid;grid-template-columns:1fr 1fr;column-gap:8mm;row-gap:2.6mm;margin-top:1mm}
+.sig{display:flex;flex-direction:column}
+.sig .lbl{font-size:7.4pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.sig .fld{height:9mm;border-bottom:1px solid var(--rule);margin-top:auto}
+
+.seal{position:absolute;right:16mm;bottom:12.5mm;width:15mm;height:15mm;opacity:.9;pointer-events:none}
+.seal svg{width:100%;height:100%;display:block}
+
+@media print{
+  @page{size:A4;margin:0}
+  body{background:#fff;min-height:0}
+  .bar,.intro{display:none!important}
+  .sheet-wrap{padding:0;display:block;overflow:visible}
+  .scaler{transform:none!important;height:auto!important}
+  .sheet{box-shadow:none;background:#fff;margin:0;page-break-after:avoid;break-inside:avoid}
+  .hw{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back" href="/" data-i18n="back">&larr; Terug naar de uitnodiging</a>
+  <div class="flags">
+    <div class="flag active" data-lang="nl" title="Nederlands"><svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#AE1C28"/><rect y="13.3" width="60" height="13.4" fill="#fff"/><rect y="26.7" width="60" height="13.3" fill="#21468B"/></svg><span class="lbl">NL</span></div>
+    <div class="flag" data-lang="en" title="English"><svg viewBox="0 0 60 30"><clipPath id="uk3"><rect width="60" height="30"/></clipPath><g clip-path="url(#uk3)"><rect width="60" height="30" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="3.5"/><path d="M30,0 V30 M0,15 H60" stroke="#fff" stroke-width="10"/><path d="M30,0 V30 M0,15 H60" stroke="#C8102E" stroke-width="6"/></g></svg><span class="lbl">EN</span></div>
+    <div class="flag" data-lang="de" title="Deutsch"><svg viewBox="0 0 60 40"><rect width="60" height="13.3" fill="#000"/><rect y="13.3" width="60" height="13.4" fill="#DD0000"/><rect y="26.7" width="60" height="13.3" fill="#FFCE00"/></svg><span class="lbl">DE</span></div>
+  </div>
+</div>
+
+<div class="intro">
+  <div class="eyebrow" data-i18n="s_eyebrow">Voor de verdragsbundel</div>
+  <h1 data-i18n="s_title">Het Verdrag van Anna &amp; Balraz</h1>
+  <p class="lead" data-i18n="s_lead">Waar twee partijen zich voor het leven aan elkaar verbinden, hoort een verdrag. Wij stellen er een op, en u schrijft er &eacute;&eacute;n artikel voor: een regel, afspraak of bepaling die volgens u in geen huwelijk mag ontbreken. Plechtig of luchtig, dat bepaalt u.</p>
+  <div class="rules">
+    <div class="rule" data-i18n="s_rule1"><b>Concreet</b>&ldquo;Wie kookt, hoeft niet af te wassen&rdquo; is een artikel. &ldquo;Elkaar liefhebben&rdquo; niet.</div>
+    <div class="rule" data-i18n="s_rule2"><b>Met bewijs</b>Noem &eacute;&eacute;n voorval uit het leven van Anna of Balraz dat aantoont waarom juist deze bepaling nodig is.</div>
+    <div class="rule" data-i18n="s_rule3"><b>Handgeschreven</b>Print het vel op wit A4-papier, vul het met de hand in en lever het op 17 oktober in bij een van de ceremoniemeesters (Edwin, Henry, Hester of Tim). Of stuur vooraf een foto naar <a href="mailto:ceremonie@annabalraz.nl">ceremonie@annabalraz.nl</a>. Meer dan &eacute;&eacute;n artikel? Print het vel nogmaals.</div>
+    <div class="rule" id="chapterCard"></div>
+  </div>
+  <p class="closing" data-i18n="s_closing">Alle artikelen samen worden op de dag zelf ondertekend en geratificeerd en aan het bruidspaar overhandigd.</p>
+  <div class="actions">
+    <button class="btn" type="button" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg><span data-i18n="s_print">Vel afdrukken</span></button>
+    <button class="btn ghost" type="button" id="exBtn" onclick="toggleExample()"><span data-i18n="s_example">Bekijk een ingevuld voorbeeld</span></button>
+  </div>
+</div>
+
+<div class="sheet-wrap"><div class="scaler" id="scaler">
+<div class="sheet" id="sheet">
+  <div class="corner tl"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1"><path d="M1 23V1h22"/><path d="M4 20V4h16"/><circle cx="4" cy="4" r="1.2" fill="#C9A24B" stroke="none"/></svg></div>
+  <div class="corner tr"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1"><path d="M1 23V1h22"/><path d="M4 20V4h16"/><circle cx="4" cy="4" r="1.2" fill="#C9A24B" stroke="none"/></svg></div>
+  <div class="corner br"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1"><path d="M1 23V1h22"/><path d="M4 20V4h16"/><circle cx="4" cy="4" r="1.2" fill="#C9A24B" stroke="none"/></svg></div>
+  <div class="corner bl"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1"><path d="M1 23V1h22"/><path d="M4 20V4h16"/><circle cx="4" cy="4" r="1.2" fill="#C9A24B" stroke="none"/></svg></div>
+
+  <div class="head">
+    <div class="crest"><svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#9C7528"/><stop offset="0.35" stop-color="#E9D198"/>
+        <stop offset="0.55" stop-color="#C9A24B"/><stop offset="1" stop-color="#9C7528"/></linearGradient></defs>
+      <g stroke="#C9A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/>
+        <circle cx="65" cy="13" r="2.3" fill="#C9A24B"/><circle cx="80" cy="7" r="2.7" fill="#C9A24B"/><circle cx="95" cy="13" r="2.3" fill="#C9A24B"/>
+        <path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/>
+        <path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/>
+      </g>
+      <g><ellipse cx="103.0" cy="141.0" rx="8" ry="2.7" transform="rotate(152.9 103.0 141.0)" fill="#C9A24B"/>
+        <ellipse cx="112.0" cy="133.4" rx="8" ry="2.7" transform="rotate(139.5 112.0 133.4)" fill="#C9A24B"/>
+        <ellipse cx="119.0" cy="123.6" rx="8" ry="2.7" transform="rotate(125.2 119.0 123.6)" fill="#C9A24B"/>
+        <ellipse cx="123.7" cy="112.1" rx="8" ry="2.7" transform="rotate(110.2 123.7 112.1)" fill="#C9A24B"/>
+        <ellipse cx="125.9" cy="99.6" rx="8" ry="2.7" transform="rotate(94.5 125.9 99.6)" fill="#C9A24B"/>
+        <ellipse cx="125.3" cy="87.0" rx="8" ry="2.7" transform="rotate(78.7 125.3 87.0)" fill="#C9A24B"/>
+        <ellipse cx="122.0" cy="74.8" rx="8" ry="2.7" transform="rotate(63.3 122.0 74.8)" fill="#C9A24B"/>
+        <ellipse cx="116.2" cy="64.0" rx="8" ry="2.7" transform="rotate(48.5 116.2 64.0)" fill="#C9A24B"/>
+        <ellipse cx="108.3" cy="55.0" rx="8" ry="2.7" transform="rotate(34.6 108.3 55.0)" fill="#C9A24B"/>
+        <ellipse cx="57.0" cy="141.0" rx="8" ry="2.7" transform="rotate(207.1 57.0 141.0)" fill="#C9A24B"/>
+        <ellipse cx="48.0" cy="133.4" rx="8" ry="2.7" transform="rotate(220.5 48.0 133.4)" fill="#C9A24B"/>
+        <ellipse cx="41.0" cy="123.6" rx="8" ry="2.7" transform="rotate(234.8 41.0 123.6)" fill="#C9A24B"/>
+        <ellipse cx="36.3" cy="112.1" rx="8" ry="2.7" transform="rotate(249.8 36.3 112.1)" fill="#C9A24B"/>
+        <ellipse cx="34.1" cy="99.6" rx="8" ry="2.7" transform="rotate(265.5 34.1 99.6)" fill="#C9A24B"/>
+        <ellipse cx="34.7" cy="87.0" rx="8" ry="2.7" transform="rotate(-78.7 34.7 87.0)" fill="#C9A24B"/>
+        <ellipse cx="38.0" cy="74.8" rx="8" ry="2.7" transform="rotate(-63.3 38.0 74.8)" fill="#C9A24B"/>
+        <ellipse cx="43.8" cy="64.0" rx="8" ry="2.7" transform="rotate(-48.5 43.8 64.0)" fill="#C9A24B"/>
+        <ellipse cx="51.7" cy="55.0" rx="8" ry="2.7" transform="rotate(-34.6 51.7 55.0)" fill="#C9A24B"/></g>
+      <text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="#C9A24B">A&amp;B</text>
+    </svg></div>
+    <div class="eyebrow" data-i18n="p_eyebrow">Verdragsbundel &middot; Artikel ter ratificatie</div>
+    <h2 data-i18n="p_title">Het Verdrag van Anna &amp; Balraz</h2>
+    <div class="sub" data-i18n="p_sub">Ondertekend en geratificeerd te Amsterdam op 17 oktober 2026</div>
+    <div class="divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>
+  </div>
+
+  <p class="preamble" data-i18n="p_preamble">De Hoge Verdragsluitende Partijen, <b>Anna Ana&iuml;s Ranzijn</b> en <b>Balraz Singh</b>, treden op zaterdag 17 oktober 2026 te Amsterdam in het huwelijk en komen ter regeling van hun toekomstige betrekkingen het volgende overeen:</p>
+
+  <div class="art-row">
+    <span class="art" data-i18n="p_article">Artikel</span><span class="numbox"></span>
+    <div class="concerning"><span data-i18n="p_concerning">betreffende</span><i></i></div>
+  </div>
+  <div class="chap-row"><span data-i18n="p_chapter">Hoofdstuk</span><i id="chapFill"></i></div>
+  <div class="lines">
+    <div class="line"><span class="prefix" data-i18n="p_prefix">De Partijen komen overeen dat</span></div>
+    <div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="p_note_h">Toelichting</div>
+    <p class="desc" data-i18n="p_note_d">Waarom is dit artikel noodzakelijk? Noem &eacute;&eacute;n voorval uit het leven van Anna en/of Balraz dat de noodzaak aantoont. Met plaats en (ongeveer) datum.</p>
+    <div class="lines"><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div></div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title" data-i18n="p_sign_h">Ondertekening</div>
+    <div class="sign">
+      <div class="sig"><span class="lbl" data-i18n="p_sig_name">Opgesteld door (naam)</span><span class="fld"></span></div>
+      <div class="sig"><span class="lbl" data-i18n="p_sig_role">In de hoedanigheid van (relatie tot de Partijen)</span><span class="fld"></span></div>
+      <div class="sig"><span class="lbl" data-i18n="p_sig_place">Plaats en datum</span><span class="fld"></span></div>
+      <div class="sig"><span class="lbl" data-i18n="p_sig_sign">Handtekening</span><span class="fld"></span></div>
+    </div>
+  </div>
+
+  <div class="seal"><svg viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="28" stroke="#C9A24B" stroke-width="1"/><circle cx="30" cy="30" r="23.5" stroke="#C9A24B" stroke-width=".6" stroke-dasharray="1.2 1.6"/><text x="30" y="35" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="14" font-weight="600" fill="#C9A24B">A&amp;B</text><text x="30" y="46" text-anchor="middle" font-family="EB Garamond, Georgia, serif" font-size="4.6" letter-spacing=".5" fill="#9C7528">17 · 10 · 2026</text></svg></div>
+</div>
+</div></div>
+
+<script>
+var LANG='nl';
+var T={
+nl:{
+ back:"&larr; Terug naar de uitnodiging",
+ s_eyebrow:"Voor de verdragsbundel", s_title:"Het Verdrag van Anna &amp; Balraz",
+ s_lead:"Waar twee partijen zich voor het leven aan elkaar verbinden, hoort een verdrag. Wij stellen er een op, en u schrijft er &eacute;&eacute;n artikel voor: een regel, afspraak of bepaling die volgens u in geen huwelijk mag ontbreken. Plechtig of luchtig, dat bepaalt u.",
+ s_rule1:"<b>Concreet</b>&ldquo;Wie kookt, hoeft niet af te wassen&rdquo; is een artikel. &ldquo;Elkaar liefhebben&rdquo; niet.",
+ s_rule2:"<b>Met bewijs</b>Noem &eacute;&eacute;n voorval uit het leven van Anna of Balraz dat aantoont waarom juist deze bepaling nodig is.",
+ s_rule3:"<b>Handgeschreven</b>Print het vel op wit A4-papier, vul het met de hand in en lever het op 17 oktober in bij een van de ceremoniemeesters (Edwin, Henry, Hester of Tim). Of stuur vooraf een foto naar <a href=\"mailto:ceremonie@annabalraz.nl\">ceremonie@annabalraz.nl</a>. Meer dan &eacute;&eacute;n artikel? Print het vel nogmaals.",
+ s_closing:"Alle artikelen samen worden op de dag zelf ondertekend en geratificeerd en aan het bruidspaar overhandigd. Schrijft iemand anders over hetzelfde onderwerp? Dan worden het leden van &eacute;&eacute;n artikel.",
+ s_chap_h:"Uw hoofdstuk",
+ s_chap_insp:"Ter inspiratie:",
+ p_chapter:"Hoofdstuk",
+ s_draw_h:"Trek uw hoofdstuk",
+ s_draw_intro:"Het verdrag bestaat uit zeven hoofdstukken: {list}. Om te voorkomen dat iedereen over de afwas schrijft, bepaalt het lot uw hoofdstuk. Druk op de knop en u krijgt een hoofdstuk met drie onderwerpen ter inspiratie.",
+ s_draw_rule:"Houd u aan uw eerste trekking, ook als u liever een ander hoofdstuk had gehad. Zo blijft het verdrag in evenwicht.",
+ s_draw_btn:"Trek een hoofdstuk",
+ s_drawn_note:"Dit hoofdstuk is voor u getrokken en staat voorgedrukt op het vel. Houd u aan deze trekking; zo blijft het verdrag in evenwicht.",
+ s_example:"Bekijk een ingevuld voorbeeld",
+ s_example_hide:"Verberg het voorbeeld",
+ s_print:"Vel afdrukken",
+ p_eyebrow:"Verdragsbundel &middot; Artikel ter ratificatie",
+ p_title:"Het Verdrag van Anna &amp; Balraz",
+ p_sub:"Ondertekend en geratificeerd te Amsterdam op 17 oktober 2026",
+ p_preamble:"De Hoge Verdragsluitende Partijen, <b>Anna Ana&iuml;s Ranzijn</b> en <b>Balraz Singh</b>, treden op zaterdag 17 oktober 2026 te Amsterdam in het huwelijk en komen ter regeling van hun toekomstige betrekkingen het volgende overeen:",
+ p_article:"Artikel", p_concerning:"betreffende", p_prefix:"De Partijen komen overeen dat",
+ p_note_h:"Toelichting",
+ p_note_d:"Waarom is dit artikel noodzakelijk? Noem &eacute;&eacute;n voorval uit het leven van Anna en/of Balraz dat de noodzaak aantoont. Met plaats en (ongeveer) datum.",
+ p_sign_h:"Ondertekening",
+ p_sig_name:"Opgesteld door (naam)", p_sig_role:"In de hoedanigheid van (relatie tot de Partijen)", p_sig_place:"Plaats en datum", p_sig_sign:"Handtekening"
+},
+en:{
+ back:"&larr; Back to the invitation",
+ s_eyebrow:"For the treaty collection", s_title:"The Treaty of Anna &amp; Balraz",
+ s_lead:"When two parties commit to each other for life, a treaty is in order. We are drawing one up, and you write one article for it: a rule, arrangement or provision that, in your view, no marriage should be without. Solemn or light-hearted, that is up to you.",
+ s_rule1:"<b>Specific</b>&ldquo;Whoever cooks shall not wash up&rdquo; is an article. &ldquo;To love one another&rdquo; is not.",
+ s_rule2:"<b>With evidence</b>Cite one incident from the life of Anna or Balraz that shows why this particular provision is needed.",
+ s_rule3:"<b>Handwritten</b>Print the sheet on white A4 paper, fill it in by hand and hand it to one of the masters of ceremony (Edwin, Henry, Hester or Tim) on 17 October. Or send a photo in advance to <a href=\"mailto:ceremonie@annabalraz.nl\">ceremonie@annabalraz.nl</a>. More than one article? Simply print the sheet again.",
+ s_closing:"All articles together will be signed and ratified on the day and presented to the couple. Someone else writing on the same subject? Then they become paragraphs of a single article.",
+ s_chap_h:"Your chapter",
+ s_chap_insp:"For inspiration:",
+ p_chapter:"Chapter",
+ s_draw_h:"Draw your chapter",
+ s_draw_intro:"The treaty has seven chapters: {list}. To prevent everyone from writing about the dishes, fate decides your chapter. Press the button and you receive a chapter with three topics for inspiration.",
+ s_draw_rule:"Stick to your first draw, even if you would have preferred another chapter. That keeps the treaty in balance.",
+ s_draw_btn:"Draw a chapter",
+ s_drawn_note:"This chapter was drawn for you and is pre-printed on the sheet. Please stick to this draw; it keeps the treaty in balance.",
+ s_example:"View a completed example",
+ s_example_hide:"Hide the example",
+ s_print:"Print the sheet",
+ p_eyebrow:"Treaty collection &middot; Article for ratification",
+ p_title:"The Treaty of Anna &amp; Balraz",
+ p_sub:"Signed and ratified at Amsterdam on 17 October 2026",
+ p_preamble:"The High Contracting Parties, <b>Anna Ana&iuml;s Ranzijn</b> and <b>Balraz Singh</b>, will be married at Amsterdam on Saturday 17 October 2026 and, to govern their future relations, agree as follows:",
+ p_article:"Article", p_concerning:"concerning", p_prefix:"The Parties agree that",
+ p_note_h:"Explanatory note",
+ p_note_d:"Why is this article necessary? Cite one incident from the life of Anna and/or Balraz that proves the need for it. With place and (approximate) date.",
+ p_sign_h:"Signature",
+ p_sig_name:"Drafted by (name)", p_sig_role:"In the capacity of (relation to the Parties)", p_sig_place:"Place and date", p_sig_sign:"Signature"
+},
+de:{
+ back:"&larr; Zur&uuml;ck zur Einladung",
+ s_eyebrow:"F&uuml;r die Vertragssammlung", s_title:"Der Vertrag von Anna &amp; Balraz",
+ s_lead:"Wo zwei Parteien sich f&uuml;rs Leben aneinander binden, geh&ouml;rt ein Vertrag dazu. Wir setzen ihn auf, und Sie schreiben einen Artikel daf&uuml;r: eine Regel, Vereinbarung oder Bestimmung, die Ihrer Meinung nach in keiner Ehe fehlen darf. Feierlich oder heiter, das entscheiden Sie.",
+ s_rule1:"<b>Konkret</b>&bdquo;Wer kocht, muss nicht abwaschen&ldquo; ist ein Artikel. &bdquo;Einander lieben&ldquo; nicht.",
+ s_rule2:"<b>Mit Beweis</b>Nennen Sie einen Vorfall aus dem Leben von Anna oder Balraz, der zeigt, warum gerade diese Bestimmung n&ouml;tig ist.",
+ s_rule3:"<b>Handschriftlich</b>Drucken Sie das Blatt auf wei&szlig;em A4-Papier, f&uuml;llen Sie es von Hand aus und geben Sie es am 17. Oktober bei einer der Zeremonienmeister (Edwin, Henry, Hester oder Tim) ab. Oder senden Sie vorab ein Foto an <a href=\"mailto:ceremonie@annabalraz.nl\">ceremonie@annabalraz.nl</a>. Mehr als ein Artikel? Drucken Sie das Blatt einfach noch einmal.",
+ s_closing:"Alle Artikel zusammen werden am Tag selbst unterzeichnet, ratifiziert und dem Brautpaar &uuml;berreicht. Schreibt jemand anderes zum selben Thema? Dann werden es Abs&auml;tze eines einzigen Artikels.",
+ s_chap_h:"Ihr Kapitel",
+ s_chap_insp:"Zur Anregung:",
+ p_chapter:"Kapitel",
+ s_draw_h:"Ziehen Sie Ihr Kapitel",
+ s_draw_intro:"Der Vertrag besteht aus sieben Kapiteln: {list}. Damit nicht alle &uuml;ber den Abwasch schreiben, entscheidet das Los &uuml;ber Ihr Kapitel. Dr&uuml;cken Sie auf den Knopf und Sie erhalten ein Kapitel mit drei Themen zur Anregung.",
+ s_draw_rule:"Bleiben Sie bei Ihrer ersten Ziehung, auch wenn Ihnen ein anderes Kapitel lieber gewesen w&auml;re. So bleibt der Vertrag im Gleichgewicht.",
+ s_draw_btn:"Kapitel ziehen",
+ s_drawn_note:"Dieses Kapitel wurde f&uuml;r Sie gezogen und ist auf dem Blatt vorgedruckt. Bleiben Sie bitte bei dieser Ziehung; so bleibt der Vertrag im Gleichgewicht.",
+ s_example:"Ausgef&uuml;lltes Beispiel ansehen",
+ s_example_hide:"Beispiel ausblenden",
+ s_print:"Blatt drucken",
+ p_eyebrow:"Vertragssammlung &middot; Artikel zur Ratifizierung",
+ p_title:"Der Vertrag von Anna &amp; Balraz",
+ p_sub:"Unterzeichnet und ratifiziert zu Amsterdam am 17. Oktober 2026",
+ p_preamble:"Die Hohen Vertragsparteien, <b>Anna Ana&iuml;s Ranzijn</b> und <b>Balraz Singh</b>, schlie&szlig;en am Samstag, dem 17. Oktober 2026, zu Amsterdam die Ehe und vereinbaren zur Regelung ihrer k&uuml;nftigen Beziehungen das Folgende:",
+ p_article:"Artikel", p_concerning:"betreffend", p_prefix:"Die Parteien vereinbaren, dass",
+ p_note_h:"Erl&auml;uterung",
+ p_note_d:"Warum ist dieser Artikel notwendig? Nennen Sie einen Vorfall aus dem Leben von Anna und/oder Balraz, der die Notwendigkeit belegt. Mit Ort und (ungef&auml;hrem) Datum.",
+ p_sign_h:"Unterzeichnung",
+ p_sig_name:"Verfasst von (Name)", p_sig_role:"In der Eigenschaft als (Beziehung zu den Parteien)", p_sig_place:"Ort und Datum", p_sig_sign:"Unterschrift"
+}};
+var H={
+nl:[
+ ["I","Huishoudelijke zaken",["Over wie de koffers pakt","Over de vaatwasser en wie hem uitruimt","Over de definitie van &lsquo;opgeruimd&rsquo;"]],
+ ["II","Buitenlandse betrekkingen",["Over vakanties met vrienden","Over het bezoek van schoonouders","Over standplaatsen in het buitenland en wie er meeverhuist"]],
+ ["III","Feest en gastronomie",["Over wie er kookt als er gasten komen","Over de wijnvoorraad","Over hoe laat een feest &eacute;cht is afgelopen"]],
+ ["IV","Crisisbeheersing",["Over wie het eerst sorry zegt","Over ruzie in de auto","Over het laatste woord"]],
+ ["V","Opvoeding en Ronan",["Over wat Ronan later over zijn ouders moet weten","Over wie er &rsquo;s nachts opstaat","Over de eerste keer dat hij de baas is"]],
+ ["VI","Financi&euml;n en bezit",["Over aankopen die vooraf gemeld moeten worden","Over wie de thermostaat beheert","Over de gezamenlijke playlist"]],
+ ["VII","Slotbepalingen",["Over het tienjarig jubileum","Over wat er nooit mag veranderen","Over herziening van dit verdrag"]]],
+en:[
+ ["I","Domestic affairs",["On who packs the suitcases","On the dishwasher and who empties it","On the definition of &lsquo;tidy&rsquo;"]],
+ ["II","Foreign relations",["On holidays with friends","On visits from the in-laws","On postings abroad and who moves along"]],
+ ["III","Festivities and gastronomy",["On who cooks when guests come","On the wine reserves","On when a party is truly over"]],
+ ["IV","Crisis management",["On who says sorry first","On arguments in the car","On the last word"]],
+ ["V","Upbringing and Ronan",["On what Ronan should one day know about his parents","On who gets up at night","On the first time he is in charge"]],
+ ["VI","Finance and property",["On purchases that must be announced in advance","On who controls the thermostat","On the shared playlist"]],
+ ["VII","Final provisions",["On the tenth anniversary","On what must never change","On revision of this treaty"]]],
+de:[
+ ["I","H&auml;usliche Angelegenheiten",["&Uuml;ber die Frage, wer die Koffer packt","&Uuml;ber die Sp&uuml;lmaschine und wer sie ausr&auml;umt","&Uuml;ber die Definition von &bdquo;aufger&auml;umt&ldquo;"]],
+ ["II","Ausw&auml;rtige Beziehungen",["&Uuml;ber Urlaub mit Freunden","&Uuml;ber den Besuch der Schwiegereltern","&Uuml;ber Auslandsposten und wer mitzieht"]],
+ ["III","Feste und Gastronomie",["&Uuml;ber die Frage, wer kocht, wenn G&auml;ste kommen","&Uuml;ber den Weinvorrat","&Uuml;ber die Frage, wann ein Fest wirklich vorbei ist"]],
+ ["IV","Krisenmanagement",["&Uuml;ber die Frage, wer sich zuerst entschuldigt","&Uuml;ber Streit im Auto","&Uuml;ber das letzte Wort"]],
+ ["V","Erziehung und Ronan",["&Uuml;ber das, was Ronan sp&auml;ter &uuml;ber seine Eltern wissen soll","&Uuml;ber die Frage, wer nachts aufsteht","&Uuml;ber das erste Mal, dass er das Sagen hat"]],
+ ["VI","Finanzen und Besitz",["&Uuml;ber Anschaffungen, die vorher angek&uuml;ndigt werden m&uuml;ssen","&Uuml;ber die Frage, wer den Thermostat verwaltet","&Uuml;ber die gemeinsame Playlist"]],
+ ["VII","Schlussbestimmungen",["&Uuml;ber das zehnj&auml;hrige Jubil&auml;um","&Uuml;ber das, was sich nie &auml;ndern darf","&Uuml;ber die Revision dieses Vertrags"]]]};
+var EX={
+nl:{c:2,t:"Over vakanties met vrienden",a:["iedere Partij jaarlijks \u00e9\u00e9n reis met eigen vrienden mag maken,","zonder dat de andere Partij dit als een vijandige daad beschouwt.","Terugkeer met een souvenir is verplicht. Terugkeer met een verhaal is voldoende."],
+ n:["Zomer 2023, een lang weekend weg zonder de andere Partij. Er werd \u00e9\u00e9n keer gebeld,","met de vraag of alles goed ging. Het antwoord was ja. Het souvenir was een kurkentrekker.","De vrede is bewaard gebleven."],
+ s:["J. Jansen","Oude vriend van de Partijen","Utrecht, 3 oktober 2026","J. Jansen"]},
+en:{c:2,t:"On holidays with friends",a:["each Party may make one trip a year with their own friends,","without the other Party regarding this as a hostile act.","Returning with a souvenir is mandatory. Returning with a story is sufficient."],
+ n:["Summer 2023, a long weekend away without the other Party. One phone call was made,","asking whether all was well. The answer was yes. The souvenir was a corkscrew.","The peace has been kept."],
+ s:["J. Smith","Old friend of the Parties","London, 3 October 2026","J. Smith"]},
+de:{c:2,t:"\u00dcber Urlaub mit Freunden",a:["jede der Parteien einmal im Jahr mit eigenen Freunden verreisen darf,","ohne dass die andere Partei dies als feindlichen Akt betrachtet.","R\u00fcckkehr mit einem Souvenir ist Pflicht. R\u00fcckkehr mit einer Geschichte gen\u00fcgt."],
+ n:["Sommer 2023, ein langes Wochenende ohne die andere Partei. Es wurde einmal angerufen,","mit der Frage, ob alles in Ordnung sei. Die Antwort war ja. Das Souvenir war ein Korkenzieher.","Der Frieden blieb gewahrt."],
+ s:["J. M\u00fcller","Alte Freundin der Parteien","Berlin, 3. Oktober 2026","J. M\u00fcller"]}};
+var EXON=false;
+function hw(t){return '<span class="hw">'+t+'</span>';}
+function renderExample(){var e=EX[LANG],sheet=document.getElementById('sheet');
+  sheet.querySelectorAll('.hw').forEach(function(x){x.remove();});
+  if(!EXON){renderChapter(LANG);return;}
+  sheet.querySelector('.art-row .concerning i').innerHTML=hw(e.t);
+  document.getElementById('chapFill').innerHTML=H[LANG][e.c-1][0]+' &middot; '+H[LANG][e.c-1][1];
+  var art=sheet.querySelectorAll('.sheet > .lines .line');art[0].innerHTML+='<span class="hw" style="padding-left:2mm">'+e.a[0]+'</span>';
+  for(var i=1;i<e.a.length;i++)art[i].innerHTML=hw(e.a[i]);
+  var note=sheet.querySelectorAll('.section .lines .line');for(var i=0;i<e.n.length;i++)note[i].innerHTML=hw(e.n[i]);
+  var f=sheet.querySelectorAll('.sig .fld');for(var i=0;i<3;i++)f[i].innerHTML=hw(e.s[i]);f[3].innerHTML='<span class="hw sig">'+e.s[3]+'</span>';}
+function toggleExample(){EXON=!EXON;renderExample();
+  document.querySelector('#exBtn span').innerHTML=EXON?T[LANG].s_example_hide:T[LANG].s_example;
+  if(EXON)document.getElementById('sheet').scrollIntoView({behavior:'smooth',block:'start'});}
+function hideExample(){if(EXON)toggleExample();}
+var CHAP=parseInt(new URLSearchParams(location.search).get('hoofdstuk'),10);
+if(!(CHAP>=1&&CHAP<=7)){CHAP=0;try{var st=parseInt(localStorage.getItem('ab_hoofdstuk'),10);if(st>=1&&st<=7)CHAP=st;}catch(e){}}
+function drawChapter(){CHAP=1+Math.floor(Math.random()*7);try{localStorage.setItem('ab_hoofdstuk',String(CHAP));}catch(e){}
+  try{history.replaceState(null,'',urlFor(LANG,CHAP));}catch(e){}renderChapter(LANG);}
+function urlFor(lang,ch){var q=[];if(lang!=='nl')q.push('lang='+lang);if(ch)q.push('hoofdstuk='+ch);return location.pathname+(q.length?'?'+q.join('&'):'');}
+function renderChapter(lang){var t=T[lang],hs=H[lang],card=document.getElementById('chapterCard'),fill=document.getElementById('chapFill');
+  if(CHAP){var h=hs[CHAP-1];
+    card.innerHTML='<b>'+t.s_chap_h+': '+h[0]+' &middot; '+h[1]+'</b>'+t.s_chap_insp+' '+h[2].join(' &middot; ')+'<small>'+t.s_drawn_note+'</small>';
+    fill.innerHTML=h[0]+' &middot; '+h[1];
+  }else{
+    var list=hs.map(function(h){return h[0]+' '+h[1];}).join(', ');
+    card.innerHTML='<b>'+t.s_draw_h+'</b>'+t.s_draw_intro.replace('{list}',list)+' '+t.s_draw_rule+'<div class="draw"><button class="btn small" type="button" onclick="drawChapter()">'+t.s_draw_btn+'</button></div>';
+    fill.innerHTML='';
+  }}
+function applyLang(lang){LANG=lang;document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang]&&T[lang][k]!=null)el.innerHTML=T[lang][k];});
+  document.querySelectorAll('.flag').forEach(function(f){f.classList.toggle('active',f.dataset.lang===lang);});
+  renderChapter(lang);if(EXON)renderExample();
+  var eb=document.querySelector('#exBtn span');if(eb)eb.innerHTML=EXON?T[lang].s_example_hide:T[lang].s_example;
+  try{history.replaceState(null,'',urlFor(lang,CHAP));}catch(e){}
+}
+document.querySelectorAll('.flag').forEach(function(f){f.addEventListener('click',function(){applyLang(f.dataset.lang);});});
+var q=new URLSearchParams(location.search).get('lang');
+applyLang(T[q]?q:'nl');
+
+/* scale the A4 sheet down on narrow screens; print always uses true size */
+function fit(){var sc=document.getElementById('scaler'),sh=document.getElementById('sheet');
+  var avail=document.documentElement.clientWidth-32,w=sh.offsetWidth,s=Math.min(1,avail/w);
+  sc.style.transform='scale('+s+')';sc.style.height=(sh.offsetHeight*s)+'px';}
+window.addEventListener('resize',fit);window.addEventListener('beforeprint',function(){hideExample();document.getElementById('scaler').style.transform='none';});
+window.addEventListener('afterprint',fit);fit();
+</script>
+</body>
+</html>
