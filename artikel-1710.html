@@ -41,9 +41,7 @@ body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-h
 .intro .rule .chaps a{border:0;color:#d4c9aa}
 .intro .rule .chaps a:hover{color:var(--gold-light)}
 .intro .rule .chaps b{display:inline;font-family:var(--serif-body);font-size:1rem;color:var(--gold-light);margin:0 .3rem 0 0}
-.intro .rule .draw{margin-top:.9rem;text-align:center}
 .intro .rule small{display:block;margin-top:.6rem;font-size:.9rem;font-style:italic;color:#b9ad8e}
-.btn.small{font-size:.74rem;padding:.7rem 1.4rem;margin-top:0}
 .btn.ghost{border-color:rgba(201,162,75,.45);color:#d4c9aa;margin-left:.6rem}
 .hw{font-family:'Caveat',cursive;font-size:15.5pt;color:#1d2a6b;line-height:1;padding-bottom:1.1mm;white-space:nowrap;flex:1;overflow:hidden}
 .hw.sig{font-size:22pt;transform:rotate(-4deg);display:inline-block;flex:0 0 auto}
@@ -238,11 +236,7 @@ nl:{
  s_chap_h:"Uw hoofdstuk",
  s_chap_insp:"Ter inspiratie:",
  p_chapter:"Hoofdstuk",
- s_draw_h:"Trek uw hoofdstuk",
- s_draw_intro:"Het verdrag bestaat uit acht hoofdstukken: {list}. Om te voorkomen dat iedereen over de afwas schrijft, bepaalt het lot uw hoofdstuk. Druk op de knop en u krijgt een hoofdstuk met drie onderwerpen ter inspiratie.",
- s_draw_rule:"Houd u aan uw eerste trekking, ook als u liever een ander hoofdstuk had gehad. Zo blijft het verdrag in evenwicht.",
- s_draw_btn:"Trek een hoofdstuk",
- s_drawn_note:"Dit hoofdstuk is voor u getrokken en staat voorgedrukt op het vel. Houd u aan deze trekking; zo blijft het verdrag in evenwicht.",
+ s_drawn_note:"Het verdrag heeft acht hoofdstukken: {list}. Om te voorkomen dat iedereen over de afwas schrijft, heeft het lot bij het openen van deze pagina uw hoofdstuk bepaald. Het staat voorgedrukt op het vel. Houd u aan deze trekking, ook als u liever een ander hoofdstuk had gehad; zo blijft het verdrag in evenwicht.",
  s_example:"Bekijk een ingevuld voorbeeld",
  s_example_hide:"Verberg het voorbeeld",
  s_print:"Vel afdrukken",
@@ -267,11 +261,7 @@ en:{
  s_chap_h:"Your chapter",
  s_chap_insp:"For inspiration:",
  p_chapter:"Chapter",
- s_draw_h:"Draw your chapter",
- s_draw_intro:"The treaty has eight chapters: {list}. To prevent everyone from writing about the dishes, fate decides your chapter. Press the button and you receive a chapter with three topics for inspiration.",
- s_draw_rule:"Stick to your first draw, even if you would have preferred another chapter. That keeps the treaty in balance.",
- s_draw_btn:"Draw a chapter",
- s_drawn_note:"This chapter was drawn for you and is pre-printed on the sheet. Please stick to this draw; it keeps the treaty in balance.",
+ s_drawn_note:"The treaty has eight chapters: {list}. To prevent everyone from writing about the dishes, fate decided your chapter when you opened this page. It is pre-printed on the sheet. Please stick to this draw, even if you would have preferred another chapter; that keeps the treaty in balance.",
  s_example:"View a completed example",
  s_example_hide:"Hide the example",
  s_print:"Print the sheet",
@@ -296,11 +286,7 @@ de:{
  s_chap_h:"Ihr Kapitel",
  s_chap_insp:"Zur Anregung:",
  p_chapter:"Kapitel",
- s_draw_h:"Ziehen Sie Ihr Kapitel",
- s_draw_intro:"Der Vertrag besteht aus acht Kapiteln: {list}. Damit nicht alle &uuml;ber den Abwasch schreiben, entscheidet das Los &uuml;ber Ihr Kapitel. Dr&uuml;cken Sie auf den Knopf und Sie erhalten ein Kapitel mit drei Themen zur Anregung.",
- s_draw_rule:"Bleiben Sie bei Ihrer ersten Ziehung, auch wenn Ihnen ein anderes Kapitel lieber gewesen w&auml;re. So bleibt der Vertrag im Gleichgewicht.",
- s_draw_btn:"Kapitel ziehen",
- s_drawn_note:"Dieses Kapitel wurde f&uuml;r Sie gezogen und ist auf dem Blatt vorgedruckt. Bleiben Sie bitte bei dieser Ziehung; so bleibt der Vertrag im Gleichgewicht.",
+ s_drawn_note:"Der Vertrag besteht aus acht Kapiteln: {list}. Damit nicht alle &uuml;ber den Abwasch schreiben, hat das Los beim &Ouml;ffnen dieser Seite Ihr Kapitel bestimmt. Es ist auf dem Blatt vorgedruckt. Bleiben Sie bitte bei dieser Ziehung, auch wenn Ihnen ein anderes Kapitel lieber gewesen w&auml;re; so bleibt der Vertrag im Gleichgewicht.",
  s_example:"Ausgef&uuml;lltes Beispiel ansehen",
  s_example_hide:"Beispiel ausblenden",
  s_print:"Blatt drucken",
@@ -369,18 +355,11 @@ function toggleExample(){EXON=!EXON;renderExample();
 function hideExample(){if(EXON)toggleExample();}
 var CHAP=parseInt(new URLSearchParams(location.search).get('hoofdstuk'),10);
 if(!(CHAP>=1&&CHAP<=8)){CHAP=0;try{var st=parseInt(localStorage.getItem('ab_hoofdstuk'),10);if(st>=1&&st<=8)CHAP=st;}catch(e){}}
-function drawChapter(){CHAP=1+Math.floor(Math.random()*8);try{localStorage.setItem('ab_hoofdstuk',String(CHAP));}catch(e){}
-  try{history.replaceState(null,'',urlFor(LANG,CHAP));}catch(e){}renderChapter(LANG);}
+if(!CHAP){CHAP=1+Math.floor(Math.random()*8);try{localStorage.setItem('ab_hoofdstuk',String(CHAP));}catch(e){}}
 function urlFor(lang,ch){var q=[];if(lang!=='nl')q.push('lang='+lang);if(ch)q.push('hoofdstuk='+ch);return location.pathname+(q.length?'?'+q.join('&'):'');}
-function renderChapter(lang){var t=T[lang],hs=H[lang],card=document.getElementById('chapterCard'),fill=document.getElementById('chapFill');
-  if(CHAP){var h=hs[CHAP-1];
-    card.innerHTML='<b>'+t.s_chap_h+': '+h[0]+' &middot; '+h[1]+'</b>'+t.s_chap_insp+' '+h[2].join(' &middot; ')+'<small>'+t.s_drawn_note+'</small>';
-    fill.innerHTML=h[0]+' &middot; '+h[1];
-  }else{
-    var list=hs.map(function(h){return h[0]+' '+h[1];}).join(', ');
-    card.innerHTML='<b>'+t.s_draw_h+'</b>'+t.s_draw_intro.replace('{list}',list)+' '+t.s_draw_rule+'<div class="draw"><button class="btn small" type="button" onclick="drawChapter()">'+t.s_draw_btn+'</button></div>';
-    fill.innerHTML='';
-  }}
+function renderChapter(lang){var t=T[lang],hs=H[lang],h=hs[CHAP-1],list=hs.map(function(x){return x[0]+' '+x[1];}).join(', ');
+  document.getElementById('chapterCard').innerHTML='<b>'+t.s_chap_h+': '+h[0]+' &middot; '+h[1]+'</b>'+t.s_chap_insp+' '+h[2].join(' &middot; ')+'<small>'+t.s_drawn_note.replace('{list}',list)+'</small>';
+  document.getElementById('chapFill').innerHTML=h[0]+' &middot; '+h[1];}
 function applyLang(lang){LANG=lang;document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang]&&T[lang][k]!=null)el.innerHTML=T[lang][k];});
   document.querySelectorAll('.flag').forEach(function(f){f.classList.toggle('active',f.dataset.lang===lang);});
