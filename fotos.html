@@ -49,8 +49,9 @@ input[type=file]::file-selector-button{font-family:var(--serif-body);background:
 .preview .fsize{font-size:.85rem;color:#b9ad8e;font-style:italic}
 .addphoto{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;background:none;border:1px dashed rgba(201,162,75,.5);color:var(--gold-light);font-family:var(--serif-body);font-size:.95rem;letter-spacing:.04em;padding:.7rem 1.2rem;border-radius:2px;margin-bottom:1.3rem}
 .addphoto:hover{border-color:var(--gold);background:rgba(201,162,75,.08)}
-#total{display:none;font-size:.95rem;font-style:italic;margin:.2rem 0 .6rem}
-#total-warn{display:none;color:#e5a3a3;font-size:.9rem;margin-bottom:1rem;line-height:1.5}
+#status{display:none;font-size:.95rem;font-style:italic;color:#b9ad8e;margin:.2rem 0 1rem;line-height:1.5}
+#status.err{color:#e5a3a3}
+.preview .fsize.err{color:#e5a3a3}
 .btn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:var(--serif-body);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;padding:1rem 2.1rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;width:100%}
 .btn:hover{background:var(--gold);color:var(--navy-deep)}
 .note{font-size:.9rem;color:#b9ad8e;font-style:italic;margin-top:.9rem;line-height:1.6}
@@ -105,7 +106,7 @@ input[type=file]::file-selector-button{font-family:var(--serif-body);background:
   <form name="fotos" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/bedankt.html">
     <input type="hidden" name="form-name" value="fotos">
     <p style="display:none"><label>Niet invullen: <input name="bot-field"></label></p>
-    <div class="field"><label data-i18n="l_naam">Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)</label><input type="text" name="naam" required data-i18n-ph="ph_naam" placeholder="Uw naam"></div>
+    <div class="field"><label data-i18n="l_naam">Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)</label><input type="text" name="naam" data-i18n-ph="ph_naam" placeholder="Uw naam"></div>
     <div class="field"><label data-i18n="l_email">E-mailadres</label><input type="email" name="email" required></div>
     <div class="field"><label data-i18n="l_phone">Telefoonnummer</label>
       <div style="display:flex;gap:.6rem">
@@ -118,84 +119,74 @@ input[type=file]::file-selector-button{font-family:var(--serif-body);background:
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 1</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto1" accept="image/*" required data-slot="1"></div>
         <div class="preview" data-slot="1"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar1" required data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer1" required data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving1" rows="2" required data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
       <div class="photo-slot" data-slot="2" style="display:none">
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 2</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto2" accept="image/*" data-slot="2"></div>
         <div class="preview" data-slot="2"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar2" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer2" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving2" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
       <div class="photo-slot" data-slot="3" style="display:none">
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 3</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto3" accept="image/*" data-slot="3"></div>
         <div class="preview" data-slot="3"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar3" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer3" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving3" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
       <div class="photo-slot" data-slot="4" style="display:none">
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 4</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto4" accept="image/*" data-slot="4"></div>
         <div class="preview" data-slot="4"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar4" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer4" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving4" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
       <div class="photo-slot" data-slot="5" style="display:none">
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 5</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto5" accept="image/*" data-slot="5"></div>
         <div class="preview" data-slot="5"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar5" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer5" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving5" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
       <div class="photo-slot" data-slot="6" style="display:none">
         <div class="slot-head"><span data-i18n="foto_word">Foto</span> 6</div>
         <div><label data-i18n="l_foto">De foto</label><input type="file" name="foto6" accept="image/*" data-slot="6"></div>
         <div class="preview" data-slot="6"><img alt=""><span class="fsize"></span></div>
-        <div><label data-i18n="l_waar">Waar is dit?</label><input type="text" name="waar6" data-i18n-ph="ph_waar" placeholder="Bijv. op vakantie in Rome"></div>
-        <div><label data-i18n="l_wanneer">Wanneer (ongeveer)?</label><input type="text" name="wanneer6" data-i18n-ph="ph_wanneer" placeholder="Bijv. zomer 2019"></div>
         <div><label data-i18n="l_oms">Welke leuke herinnering heb je aan deze foto?</label><textarea name="omschrijving6" rows="2" data-i18n-ph="ph_oms" placeholder="Beschrijf de foto in een zin"></textarea></div>
       </div>
 
     <button type="button" id="addphoto" class="addphoto" data-i18n="add_photo">+ Nog een foto toevoegen</button>
-    <div id="total"></div>
-    <div id="total-warn" data-i18n="warn">Te groot: Netlify staat maximaal 8 MB per verzending toe. Verwijder een foto of verstuur er minder tegelijk.</div>
+    <div id="status"></div>
     <button class="btn" type="submit" data-i18n="submit">Verstuur</button>
-    <p class="note" data-i18n="note">U kunt meerdere foto&rsquo;s toevoegen. Grote foto&rsquo;s worden licht verkleind; per verzending geldt een limiet van 8 MB. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen.</p>
+    <p class="note" data-i18n="note">U kunt meerdere foto&rsquo;s toevoegen; elke foto wordt los verstuurd. Alleen foto&rsquo;s groter dan 7,5 MB worden verkleind. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen.</p>
   </form>
 </div>
 <script>
-const T = {"nl": {"back": "&larr; Terug naar de uitnodiging", "eyebrow": "Voor de ceremonie", "title": "Deel uw foto&rsquo;s", "intro": "Heeft u mooie of grappige foto&rsquo;s van Anna en/of Balraz? Upload ze hier, met bij elke foto een korte toelichting. Aan het begin van de ceremonie tonen wij een selectie.", "l_naam": "Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)", "ph_naam": "Uw naam", "l_email": "E-mailadres", "l_phone": "Telefoonnummer", "foto_word": "Foto", "l_foto": "De foto", "l_waar": "Waar is dit?", "ph_waar": "Bijv. op vakantie in Rome", "l_wanneer": "Wanneer (ongeveer)?", "ph_wanneer": "Bijv. zomer 2019", "l_oms": "Welke leuke herinnering heb je aan deze foto?", "ph_oms": "Beschrijf de foto in een zin", "add_photo": "+ Nog een foto toevoegen", "total": "Totaal", "warn": "Te groot: Netlify staat maximaal 8 MB per verzending toe. Verwijder een foto of verstuur er minder tegelijk.", "submit": "Verstuur", "note": "U kunt meerdere foto&rsquo;s toevoegen. Grote foto&rsquo;s worden licht verkleind; per verzending geldt een limiet van 8 MB. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen."}, "en": {"back": "&larr; Back to the invitation", "eyebrow": "For the ceremony", "title": "Share your photos", "intro": "Do you have lovely or funny photos of Anna and/or Balraz? Upload them here, with a short note for each. We&rsquo;ll show a selection at the start of the ceremony.", "l_naam": "Your name (so we know whose photos these are)", "ph_naam": "Your name", "l_email": "Email address", "l_phone": "Phone number", "foto_word": "Photo", "l_foto": "The photo", "l_waar": "Where is this?", "ph_waar": "e.g. on holiday in Rome", "l_wanneer": "When (approximately)?", "ph_wanneer": "e.g. summer 2019", "l_oms": "What lovely memory do you have of this photo?", "ph_oms": "Describe the photo in one line", "add_photo": "+ Add another photo", "total": "Total", "warn": "Too large: Netlify allows a maximum of 8 MB per submission. Please remove a photo or send fewer at once.", "submit": "Send", "note": "You can add several photos. Large photos are lightly compressed; there is an 8 MB limit per submission. By uploading you agree to the photo being shown during the ceremony."}, "de": {"back": "&larr; Zur&uuml;ck zur Einladung", "eyebrow": "F&uuml;r die Trauung", "title": "Teilen Sie Ihre Fotos", "intro": "Haben Sie sch&ouml;ne oder lustige Fotos von Anna und/oder Balraz? Laden Sie sie hier hoch, mit einer kurzen Notiz zu jedem Foto. Zu Beginn der Trauung zeigen wir eine Auswahl.", "l_naam": "Ihr Name (damit wir wissen, von wem die Fotos stammen)", "ph_naam": "Ihr Name", "l_email": "E-Mail-Adresse", "l_phone": "Telefonnummer", "foto_word": "Foto", "l_foto": "Das Foto", "l_waar": "Wo ist das?", "ph_waar": "z. B. im Urlaub in Rom", "l_wanneer": "Wann (ungef&auml;hr)?", "ph_wanneer": "z. B. Sommer 2019", "l_oms": "Welche sch&ouml;ne Erinnerung haben Sie an dieses Foto?", "ph_oms": "Beschreiben Sie das Foto in einem Satz", "add_photo": "+ Weiteres Foto hinzuf&uuml;gen", "total": "Gesamt", "warn": "Zu gro&szlig;: Netlify erlaubt maximal 8 MB pro &Uuml;bermittlung. Bitte entfernen Sie ein Foto oder senden Sie weniger auf einmal.", "submit": "Senden", "note": "Sie k&ouml;nnen mehrere Fotos hinzuf&uuml;gen. Gro&szlig;e Fotos werden leicht verkleinert; pro &Uuml;bermittlung gilt ein Limit von 8 MB. Mit dem Hochladen stimmen Sie zu, dass das Foto w&auml;hrend der Trauung gezeigt wird."}};
+const T = {"nl": {"back": "&larr; Terug naar de uitnodiging", "eyebrow": "Voor de ceremonie", "title": "Deel uw foto&rsquo;s", "intro": "Heeft u mooie of grappige foto&rsquo;s van Anna en/of Balraz? Upload ze hier, met bij elke foto een korte toelichting. Aan het begin van de ceremonie tonen wij een selectie.", "l_naam": "Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)", "ph_naam": "Uw naam", "l_email": "E-mailadres", "l_phone": "Telefoonnummer", "foto_word": "Foto", "l_foto": "De foto", "l_oms": "Welke leuke herinnering heb je aan deze foto?", "ph_oms": "Beschrijf de foto in een zin", "add_photo": "+ Nog een foto toevoegen", "submit": "Verstuur", "note": "U kunt meerdere foto&rsquo;s toevoegen; elke foto wordt los verstuurd. Alleen foto&rsquo;s groter dan 7,5 MB worden verkleind. Door te uploaden geeft u toestemming de foto tijdens de ceremonie te tonen.", "sending": "Foto {i} van {n} wordt verstuurd&hellip;", "send_err": "Foto {i} kon niet worden verstuurd. Controleer uw verbinding en klik nogmaals op Verstuur; foto&rsquo;s die al zijn aangekomen worden niet opnieuw verstuurd.", "too_big": "Foto {i} is te groot (max. 7,5 MB) en kon niet worden verkleind. Kies een andere foto.", "busy": "Even geduld, de foto&rsquo;s worden nog voorbereid&hellip;"}, "en": {"back": "&larr; Back to the invitation", "eyebrow": "For the ceremony", "title": "Share your photos", "intro": "Do you have lovely or funny photos of Anna and/or Balraz? Upload them here, with a short note for each. We&rsquo;ll show a selection at the start of the ceremony.", "l_naam": "Your name (so we know whose photos these are)", "ph_naam": "Your name", "l_email": "Email address", "l_phone": "Phone number", "foto_word": "Photo", "l_foto": "The photo", "l_oms": "What lovely memory do you have of this photo?", "ph_oms": "Describe the photo in one line", "add_photo": "+ Add another photo", "submit": "Send", "note": "You can add several photos; each photo is sent separately. Only photos larger than 7.5 MB are compressed. By uploading you agree to the photo being shown during the ceremony.", "sending": "Sending photo {i} of {n}&hellip;", "send_err": "Photo {i} could not be sent. Please check your connection and click Send again; photos that already arrived won&rsquo;t be sent twice.", "too_big": "Photo {i} is too large (max. 7.5 MB) and could not be compressed. Please choose another photo.", "busy": "One moment, the photos are still being prepared&hellip;"}, "de": {"back": "&larr; Zur&uuml;ck zur Einladung", "eyebrow": "F&uuml;r die Trauung", "title": "Teilen Sie Ihre Fotos", "intro": "Haben Sie sch&ouml;ne oder lustige Fotos von Anna und/oder Balraz? Laden Sie sie hier hoch, mit einer kurzen Notiz zu jedem Foto. Zu Beginn der Trauung zeigen wir eine Auswahl.", "l_naam": "Ihr Name (damit wir wissen, von wem die Fotos stammen)", "ph_naam": "Ihr Name", "l_email": "E-Mail-Adresse", "l_phone": "Telefonnummer", "foto_word": "Foto", "l_foto": "Das Foto", "l_oms": "Welche sch&ouml;ne Erinnerung haben Sie an dieses Foto?", "ph_oms": "Beschreiben Sie das Foto in einem Satz", "add_photo": "+ Weiteres Foto hinzuf&uuml;gen", "submit": "Senden", "note": "Sie k&ouml;nnen mehrere Fotos hinzuf&uuml;gen; jedes Foto wird einzeln gesendet. Nur Fotos &uuml;ber 7,5 MB werden verkleinert. Mit dem Hochladen stimmen Sie zu, dass das Foto w&auml;hrend der Trauung gezeigt wird.", "sending": "Foto {i} von {n} wird gesendet&hellip;", "send_err": "Foto {i} konnte nicht gesendet werden. Bitte pr&uuml;fen Sie Ihre Verbindung und klicken Sie erneut auf Senden; bereits angekommene Fotos werden nicht erneut gesendet.", "too_big": "Foto {i} ist zu gro&szlig; (max. 7,5 MB) und konnte nicht verkleinert werden. Bitte w&auml;hlen Sie ein anderes Foto.", "busy": "Einen Moment, die Fotos werden noch vorbereitet&hellip;"}};
 const MAX = 6;
 let LANG='nl';
 function fmt(b){return (b/1048576).toFixed(1)+' MB';}
 function slotEl(i){return document.querySelector('.photo-slot[data-slot="'+i+'"]');}
-function setReq(i,on){const s=slotEl(i);['waar','wanneer','omschrijving'].forEach(function(n){var el=s.querySelector('[name="'+n+i+'"]');if(el){if(on)el.setAttribute('required','');else el.removeAttribute('required');}});}
-function total(){var t=0;document.querySelectorAll('input[type=file]').forEach(function(inp){if(inp.files[0])t+=inp.files[0].size;});return t;}
-function updateTotal(){var t=total();var el=document.getElementById('total');var warn=t>8*1048576;
-  if(t===0){el.style.display='none';document.getElementById('total-warn').style.display='none';return;}
-  el.style.display='block';el.textContent=((T[LANG]&&T[LANG].total)||'Totaal')+': '+fmt(t);el.style.color=warn?'#e5a3a3':'#b9ad8e';
-  document.getElementById('total-warn').style.display=warn?'block':'none';}
-var THRESH=2*1048576;
+function setReq(i,on){const s=slotEl(i);['omschrijving'].forEach(function(n){var el=s.querySelector('[name="'+n+i+'"]');if(el){if(on)el.setAttribute('required','');else el.removeAttribute('required');}});}
+function t(k,v){var x=(T[LANG]&&T[LANG][k])||T.nl[k];for(var n in v)x=x.replace('{'+n+'}',v[n]);return x;}
+function showStatus(html,err){var el=document.getElementById('status');el.innerHTML=html||'';el.className=err?'err':'';el.style.display=html?'block':'none';}
+// Netlify accepteert max 8 MB per verzending; elke foto gaat apart, dus alleen grotere foto's verkleinen we.
+var LIMIT=7.5*1048576;
+var pending=0;
 function setFile(input,file){try{var dt=new DataTransfer();dt.items.add(file);input.files=dt.files;}catch(e){}}
 function process(file,cb){
-  if(!file.type||file.type.indexOf('image/')!==0||file.size<=THRESH){cb(file);return;}
+  if(!file.type||file.type.indexOf('image/')!==0||file.size<=LIMIT){cb(file);return;}
   var img=new Image();var url=URL.createObjectURL(file);
   img.onload=function(){URL.revokeObjectURL(url);
-    var max=2200;var w=img.naturalWidth,h=img.naturalHeight;
-    if(w>max||h>max){var sc=Math.min(max/w,max/h);w=Math.round(w*sc);h=Math.round(h*sc);}
-    var c=document.createElement('canvas');c.width=w;c.height=h;
-    c.getContext('2d').drawImage(img,0,0,w,h);
-    c.toBlob(function(blob){
-      if(blob&&blob.size<file.size){var base=(file.name||'foto').split('.').slice(0,-1).join('.')||'foto';cb(new File([blob],base+'.jpg',{type:'image/jpeg'}));}
-      else{cb(file);}
-    },'image/jpeg',0.85);
+    var base=(file.name||'foto').split('.').slice(0,-1).join('.')||'foto';
+    (function attempt(max){
+      var w=img.naturalWidth,h=img.naturalHeight;
+      if(w>max||h>max){var sc=Math.min(max/w,max/h);w=Math.round(w*sc);h=Math.round(h*sc);}
+      var c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      c.toBlob(function(blob){
+        if(blob&&blob.size<=LIMIT)cb(new File([blob],base+'.jpg',{type:'image/jpeg'}));
+        else if(blob&&max>1600)attempt(Math.round(max*0.8));
+        else cb(file);
+      },'image/jpeg',0.92);
+    })(5000);
   };
   img.onerror=function(){URL.revokeObjectURL(url);cb(file);};
   img.src=url;
@@ -205,8 +196,10 @@ document.querySelectorAll('input[type=file]').forEach(function(inp){
   inp.addEventListener('change',function(){
     var s=slotEl(i);var pv=s.querySelector('.preview');var img=pv.querySelector('img');var sz=pv.querySelector('.fsize');
     var f=inp.files[0];
-    if(!f){pv.style.display='none';if(i>1)setReq(i,false);updateTotal();return;}
-    process(f,function(out){setFile(inp,out);var u=URL.createObjectURL(out);img.src=u;sz.textContent=fmt(out.size);pv.style.display='flex';if(i>1)setReq(i,true);updateTotal();});
+    delete inp.dataset.sent;
+    if(!f){pv.style.display='none';if(i>1)setReq(i,false);return;}
+    pending++;
+    process(f,function(out){pending--;setFile(inp,out);var u=URL.createObjectURL(out);img.src=u;sz.textContent=fmt(out.size);sz.classList.toggle('err',out.size>LIMIT);pv.style.display='flex';if(i>1)setReq(i,true);});
   });
 });
 var addBtn=document.getElementById('addphoto');
@@ -215,14 +208,37 @@ addBtn.addEventListener('click',function(){
   var anyHidden=false;for(var j=2;j<=MAX;j++){if(slotEl(j).style.display==='none')anyHidden=true;}
   if(!anyHidden)addBtn.style.display='none';
 });
-document.querySelector('form').addEventListener('submit',function(e){
-  if(total()>8*1048576){e.preventDefault();var w=document.getElementById('total-warn');w.style.display='block';w.scrollIntoView({behavior:'smooth',block:'center'});}
+// Elke foto wordt als eigen Netlify-inzending verstuurd (met naam, e-mail en telefoon erbij),
+// zodat de 8 MB-limiet per foto geldt in plaats van voor alles samen.
+var form=document.querySelector('form');
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(pending>0){showStatus(t('busy'),true);return;}
+  var slots=[];
+  for(var i=1;i<=MAX;i++){var inp=form.querySelector('[name="foto'+i+'"]');var f=inp.files[0];
+    if(!f)continue;
+    if(f.size>LIMIT){showStatus(t('too_big',{i:i}),true);slotEl(i).scrollIntoView({behavior:'smooth',block:'center'});return;}
+    slots.push(i);}
+  var btn=form.querySelector('button[type=submit]');btn.disabled=true;
+  var todo=slots.filter(function(i){return !form.querySelector('[name="foto'+i+'"]').dataset.sent;});
+  (function next(k){
+    if(k>=todo.length){window.location.href=form.getAttribute('action');return;}
+    var i=todo[k];var inp=form.querySelector('[name="foto'+i+'"]');
+    showStatus(t('sending',{i:slots.indexOf(i)+1,n:slots.length}));
+    var fd=new FormData();
+    ['form-name','bot-field','naam','email','landcode','telefoon'].forEach(function(n){fd.append(n,form.elements[n].value);});
+    fd.append('foto1',inp.files[0]);
+    fd.append('omschrijving1',form.elements['omschrijving'+i].value);
+    fetch('/',{method:'POST',body:fd}).then(function(r){
+      if(!r.ok)throw new Error(r.status);
+      inp.dataset.sent='1';next(k+1);
+    }).catch(function(){btn.disabled=false;showStatus(t('send_err',{i:slots.indexOf(i)+1}),true);});
+  })(0);
 });
 function applyLang(lang){LANG=lang;document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(T[lang]&&T[lang][k]!=null)el.innerHTML=T[lang][k];});
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){var k=el.getAttribute('data-i18n-ph');if(T[lang]&&T[lang][k]!=null)el.setAttribute('placeholder',T[lang][k]);});
   document.querySelectorAll('.flag').forEach(function(f){f.classList.toggle('active',f.dataset.lang===lang);});
-  updateTotal();
 }
 document.querySelectorAll('.flag').forEach(function(f){f.addEventListener('click',function(){applyLang(f.dataset.lang);});});
 applyLang('nl');
