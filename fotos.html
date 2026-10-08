@@ -103,8 +103,12 @@ input[type=file]::file-selector-button{font-family:var(--serif-body);background:
   <div class="divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>
   <p class="lead" data-i18n="intro">Heeft u mooie of grappige foto&rsquo;s van Anna en/of Balraz? Upload ze hier, met bij elke foto een korte toelichting. Aan het begin van de ceremonie tonen wij een selectie.</p>
 
-  <form name="fotos" method="POST" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" action="/bedankt.html">
-    <input type="hidden" name="form-name" value="fotos">
+  <!-- Alleen voor Netlify: bepaalt welke velden een inzending heeft. Het script hieronder verstuurt elke foto als eigen inzending met deze velden. -->
+  <form name="fotos" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" style="display:none">
+    <input name="bot-field"><input name="naam"><input name="email"><input name="landcode"><input name="telefoon"><input type="file" name="foto"><textarea name="omschrijving"></textarea>
+  </form>
+
+  <form id="upload" method="POST" action="/bedankt.html">
     <p style="display:none"><label>Niet invullen: <input name="bot-field"></label></p>
     <div class="field"><label data-i18n="l_naam">Uw naam (zodat wij weten van wie de foto&rsquo;s zijn)</label><input type="text" name="naam" data-i18n-ph="ph_naam" placeholder="Uw naam"></div>
     <div class="field"><label data-i18n="l_email">E-mailadres</label><input type="email" name="email" required></div>
@@ -210,7 +214,7 @@ addBtn.addEventListener('click',function(){
 });
 // Elke foto wordt als eigen Netlify-inzending verstuurd (met naam, e-mail en telefoon erbij),
 // zodat de 8 MB-limiet per foto geldt in plaats van voor alles samen.
-var form=document.querySelector('form');
+var form=document.getElementById('upload');
 form.addEventListener('submit',function(e){
   e.preventDefault();
   if(pending>0){showStatus(t('busy'),true);return;}
@@ -226,9 +230,10 @@ form.addEventListener('submit',function(e){
     var i=todo[k];var inp=form.querySelector('[name="foto'+i+'"]');
     showStatus(t('sending',{i:slots.indexOf(i)+1,n:slots.length}));
     var fd=new FormData();
-    ['form-name','bot-field','naam','email','landcode','telefoon'].forEach(function(n){fd.append(n,form.elements[n].value);});
-    fd.append('foto1',inp.files[0]);
-    fd.append('omschrijving1',form.elements['omschrijving'+i].value);
+    fd.append('form-name','fotos');
+    ['bot-field','naam','email','landcode','telefoon'].forEach(function(n){fd.append(n,form.elements[n].value);});
+    fd.append('foto',inp.files[0]);
+    fd.append('omschrijving',form.elements['omschrijving'+i].value);
     fetch('/',{method:'POST',body:fd}).then(function(r){
       if(!r.ok)throw new Error(r.status);
       inp.dataset.sent='1';next(k+1);
