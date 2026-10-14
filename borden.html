@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wegwijsborden &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF4E6;--navy:#11203F;--navy-deep:#0A1428;--plum:#2E2148;--gold:#C9A24B;--gold-light:#E9D198;--gold-deep:#9C7528;--cream-text:#EDE2C6;--ink:#202a3f;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:var(--navy-deep)}
+body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(120% 80% at 50% 120%, rgba(224,164,92,.4) 0%, rgba(224,164,92,0) 46%),
+    radial-gradient(90% 70% at 50% 4%, rgba(46,33,72,.6) 0%, rgba(46,33,72,0) 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--plum) 100%);}
+.bar{max-width:1100px;margin:0 auto;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar a.back{color:var(--cream-text);text-decoration:none;font-size:.95rem;letter-spacing:.04em;opacity:.85;transition:.25s}
+.bar a.back:hover{opacity:1;color:#fff}
+.intro{max-width:680px;margin:.6rem auto 2.4rem;padding:0 1.4rem;text-align:center}
+.intro .eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.72rem;color:var(--gold-light);margin-bottom:.6rem}
+.intro h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(2.1rem,7vw,3rem);line-height:1.05;color:#fff;margin-bottom:.8rem}
+.intro p{font-size:1.08rem;color:#d4c9aa;line-height:1.65}
+.intro p.lead{font-size:1.18rem;color:#e3d8ba}
+.intro p.small{font-size:.95rem;font-style:italic;color:#b9ad8e;margin-top:.9rem}
+.intro .actions{margin-top:1.5rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;cursor:pointer;font-family:var(--serif-body);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.85rem 1.5rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;text-decoration:none;line-height:1.2}
+.btn:hover{background:var(--gold);color:var(--navy-deep)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn.ghost{border-color:rgba(201,162,75,.45);color:#d4c9aa}
+.btn.ghost:hover{background:rgba(201,162,75,.16);color:#fff}
+
+.grid{max-width:1100px;margin:0 auto;padding:0 1.4rem 5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.6rem}
+.card{border:1px solid rgba(201,162,75,.3);border-radius:4px;background:rgba(255,255,255,.04);padding:1rem;display:flex;flex-direction:column;gap:.8rem}
+.card .name{font-family:var(--serif-display);font-weight:600;font-size:1.35rem;color:var(--gold-light);line-height:1.2}
+.card .name small{display:block;font-family:var(--serif-body);font-weight:400;font-size:.85rem;font-style:italic;color:#b9ad8e;letter-spacing:0}
+.prev{position:relative;width:100%;aspect-ratio:210/297;overflow:hidden;background:#fff;border-radius:2px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.prev .scaler{position:absolute;top:0;left:0;transform-origin:top left}
+.dirs{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
+.dir{min-width:0;display:inline-flex;align-items:center;justify-content:center;gap:.35rem;cursor:pointer;padding:.42rem .3rem;border-radius:999px;border:1px solid rgba(201,162,75,.3);background:rgba(255,255,255,.04);color:#d4c9aa;font-family:var(--serif-body);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:.25s}
+.dir svg{width:13px;height:13px;flex:none}
+.dir:hover{border-color:var(--gold)}
+.dir.active{border-color:var(--gold);background:rgba(201,162,75,.18);color:#fff}
+.nameinput{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,75,.4);color:var(--cream-text);font-family:var(--serif-body);font-size:1rem;padding:.6rem .8rem;border-radius:1px}
+.nameinput:focus{outline:none;border-color:var(--gold)}
+.nameinput::placeholder{color:#8f8670;font-style:italic}
+.card .hint{font-size:.82rem;font-style:italic;color:#b9ad8e;line-height:1.4;margin-top:-.3rem}
+.card .buttons{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:auto}
+.card .btn{padding:.75rem .4rem;font-size:.7rem;letter-spacing:.1em;white-space:nowrap}
+
+/* ---------- Het bord zelf (A4) ---------- */
+.sheet{width:210mm;height:297mm;background:#fff;color:var(--navy);padding:18mm 16mm 16mm;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;overflow:hidden;
+  font-family:var(--serif-body);line-height:1.3;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet::before{content:"";position:absolute;inset:6mm;border:1px solid var(--gold);pointer-events:none}
+.sheet::after{content:"";position:absolute;inset:7.2mm;border:.4pt solid var(--gold-deep);opacity:.7;pointer-events:none}
+.corner{position:absolute;width:6mm;height:6mm;pointer-events:none}
+.corner svg{width:100%;height:100%;display:block}
+.corner.tl{top:4.4mm;left:4.4mm}.corner.tr{top:4.4mm;right:4.4mm;transform:rotate(90deg)}
+.corner.br{bottom:4.4mm;right:4.4mm;transform:rotate(180deg)}.corner.bl{bottom:4.4mm;left:4.4mm;transform:rotate(270deg)}
+.s-crest{width:24mm;margin:0 auto}
+.s-crest svg{width:24mm;height:auto;display:block}
+.s-eyebrow{text-transform:uppercase;letter-spacing:.42em;font-size:9.5pt;color:var(--gold-deep);margin-top:4mm;padding-left:.42em}
+.s-title{font-family:var(--serif-display);font-weight:600;font-size:66pt;line-height:1;color:var(--navy);margin-top:10mm;max-width:178mm;text-wrap:balance}
+.s-en{font-family:var(--serif-body);font-style:italic;font-size:21pt;color:#4a5370;margin-top:3mm;max-width:178mm;text-wrap:balance}
+.s-mid{flex:1;display:flex;align-items:center;justify-content:center;width:100%;min-height:0}
+.s-arrow{width:108mm;height:108mm}
+.s-arrow svg{width:100%;height:100%;display:block}
+.s-divider{display:flex;align-items:center;gap:3mm;width:70mm;margin:0 auto}
+.s-divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.s-divider .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+.s-divider .dia{width:2.2mm;height:2.2mm;background:var(--gold);transform:rotate(45deg)}
+.s-sub{font-size:16pt;color:var(--navy);line-height:1.35;max-width:170mm;text-wrap:balance}
+.s-sub.before{margin-top:7mm}
+.s-foot{margin-top:5mm;font-size:9pt;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-deep);padding-left:.3em}
+.sheet.plain{justify-content:center}
+.sheet.plain .s-mid{flex:0 0 auto;margin:10mm 0}
+.sheet.plain .s-crest,.sheet.plain .s-crest svg{width:30mm}
+.sheet.plain .s-sub{font-size:19pt}
+.sheet.plain .s-title{margin-top:12mm}
+.sheet.plain .s-top{margin-top:auto}
+.sheet.plain .s-bottom{margin-bottom:auto}
+.s-prog{width:140mm;margin:0 auto;display:grid;grid-template-columns:auto 1fr;column-gap:8mm;row-gap:4.2mm;align-items:baseline;text-align:left}
+.s-prog .t{font-family:var(--serif-display);font-weight:600;font-size:24pt;color:var(--gold-deep);white-space:nowrap}
+.s-prog .n{font-family:var(--serif-display);font-weight:600;font-size:24pt;color:var(--navy);line-height:1.1}
+.s-prog .n i{display:block;font-family:var(--serif-body);font-weight:400;font-style:italic;font-size:13.5pt;color:#4a5370}
+.s-nameline{display:flex;align-items:center;gap:5mm;width:150mm;height:26mm;margin:0 auto}
+.s-nameline span{font-family:var(--serif-body);font-style:italic;font-size:17pt;color:#4a5370;white-space:nowrap;padding-top:7mm}
+.s-nameline i{flex:1;display:block;height:11mm;border-bottom:1px solid var(--navy)}
+.s-namebox{width:178mm;height:26mm;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.s-bigname{font-family:var(--serif-display);font-weight:600;font-size:46pt;line-height:1;color:var(--navy);white-space:nowrap}
+.s-names{font-family:var(--serif-display);font-weight:600;font-size:46pt;color:var(--navy);line-height:1.1}
+
+#printarea{display:none}
+body.print-only .bar,body.print-only .intro,body.print-only .grid{display:none!important}
+body.print-only{background:#fff}
+body.print-only #printarea{display:block}
+body.print-only .sheet{margin:0 auto}
+
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff;min-height:0;margin:0}
+  .bar,.intro,.grid{display:none!important}
+  #printarea{display:block}
+  .sheet{box-shadow:none;margin:0;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back" href="/">&larr; Terug naar de uitnodiging</a>
+</div>
+
+<div class="intro">
+  <div class="eyebrow">Voor de ceremoniemeesters</div>
+  <h1>Wegwijsborden</h1>
+  <p class="lead">Borden voor De Balie, opgemaakt voor wit A4-papier. Printen, lamineren en ophangen.</p>
+  <p class="small">Kies bij de pijlborden eerst de richting. Druk af op werkelijke grootte (100&nbsp;%, zonder &ldquo;passend maken&rdquo;) en zonder kop- en voettekst.</p>
+  <div class="actions">
+    <a class="btn" href="borden/alle-borden.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Alle borden in &eacute;&eacute;n PDF</a>
+    <button class="btn ghost" type="button" onclick="printAll()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg>Alles afdrukken</button>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<div id="printarea"></div>
+<div id="mmprobe" style="position:absolute;width:100mm;height:0;visibility:hidden"></div>
+
+<script>
+const CORNER='<svg viewBox="0 0 24 24" fill="none" stroke="#C9A24B" stroke-width="1"><path d="M1 23V1h22"/><path d="M4 20V4h16"/><circle cx="4" cy="4" r="1.2" fill="#C9A24B" stroke="none"/></svg>';
+const CREST='<svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">'+
+'<g stroke="#C9A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">'+
+'<path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/>'+
+'<circle cx="65" cy="13" r="2.3" fill="#C9A24B"/><circle cx="80" cy="7" r="2.7" fill="#C9A24B"/><circle cx="95" cy="13" r="2.3" fill="#C9A24B"/>'+
+'<path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/><path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/></g><g fill="#C9A24B" opacity="0.92">'+
+[[103.0,141.0,152.9],[112.0,133.4,139.5],[119.0,123.6,125.2],[123.7,112.1,110.2],[125.9,99.6,94.5],[125.3,87.0,78.7],[122.0,74.8,63.3],[116.2,64.0,48.5],[108.3,55.0,34.6],
+ [57.0,141.0,207.1],[48.0,133.4,220.5],[41.0,123.6,234.8],[36.3,112.1,249.8],[34.1,99.6,265.5],[34.7,87.0,-78.7],[38.0,74.8,-63.3],[43.8,64.0,-48.5],[51.7,55.0,-34.6]]
+ .map(e=>'<ellipse cx="'+e[0]+'" cy="'+e[1]+'" rx="8" ry="2.7" transform="rotate('+e[2]+' '+e[0]+' '+e[1]+')"/>').join('')+
+'</g><text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="#C9A24B">A&amp;B</text></svg>';
+
+const DIRS=[
+  {id:'links',label:'Links',rot:270},
+  {id:'rechtdoor',label:'Rechtdoor',rot:0},
+  {id:'rechts',label:'Rechts',rot:90},
+  {id:'omlaag',label:'Omlaag',rot:180}
+];
+const EYEBROW='Anna &amp; Balraz &middot; 17 oktober 2026';
+
+const SIGNS=[
+  {id:'welkom',type:'plain',nl:'Welkom',en:'Welcome',size:84,sub:'Fijn dat u er bent &middot; So glad you are here',names:true},
+  {id:'programma',type:'programma',nl:'Programma',en:'Programme of the day',size:62},
+  {id:'ceremonie',type:'arrow',nl:'Ceremonie',en:'Ceremony',sub:'15.30 uur'},
+  {id:'cadeaus',type:'plain',nl:'Cadeaus &amp; kaarten',en:'Gifts &amp; cards',size:58},
+  {id:'verdrag',type:'plain',nl:'Het Verdrag',en:'Articles for the treaty',size:72,sub:'Lever hier uw artikel in<br>Hand in your article here'},
+  {id:'gereserveerd',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,nameline:'Voor &middot; For',nameinput:true},
+  {id:'gereserveerd-naam',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,namebox:true,hidden:true},
+  {id:'stilte',type:'plain',nl:'Stilte a.u.b.',en:'Quiet please',size:66,sub:'De ceremonie is begonnen<br>The ceremony has begun'}
+];
+
+function arrowSVG(rot){
+  return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">'+
+    '<circle cx="50" cy="50" r="47" fill="none" stroke="#C9A24B" stroke-width="1"/>'+
+    '<circle cx="50" cy="50" r="44.6" fill="none" stroke="#9C7528" stroke-width=".4" opacity=".7"/>'+
+    '<g transform="rotate('+rot+' 50 50)" fill="none" stroke="#11203F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">'+
+    '<path d="M50 80V22"/><path d="M30 41L50 21l20 20"/></g></svg>';
+}
+
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function bigSize(name){return Math.min(46,46*15/Math.max(name.length,1));}
+function sheetHTML(sign,dirId,name){
+  const corners='<div class="corner tl">'+CORNER+'</div><div class="corner tr">'+CORNER+'</div><div class="corner br">'+CORNER+'</div><div class="corner bl">'+CORNER+'</div>';
+  const head='<div class="s-crest">'+CREST+'</div><div class="s-eyebrow">'+EYEBROW+'</div>';
+  const size=sign.size?'style="font-size:'+sign.size+'pt"':'';
+  const title='<div class="s-title" '+size+'>'+sign.nl+'</div><div class="s-en">'+sign.en+'</div>';
+  const divider='<div class="s-divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>';
+  if(sign.type==='arrow'){
+    const d=DIRS.find(x=>x.id===dirId)||DIRS[1];
+    return '<div class="sheet arrow">'+corners+head+title+
+      '<div class="s-mid"><div class="s-arrow">'+arrowSVG(d.rot)+'</div></div>'+
+      (sign.sub?divider+'<div class="s-sub before">'+sign.sub+'</div>':divider)+
+      '</div>';
+  }
+  if(sign.type==='programma'){
+    return '<div class="sheet plain">'+corners+'<div class="s-top">'+head+title+'</div>'+
+      '<div class="s-mid">'+
+      '<div class="s-prog">'+
+      '<div class="t">15.00</div><div class="n">Inloop &amp; cava<i>Arrival &amp; cava</i></div>'+
+      '<div class="t">15.30</div><div class="n">Ceremonie<i>Ceremony</i></div>'+
+      '<div class="t">16.30</div><div class="n">Receptie<i>Reception</i></div>'+
+      '<div class="t">18.30</div><div class="n">Diner bij Restaurant Zenzero<i>Dinner at Restaurant Zenzero</i></div>'+
+      '<div class="t">23.30</div><div class="n">Afscheid<i>Farewell</i></div>'+
+      '</div></div>'+
+      '<div class="s-bottom">'+divider+'<div class="s-sub before">De Balie, Kleine-Gartmanplantsoen 10<br>Restaurant Zenzero, Gerard Callenburgstraat 1</div></div>'+
+      '</div>';
+  }
+  return '<div class="sheet plain">'+corners+'<div class="s-top">'+head+title+'</div>'+
+    '<div class="s-mid">'+divider+'</div>'+
+    '<div class="s-bottom">'+(sign.names?'<div class="s-names">Anna &amp; Balraz</div>':'')+(name?'<div class="s-namebox"><div class="s-bigname" style="font-size:'+bigSize(name)+'pt">'+esc(name)+'</div></div>':sign.namebox?'<div class="s-namebox"></div>':sign.nameline?'<div class="s-nameline"><span>'+sign.nameline+'</span><i></i></div>':'')+(sign.sub?'<div class="s-sub'+(sign.names?' before':'')+'">'+sign.sub+'</div>':'')+'</div>'+
+    '</div>';
+}
+
+function pdfName(sign,dirId){ return 'borden/'+sign.id+(sign.type==='arrow'?'-'+dirId:'')+'.pdf'; }
+function dirIcon(rot){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate('+rot+'deg)"><path d="M12 20V4"/><path d="M5 11l7-7 7 7"/></svg>'; }
+
+const state={};
+function buildGrid(){
+  const grid=document.getElementById('grid');
+  SIGNS.filter(s=>!s.hidden).forEach(sign=>{
+    state[sign.id]='rechtdoor';
+    const card=document.createElement('div');card.className='card';card.id='card-'+sign.id;
+    const isArrow=sign.type==='arrow';
+    card.innerHTML=
+      '<div class="name">'+sign.nl+'<small>'+sign.en+'</small></div>'+
+      '<div class="prev"><div class="scaler">'+sheetHTML(sign,state[sign.id])+'</div></div>'+
+      (isArrow?'<div class="dirs">'+DIRS.map(d=>'<button type="button" class="dir'+(d.id===state[sign.id]?' active':'')+'" data-dir="'+d.id+'">'+dirIcon(d.rot)+d.label+'</button>').join('')+'</div>':'')+
+      (sign.nameinput?'<input class="nameinput" type="text" maxlength="40" placeholder="Naam op het bord (optioneel)" aria-label="Naam op het bord"><div class="hint">Leeg gelaten: een schrijflijn om zelf een naam op te zetten. Ingevuld: de naam komt groot op het bord en in de PDF.</div>':'')+
+      '<div class="buttons">'+
+      '<a class="btn" href="'+pdfName(sign,state[sign.id])+'" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Download PDF</a>'+
+      '<button class="btn ghost" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg>Afdrukken</button>'+
+      '</div>';
+    grid.appendChild(card);
+    card.querySelectorAll('.dir').forEach(b=>b.addEventListener('click',()=>{
+      state[sign.id]=b.dataset.dir;
+      card.querySelectorAll('.dir').forEach(x=>x.classList.toggle('active',x===b));
+      card.querySelector('.scaler').innerHTML=sheetHTML(sign,state[sign.id]);
+      card.querySelector('a.btn').href=pdfName(sign,state[sign.id]);
+      fitPreviews();
+    }));
+    const nameOf=()=>{const i=card.querySelector('.nameinput');return i?i.value.trim():'';};
+    card.querySelector('button.ghost').addEventListener('click',()=>printSheets([sheetHTML(sign,state[sign.id],nameOf())]));
+    const inp=card.querySelector('.nameinput');
+    if(inp){
+      const dl=card.querySelector('a.btn');
+      inp.addEventListener('input',()=>{
+        card.querySelector('.scaler').innerHTML=sheetHTML(sign,state[sign.id],nameOf());
+        fitPreviews();
+      });
+      dl.addEventListener('click',ev=>{
+        const name=nameOf(); if(!name) return;
+        ev.preventDefault();
+        const lbl=dl.lastChild; const was=lbl.textContent; lbl.textContent='Even geduld\u2026';
+        namePDF(name).then(()=>{lbl.textContent=was;}).catch(err=>{lbl.textContent=was;alert('De PDF kon niet worden gemaakt: '+err.message);});
+      });
+    }
+  });
+  fitPreviews();
+}
+
+function fitPreviews(){
+  const mm=document.getElementById('mmprobe').getBoundingClientRect().width/100;
+  document.querySelectorAll('.prev').forEach(p=>{
+    const s=p.clientWidth/(210*mm);
+    p.querySelector('.scaler').style.transform='scale('+s+')';
+  });
+}
+
+function printSheets(htmls){
+  const area=document.getElementById('printarea');
+  area.innerHTML=htmls.join('');
+  const done=()=>{area.innerHTML='';window.removeEventListener('afterprint',done);};
+  window.addEventListener('afterprint',done);
+  window.print();
+}
+function allSheets(){
+  const out=[];
+  SIGNS.filter(s=>!s.hidden).forEach(s=>{ if(s.type==='arrow'){DIRS.forEach(d=>out.push(sheetHTML(s,d.id)));} else out.push(sheetHTML(s)); });
+  return out;
+}
+function printAll(){ printSheets(allSheets()); }
+
+/* PDF met ingetypte naam: het basisbord borden/gereserveerd-naam.pdf (met lege ruimte) krijgt de naam erop getekend. */
+const NAMEBOX_CENTER_MM=205.1; /* midden van de lege ruimte, gemeten vanaf de bovenrand van het A4 */
+function loadScript(src){return new Promise((ok,fail)=>{if(document.querySelector('script[src="'+src+'"]')){ok();return;}const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=()=>fail(new Error('script niet geladen: '+src));document.head.appendChild(s);});}
+async function namePDF(name){
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js');
+  await loadScript('https://unpkg.com/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js');
+  const [pdfBytes,fontBytes]=await Promise.all([
+    fetch('borden/gereserveerd-naam.pdf').then(r=>{if(!r.ok)throw new Error('basisbord niet gevonden');return r.arrayBuffer();}),
+    fetch('borden/fonts/CormorantGaramond-SemiBold.ttf').then(r=>{if(!r.ok)throw new Error('lettertype niet gevonden');return r.arrayBuffer();})
+  ]);
+  const {PDFDocument,rgb}=PDFLib;
+  const doc=await PDFDocument.load(pdfBytes);
+  doc.registerFontkit(fontkit);
+  const font=await doc.embedFont(fontBytes,{subset:true});
+  const page=doc.getPages()[0];
+  const MM=72/25.4, maxW=170*MM;
+  let size=46; let w=font.widthOfTextAtSize(name,size);
+  if(w>maxW){size=size*maxW/w;w=font.widthOfTextAtSize(name,size);}
+  const x=(page.getWidth()-w)/2;
+  const y=page.getHeight()-NAMEBOX_CENTER_MM*MM-size*0.32;
+  page.drawText(name,{x,y,size,font,color:rgb(0x11/255,0x20/255,0x3F/255)});
+  doc.setTitle('Bord Gereserveerd: '+name);
+  const out=await doc.save();
+  const blob=new Blob([out],{type:'application/pdf'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='gereserveerd-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.pdf';
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);
+}
+
+/* ?print=<id>&dir=<richting> of ?print=all toont alleen het bord; wordt gebruikt om de PDF's te maken. */
+const q=new URLSearchParams(location.search);
+if(q.get('print')){
+  document.body.classList.add('print-only');
+  const area=document.getElementById('printarea');
+  if(q.get('print')==='all'){ area.innerHTML=allSheets().join(''); document.title='Wegwijsborden Anna & Balraz'; }
+  else{
+    const sign=SIGNS.find(s=>s.id===q.get('print'));
+    if(sign){ area.innerHTML=sheetHTML(sign,q.get('dir')||'rechtdoor'); document.title='Bord '+sign.nl.replace(/&amp;/g,'&')+(sign.type==='arrow'?' ('+(q.get('dir')||'rechtdoor')+')':''); }
+  }
+} else {
+  buildGrid();
+  window.addEventListener('resize',fitPreviews);
+  if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fitPreviews);}
+}
+</script>
+</body>
+</html>
