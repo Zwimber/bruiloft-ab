@@ -44,6 +44,10 @@ body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-h
 .dir svg{width:13px;height:13px;flex:none}
 .dir:hover{border-color:var(--gold)}
 .dir.active{border-color:var(--gold);background:rgba(201,162,75,.18);color:#fff}
+.nameinput{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,75,.4);color:var(--cream-text);font-family:var(--serif-body);font-size:1rem;padding:.6rem .8rem;border-radius:1px}
+.nameinput:focus{outline:none;border-color:var(--gold)}
+.nameinput::placeholder{color:#8f8670;font-style:italic}
+.card .hint{font-size:.82rem;font-style:italic;color:#b9ad8e;line-height:1.4;margin-top:-.3rem}
 .card .buttons{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:auto}
 .card .btn{padding:.75rem .4rem;font-size:.7rem;letter-spacing:.1em;white-space:nowrap}
 
@@ -82,9 +86,11 @@ body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-h
 .s-prog .t{font-family:var(--serif-display);font-weight:600;font-size:24pt;color:var(--gold-deep);white-space:nowrap}
 .s-prog .n{font-family:var(--serif-display);font-weight:600;font-size:24pt;color:var(--navy);line-height:1.1}
 .s-prog .n i{display:block;font-family:var(--serif-body);font-weight:400;font-style:italic;font-size:13.5pt;color:#4a5370}
-.s-nameline{display:flex;align-items:flex-end;gap:5mm;width:150mm;margin:0 auto}
-.s-nameline span{font-family:var(--serif-body);font-style:italic;font-size:17pt;color:#4a5370;white-space:nowrap;padding-bottom:1mm}
-.s-nameline i{flex:1;display:block;height:18mm;border-bottom:1px solid var(--navy)}
+.s-nameline{display:flex;align-items:center;gap:5mm;width:150mm;height:26mm;margin:0 auto}
+.s-nameline span{font-family:var(--serif-body);font-style:italic;font-size:17pt;color:#4a5370;white-space:nowrap;padding-top:7mm}
+.s-nameline i{flex:1;display:block;height:11mm;border-bottom:1px solid var(--navy)}
+.s-namebox{width:178mm;height:26mm;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.s-bigname{font-family:var(--serif-display);font-weight:600;font-size:46pt;line-height:1;color:var(--navy);white-space:nowrap}
 .s-names{font-family:var(--serif-display);font-weight:600;font-size:46pt;color:var(--navy);line-height:1.1}
 
 #printarea{display:none}
@@ -149,7 +155,8 @@ const SIGNS=[
   {id:'ceremonie',type:'arrow',nl:'Ceremonie',en:'Ceremony',sub:'15.30 uur'},
   {id:'cadeaus',type:'plain',nl:'Cadeaus &amp; kaarten',en:'Gifts &amp; cards',size:58},
   {id:'verdrag',type:'plain',nl:'Het Verdrag',en:'Articles for the treaty',size:72,sub:'Lever hier uw artikel in<br>Hand in your article here'},
-  {id:'gereserveerd',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,nameline:'Voor &middot; For'},
+  {id:'gereserveerd',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,nameline:'Voor &middot; For',nameinput:true},
+  {id:'gereserveerd-naam',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,namebox:true,hidden:true},
   {id:'stilte',type:'plain',nl:'Stilte a.u.b.',en:'Quiet please',size:66,sub:'De ceremonie is begonnen<br>The ceremony has begun'}
 ];
 
@@ -161,7 +168,9 @@ function arrowSVG(rot){
     '<path d="M50 80V22"/><path d="M30 41L50 21l20 20"/></g></svg>';
 }
 
-function sheetHTML(sign,dirId){
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function bigSize(name){return Math.min(46,46*15/Math.max(name.length,1));}
+function sheetHTML(sign,dirId,name){
   const corners='<div class="corner tl">'+CORNER+'</div><div class="corner tr">'+CORNER+'</div><div class="corner br">'+CORNER+'</div><div class="corner bl">'+CORNER+'</div>';
   const head='<div class="s-crest">'+CREST+'</div><div class="s-eyebrow">'+EYEBROW+'</div>';
   const size=sign.size?'style="font-size:'+sign.size+'pt"':'';
@@ -189,7 +198,7 @@ function sheetHTML(sign,dirId){
   }
   return '<div class="sheet plain">'+corners+'<div class="s-top">'+head+title+'</div>'+
     '<div class="s-mid">'+divider+'</div>'+
-    '<div class="s-bottom">'+(sign.names?'<div class="s-names">Anna &amp; Balraz</div>':'')+(sign.nameline?'<div class="s-nameline"><span>'+sign.nameline+'</span><i></i></div>':'')+(sign.sub?'<div class="s-sub'+(sign.names?' before':'')+'">'+sign.sub+'</div>':'')+'</div>'+
+    '<div class="s-bottom">'+(sign.names?'<div class="s-names">Anna &amp; Balraz</div>':'')+(name?'<div class="s-namebox"><div class="s-bigname" style="font-size:'+bigSize(name)+'pt">'+esc(name)+'</div></div>':sign.namebox?'<div class="s-namebox"></div>':sign.nameline?'<div class="s-nameline"><span>'+sign.nameline+'</span><i></i></div>':'')+(sign.sub?'<div class="s-sub'+(sign.names?' before':'')+'">'+sign.sub+'</div>':'')+'</div>'+
     '</div>';
 }
 
@@ -199,7 +208,7 @@ function dirIcon(rot){ return '<svg viewBox="0 0 24 24" fill="none" stroke="curr
 const state={};
 function buildGrid(){
   const grid=document.getElementById('grid');
-  SIGNS.forEach(sign=>{
+  SIGNS.filter(s=>!s.hidden).forEach(sign=>{
     state[sign.id]='rechtdoor';
     const card=document.createElement('div');card.className='card';card.id='card-'+sign.id;
     const isArrow=sign.type==='arrow';
@@ -207,6 +216,7 @@ function buildGrid(){
       '<div class="name">'+sign.nl+'<small>'+sign.en+'</small></div>'+
       '<div class="prev"><div class="scaler">'+sheetHTML(sign,state[sign.id])+'</div></div>'+
       (isArrow?'<div class="dirs">'+DIRS.map(d=>'<button type="button" class="dir'+(d.id===state[sign.id]?' active':'')+'" data-dir="'+d.id+'">'+dirIcon(d.rot)+d.label+'</button>').join('')+'</div>':'')+
+      (sign.nameinput?'<input class="nameinput" type="text" maxlength="40" placeholder="Naam op het bord (optioneel)" aria-label="Naam op het bord"><div class="hint">Leeg gelaten: een schrijflijn om zelf een naam op te zetten. Ingevuld: de naam komt groot op het bord en in de PDF.</div>':'')+
       '<div class="buttons">'+
       '<a class="btn" href="'+pdfName(sign,state[sign.id])+'" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Download PDF</a>'+
       '<button class="btn ghost" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg>Afdrukken</button>'+
@@ -219,7 +229,22 @@ function buildGrid(){
       card.querySelector('a.btn').href=pdfName(sign,state[sign.id]);
       fitPreviews();
     }));
-    card.querySelector('button.ghost').addEventListener('click',()=>printSheets([sheetHTML(sign,state[sign.id])]));
+    const nameOf=()=>{const i=card.querySelector('.nameinput');return i?i.value.trim():'';};
+    card.querySelector('button.ghost').addEventListener('click',()=>printSheets([sheetHTML(sign,state[sign.id],nameOf())]));
+    const inp=card.querySelector('.nameinput');
+    if(inp){
+      const dl=card.querySelector('a.btn');
+      inp.addEventListener('input',()=>{
+        card.querySelector('.scaler').innerHTML=sheetHTML(sign,state[sign.id],nameOf());
+        fitPreviews();
+      });
+      dl.addEventListener('click',ev=>{
+        const name=nameOf(); if(!name) return;
+        ev.preventDefault();
+        const lbl=dl.lastChild; const was=lbl.textContent; lbl.textContent='Even geduld\u2026';
+        namePDF(name).then(()=>{lbl.textContent=was;}).catch(err=>{lbl.textContent=was;alert('De PDF kon niet worden gemaakt: '+err.message);});
+      });
+    }
   });
   fitPreviews();
 }
@@ -241,10 +266,39 @@ function printSheets(htmls){
 }
 function allSheets(){
   const out=[];
-  SIGNS.forEach(s=>{ if(s.type==='arrow'){DIRS.forEach(d=>out.push(sheetHTML(s,d.id)));} else out.push(sheetHTML(s)); });
+  SIGNS.filter(s=>!s.hidden).forEach(s=>{ if(s.type==='arrow'){DIRS.forEach(d=>out.push(sheetHTML(s,d.id)));} else out.push(sheetHTML(s)); });
   return out;
 }
 function printAll(){ printSheets(allSheets()); }
+
+/* PDF met ingetypte naam: het basisbord borden/gereserveerd-naam.pdf (met lege ruimte) krijgt de naam erop getekend. */
+const NAMEBOX_CENTER_MM=205.1; /* midden van de lege ruimte, gemeten vanaf de bovenrand van het A4 */
+function loadScript(src){return new Promise((ok,fail)=>{if(document.querySelector('script[src="'+src+'"]')){ok();return;}const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=()=>fail(new Error('script niet geladen: '+src));document.head.appendChild(s);});}
+async function namePDF(name){
+  await loadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js');
+  await loadScript('https://unpkg.com/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js');
+  const [pdfBytes,fontBytes]=await Promise.all([
+    fetch('borden/gereserveerd-naam.pdf').then(r=>{if(!r.ok)throw new Error('basisbord niet gevonden');return r.arrayBuffer();}),
+    fetch('borden/fonts/CormorantGaramond-SemiBold.ttf').then(r=>{if(!r.ok)throw new Error('lettertype niet gevonden');return r.arrayBuffer();})
+  ]);
+  const {PDFDocument,rgb}=PDFLib;
+  const doc=await PDFDocument.load(pdfBytes);
+  doc.registerFontkit(fontkit);
+  const font=await doc.embedFont(fontBytes,{subset:true});
+  const page=doc.getPages()[0];
+  const MM=72/25.4, maxW=170*MM;
+  let size=46; let w=font.widthOfTextAtSize(name,size);
+  if(w>maxW){size=size*maxW/w;w=font.widthOfTextAtSize(name,size);}
+  const x=(page.getWidth()-w)/2;
+  const y=page.getHeight()-NAMEBOX_CENTER_MM*MM-size*0.32;
+  page.drawText(name,{x,y,size,font,color:rgb(0x11/255,0x20/255,0x3F/255)});
+  doc.setTitle('Bord Gereserveerd: '+name);
+  const out=await doc.save();
+  const blob=new Blob([out],{type:'application/pdf'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='gereserveerd-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.pdf';
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);
+}
 
 /* ?print=<id>&dir=<richting> of ?print=all toont alleen het bord; wordt gebruikt om de PDF's te maken. */
 const q=new URLSearchParams(location.search);
