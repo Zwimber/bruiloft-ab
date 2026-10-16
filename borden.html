@@ -27,6 +27,7 @@ body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-h
 .intro p.lead{font-size:1.18rem;color:#e3d8ba}
 .intro p.small{font-size:.95rem;font-style:italic;color:#b9ad8e;margin-top:.9rem}
 .intro .actions{margin-top:1.5rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+.intro.verdragen{margin:0 auto 5rem;padding-top:2.4rem;border-top:1px solid rgba(201,162,75,.3)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;cursor:pointer;font-family:var(--serif-body);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;padding:.85rem 1.5rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;text-decoration:none;line-height:1.2}
 .btn:hover{background:var(--gold);color:var(--navy-deep)}
 .btn svg{width:16px;height:16px;flex:none}
@@ -101,7 +102,7 @@ body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-h
 .s-names{font-family:var(--serif-display);font-weight:600;font-size:46pt;color:var(--navy);line-height:1.1}
 
 #printarea{display:none}
-body.print-only .bar,body.print-only .intro,body.print-only .grid{display:none!important}
+body.print-only .bar,body.print-only .intro,body.print-only .grid,body.print-only .verdragen{display:none!important}
 body.print-only{background:#fff}
 body.print-only #printarea{display:block}
 body.print-only .sheet{margin:0 auto}
@@ -109,7 +110,7 @@ body.print-only .sheet{margin:0 auto}
 @media print{
   @page{size:A4;margin:0}
   html,body{background:#fff;min-height:0;margin:0}
-  .bar,.intro,.grid{display:none!important}
+  .bar,.intro,.grid,.verdragen{display:none!important}
   #printarea{display:block}
   .sheet{box-shadow:none;margin:0;break-after:page;page-break-after:always}
   .sheet:last-child{break-after:auto;page-break-after:auto}
@@ -124,7 +125,7 @@ body.print-only .sheet{margin:0 auto}
 <div class="intro">
   <div class="eyebrow">Voor de ceremoniemeesters</div>
   <h1>Wegwijsborden</h1>
-  <p class="lead">Borden voor De Balie, opgemaakt voor wit A4-papier. Printen, lamineren en ophangen.</p>
+  <p class="lead">Borden voor De Balie, opgemaakt voor wit A4-papier. Printen, lamineren en ophangen. Onderaan staan ook de verdragsvellen, voor wie er op de dag zelf nog een wil invullen.</p>
   <p class="small">Kies bij de pijlborden eerst de richting. Druk af op werkelijke grootte (100&nbsp;%, zonder &ldquo;passend maken&rdquo;) en zonder kop- en voettekst.</p>
   <div class="actions">
     <a class="btn" href="borden/alle-borden.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Alle borden in &eacute;&eacute;n PDF</a>
@@ -133,6 +134,17 @@ body.print-only .sheet{margin:0 auto}
 </div>
 
 <div class="grid" id="grid"></div>
+
+<div class="intro verdragen">
+  <div class="eyebrow">Reserve</div>
+  <h1>Verdragsvellen</h1>
+  <p class="lead">Alle acht hoofdstukken van het verdrag in &eacute;&eacute;n PDF: per hoofdstuk een vel met voorkant (artikel) en achterkant (overige bepalingen). Dubbelzijdig printen, dan liggen er op de dag reservevellen klaar.</p>
+  <p class="small">Zestien pagina&rsquo;s, Nederlands. Een los vel in een andere taal of met een gekozen hoofdstuk haalt u van de verdragspagina.</p>
+  <div class="actions">
+    <a class="btn" href="borden/verdragen.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Alle verdragsvellen (PDF)</a>
+    <a class="btn ghost" href="artikel-1710.html">Naar de verdragspagina</a>
+  </div>
+</div>
 <div id="printarea"></div>
 <div id="mmprobe" style="position:absolute;width:100mm;height:0;visibility:hidden"></div>
 
@@ -151,21 +163,20 @@ const CREST='<svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">'+
 const DIRS=[
   {id:'links',label:'Links',rot:270},
   {id:'rechtdoor',label:'Rechtdoor',rot:0},
-  {id:'rechts',label:'Rechts',rot:90},
-  {id:'omlaag',label:'Omlaag',rot:180}
+  {id:'rechts',label:'Rechts',rot:90}
 ];
 const EYEBROW='Anna &amp; Balraz &middot; 17 oktober 2026';
 
 const SIGNS=[
-  {id:'welkom',type:'plain',nl:'Welkom',en:'Welcome',size:84,sub:'Fijn dat u er bent &middot; So glad you are here',names:true},
-  {id:'programma',type:'programma',nl:'Programma',en:'Programme of the day',size:62},
-  {id:'ceremonie',type:'arrow',nl:'Ceremonie',en:'Ceremony',sub:'15.30 uur'},
-  {id:'cadeaus',type:'plain',nl:'Cadeaus &amp; kaarten',en:'Gifts &amp; cards',size:58},
-  {id:'verdrag',type:'plain',nl:'Het Verdrag',en:'Articles for the treaty',size:72,sub:'Lever hier uw artikel in<br>Hand in your article here'},
-  {id:'gereserveerd',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,nameline:'Voor &middot; For',nameinput:true},
-  {id:'gereserveerd-naam',type:'plain',nl:'Gereserveerd',en:'Reserved',size:64,namebox:true,hidden:true},
-  {id:'muziek',type:'qr',nl:'Muziek',en:'De playlists van Anna &amp; Balraz',size:66},
-  {id:'stilte',type:'plain',nl:'Stilte a.u.b.',en:'Quiet please',size:66,sub:'De ceremonie is begonnen<br>The ceremony has begun'}
+  {id:'welkom',type:'plain',nl:'Welkom',size:84,sub:'Fijn dat u er bent',names:true},
+  {id:'programma',type:'programma',nl:'Programma',tagline:'Programma van de dag',size:62},
+  {id:'ceremonie',type:'arrow',nl:'Ceremonie',sub:'15.30 uur'},
+  {id:'cadeaus',type:'plain',nl:'Cadeaus &amp; kaarten',size:58},
+  {id:'verdrag',type:'plain',nl:'Het Verdrag',tagline:'Artikelen voor de verdragsbundel',size:72,sub:'Lever hier uw artikel in'},
+  {id:'gereserveerd',type:'plain',nl:'Gereserveerd',size:64,nameline:'Voor',nameinput:true},
+  {id:'gereserveerd-naam',type:'plain',nl:'Gereserveerd',size:64,namebox:true,hidden:true},
+  {id:'muziek',type:'qr',nl:'Muziek',tagline:'De playlists van Anna &amp; Balraz',size:66},
+  {id:'stilte',type:'plain',nl:'Stilte a.u.b.',size:66,sub:'De ceremonie is begonnen'}
 ];
 
 const QR={
@@ -193,7 +204,7 @@ function sheetHTML(sign,dirId,name){
   const corners='<div class="corner tl">'+CORNER+'</div><div class="corner tr">'+CORNER+'</div><div class="corner br">'+CORNER+'</div><div class="corner bl">'+CORNER+'</div>';
   const head='<div class="s-crest">'+CREST+'</div><div class="s-eyebrow">'+EYEBROW+'</div>';
   const size=sign.size?'style="font-size:'+sign.size+'pt"':'';
-  const title='<div class="s-title" '+size+'>'+sign.nl+'</div><div class="s-en">'+sign.en+'</div>';
+  const title='<div class="s-title" '+size+'>'+sign.nl+'</div>'+(sign.tagline?'<div class="s-en">'+sign.tagline+'</div>':'');
   const divider='<div class="s-divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>';
   if(sign.type==='arrow'){
     const d=DIRS.find(x=>x.id===dirId)||DIRS[1];
@@ -212,11 +223,11 @@ function sheetHTML(sign,dirId,name){
     return '<div class="sheet plain">'+corners+'<div class="s-top">'+head+title+'</div>'+
       '<div class="s-mid">'+
       '<div class="s-prog">'+
-      '<div class="t">15.00</div><div class="n">Inloop &amp; cava<i>Arrival &amp; cava</i></div>'+
-      '<div class="t">15.30</div><div class="n">Ceremonie<i>Ceremony</i></div>'+
-      '<div class="t">16.30</div><div class="n">Receptie<i>Reception</i></div>'+
-      '<div class="t">18.30</div><div class="n">Diner bij Restaurant Zenzero<i>Dinner at Restaurant Zenzero</i></div>'+
-      '<div class="t">23.30</div><div class="n">Afscheid<i>Farewell</i></div>'+
+      '<div class="t">15.00</div><div class="n">Inloop &amp; cava</div>'+
+      '<div class="t">15.30</div><div class="n">Ceremonie</div>'+
+      '<div class="t">16.30</div><div class="n">Receptie</div>'+
+      '<div class="t">18.30</div><div class="n">Diner bij Restaurant Zenzero</div>'+
+      '<div class="t">23.30</div><div class="n">Afscheid</div>'+
       '</div></div>'+
       '<div class="s-bottom">'+divider+'<div class="s-sub before">De Balie, Kleine-Gartmanplantsoen 10<br>Restaurant Zenzero, Gerard Callenburgstraat 1</div></div>'+
       '</div>';
@@ -238,13 +249,15 @@ function buildGrid(){
     const card=document.createElement('div');card.className='card';card.id='card-'+sign.id;
     const isArrow=sign.type==='arrow';
     card.innerHTML=
-      '<div class="name">'+sign.nl+'<small>'+sign.en+'</small></div>'+
+      '<div class="name">'+sign.nl+(isArrow?'<small>Kies de richting; de PDF met alle drie bevat links, rechtdoor en rechts</small>':sign.tagline?'<small>'+sign.tagline+'</small>':'')+'</div>'+
       '<div class="prev"><div class="scaler">'+sheetHTML(sign,state[sign.id])+'</div></div>'+
       (isArrow?'<div class="dirs">'+DIRS.map(d=>'<button type="button" class="dir'+(d.id===state[sign.id]?' active':'')+'" data-dir="'+d.id+'">'+dirIcon(d.rot)+d.label+'</button>').join('')+'</div>':'')+
       (sign.nameinput?'<input class="nameinput" type="text" maxlength="40" placeholder="Naam op het bord (optioneel)" aria-label="Naam op het bord"><div class="hint">Leeg gelaten: een schrijflijn om zelf een naam op te zetten. Ingevuld: de naam komt groot op het bord en in de PDF.</div>':'')+
       '<div class="buttons">'+
       '<a class="btn" href="'+pdfName(sign,state[sign.id])+'" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Download PDF</a>'+
       '<button class="btn ghost" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg>Afdrukken</button>'+
+      (isArrow?'<a class="btn" href="borden/'+sign.id+'-alle-richtingen.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/></svg>Alle 3 (PDF)</a>'+
+      '<button class="btn ghost all3" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="9" rx="1.5"/><path d="M7 14h10v7H7z"/></svg>Alle 3 afdrukken</button>':'')+
       '</div>';
     grid.appendChild(card);
     card.querySelectorAll('.dir').forEach(b=>b.addEventListener('click',()=>{
@@ -256,6 +269,8 @@ function buildGrid(){
     }));
     const nameOf=()=>{const i=card.querySelector('.nameinput');return i?i.value.trim():'';};
     card.querySelector('button.ghost').addEventListener('click',()=>printSheets([sheetHTML(sign,state[sign.id],nameOf())]));
+    const all3=card.querySelector('button.all3');
+    if(all3) all3.addEventListener('click',()=>printSheets(DIRS.map(d=>sheetHTML(sign,d.id))));
     const inp=card.querySelector('.nameinput');
     if(inp){
       const dl=card.querySelector('a.btn');
@@ -333,7 +348,8 @@ if(q.get('print')){
   if(q.get('print')==='all'){ area.innerHTML=allSheets().join(''); document.title='Wegwijsborden Anna & Balraz'; }
   else{
     const sign=SIGNS.find(s=>s.id===q.get('print'));
-    if(sign){ area.innerHTML=sheetHTML(sign,q.get('dir')||'rechtdoor'); document.title='Bord '+sign.nl.replace(/&amp;/g,'&')+(sign.type==='arrow'?' ('+(q.get('dir')||'rechtdoor')+')':''); }
+    if(sign&&sign.type==='arrow'&&q.get('dir')==='all'){ area.innerHTML=DIRS.map(d=>sheetHTML(sign,d.id)).join(''); document.title='Bord '+sign.nl+' (links, rechtdoor, rechts)'; }
+    else if(sign){ area.innerHTML=sheetHTML(sign,q.get('dir')||'rechtdoor'); document.title='Bord '+sign.nl.replace(/&amp;/g,'&')+(sign.type==='arrow'?' ('+(q.get('dir')||'rechtdoor')+')':''); }
   }
 } else {
   buildGrid();
