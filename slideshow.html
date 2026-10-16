@@ -68,6 +68,7 @@ body.ui{cursor:default}
 .cap .van{margin-top:.9rem;font-family:var(--serif-body);font-style:normal;font-size:clamp(.72rem,.95vw,.95rem);letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);opacity:0;
   animation:fadeup 1s ease forwards;animation-delay:var(--after,2s)}
 .cap .van::before{content:"— ";color:var(--gold)}
+.cap .van .jaar{color:var(--gold);letter-spacing:.18em}
 @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .w{display:inline-block;white-space:nowrap}
 .c{display:inline-block}
@@ -258,7 +259,7 @@ function buildText(el,text){
 
 function renderCap(slide){
   var old=slide.querySelector('.cap');if(old)old.remove();
-  var f=slide._f; if(!f.tekst&&!f.van)return;
+  var f=slide._f; if(!f.tekst&&!f.van&&!f.jaar)return;
   var cap=document.createElement('div');cap.className='cap s-'+STYLE+' '+POS;cap.setAttribute('data-len',lenClass((f.tekst||'').length));
   var txt=document.createElement('div');txt.className='txt';
   var n=buildText(txt,f.tekst||'');
@@ -278,7 +279,9 @@ function renderCap(slide){
     slide.appendChild(cap);
     new Vara('#'+id,'slideshow/vendor/'+PEN+'.json',[{text:ascii(f.tekst),fontSize:penSize(lenClass(f.tekst.length)),strokeWidth:1.6,color:'#fff',duration:pw*1000,textAlign:POS==='rechts'?'right':'left'}],{});
   }
-  if(f.van){var van=document.createElement('div');van.className='van';van.textContent=f.van;cap.appendChild(van);}
+  if(f.van||f.jaar){var van=document.createElement('div');van.className='van';van.textContent=f.van||'';
+    if(f.jaar){if(f.van)van.appendChild(document.createTextNode(' \u00b7 '));var j=document.createElement('span');j.className='jaar';j.textContent=f.jaar;van.appendChild(j);}
+    cap.appendChild(van);}
   if(!cap.parentNode)slide.appendChild(cap);
 }
 
