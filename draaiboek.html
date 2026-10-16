@@ -19,10 +19,10 @@ body{font-family:var(--serif-body);color:var(--ink);-webkit-print-color-adjust:e
 .head{display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;padding-bottom:1.4mm;border-bottom:1px solid var(--gold);margin-bottom:.8mm;flex:none}
 .head .l{display:flex;align-items:flex-end;gap:3mm}
 .head .crest svg{width:11mm;height:auto;display:block}
-.head .eyebrow{text-transform:uppercase;letter-spacing:.32em;font-size:.82em;color:var(--gold-deep);margin-bottom:.6mm}
+.head .eyebrow{text-transform:uppercase;letter-spacing:.32em;font-size:.82em;color:var(--gold-deep);margin-bottom:.6mm;white-space:nowrap}
 .head h1{font-family:var(--serif-display);font-weight:600;font-size:3em;line-height:1;color:var(--navy)}
 .head h1 em{font-style:italic;font-weight:500;color:var(--gold-deep)}
-.head .r{text-align:right;font-size:.95em;color:var(--muted);font-style:italic;max-width:70mm;line-height:1.3}
+.head .r{text-align:right;font-size:.95em;color:var(--muted);font-style:italic;max-width:58mm;line-height:1.3;flex:none}
 .head .r b{display:block;font-style:normal;font-family:var(--serif-display);font-weight:600;font-size:1.5em;color:var(--navy);letter-spacing:.02em}
 table{width:100%;border-collapse:collapse;table-layout:fixed}
 th{font-family:var(--serif-body);font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:.72em;color:var(--gold-deep);text-align:left;padding:.5mm 1.2mm .7mm;border-bottom:.4pt solid var(--gold)}
@@ -47,6 +47,7 @@ tr.group td{padding-top:1.6mm;padding-bottom:.5mm;border-bottom:.4pt solid var(-
 tr.group td span{font-family:var(--serif-body);font-weight:400;font-size:.68em;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);margin-left:2mm}
 .foot{flex:none;margin-top:auto;padding-top:1.2mm;border-top:1px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;gap:4mm;font-size:.9em;color:var(--muted);line-height:1.3}
 .foot b{display:block;text-transform:uppercase;letter-spacing:.2em;font-size:.78em;color:var(--gold-deep);font-weight:500;margin-bottom:.4mm}
+.foot .wide{grid-column:1/-1}
 .foot .legend{grid-column:1/-1;font-style:italic;text-align:center}
 .foot .legend i{display:inline-block;width:7mm;height:2.2mm;vertical-align:middle;margin:0 1mm 0 .5mm;background:#fff;border:.4pt solid rgba(32,42,63,.55);opacity:.32}
 .foot .mark{display:inline-block;width:1.6mm;height:1.6mm;background:var(--gold);transform:rotate(45deg);vertical-align:middle;margin:0 1.2mm 0 .5mm}
@@ -69,91 +70,11 @@ tr.group td span{font-family:var(--serif-body);font-weight:400;font-size:.68em;l
 </style>
 </head>
 <body>
-<div class="screen">Draaiboek team ceremonie: per ceremoniemeester een vel, voorkant volledig, achterkant persoonlijk. Dubbelzijdig printen. <a href="borden.html">Naar de borden</a></div>
+<div class="screen">Draaiboek team ceremonie: per ceremoniemeester een vel, voorkant volledig, achterkant persoonlijk. Dubbelzijdig printen. <a href="borden/draaiboek-team-ceremonie.pdf" download>Download de PDF</a> &middot; <a href="borden.html">Naar de borden</a></div>
 <div id="pages"></div>
 <script>
 const TEAM=['Tim','Hester','Henry','Edwin'];
 const DATA=[
- {
-  "date": "2026-10-14",
-  "start": "20:00",
-  "end": "",
-  "who": "Tim",
-  "item": "Anna en Balraz sturen de geloften",
-  "act": "voor vertaling naar Duits en Engels",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-15",
-  "start": "13:00",
-  "end": "",
-  "who": "Tim",
-  "item": "Geloften en vertalingen printen",
-  "act": "bruidspaar alleen Nederlands, gasten met vertaling",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-16",
-  "start": "16:00",
-  "end": "",
-  "who": "",
-  "item": "Silke haalt Ronan op, slaapt in Heiloo",
-  "act": "",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-17",
-  "start": "08:00",
-  "end": "09:30",
-  "who": "Anna, Balraz",
-  "item": "Huis gereedmaken voor de gasten",
-  "act": "schoonmaken, bed klaarzetten, tas Ronan inpakken",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-17",
-  "start": "09:30",
-  "end": "10:00",
-  "who": "Henry",
-  "item": "Spullen ophalen op De Rijpgracht 57/3",
-  "act": "kleding, ringen, weekendtas; bruidsboeket bij de buurvrouw (57/H)",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-17",
-  "start": "10:30",
-  "end": "11:00",
-  "who": "Anna, Balraz",
-  "item": "Per Uber naar de kapper",
-  "act": "",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-17",
-  "start": "11:00",
-  "end": "13:00",
-  "who": "Anna, Balraz",
-  "item": "Kapper (Cloud Nine, Overtoom 35)",
-  "act": "broodje eten, Balraz regelt dit",
-  "loc": "",
-  "note": ""
- },
- {
-  "date": "2026-10-17",
-  "start": "11:00",
-  "end": "14:30",
-  "who": "Silke",
-  "item": "Silke past thuis op Ronan",
-  "act": "Ronan klaarmaken, trouwoutfit aan",
-  "loc": "",
-  "note": ""
- },
  {
   "date": "2026-10-17",
   "start": "12:00",
@@ -360,7 +281,7 @@ const DATA=[
   "end": "16:45",
   "who": "Yara (BABS)",
   "item": "Ceremonie, geleid door Yara",
-  "act": "15:31 speech (ca. 20 min) · 15:50 geloften, eerst Anna dan Balraz · 16:00 ja-woord · 16:02 ringen · 16:05 kus · 16:08 getuigen, akte tekenen met de gemeente-BABS · 16:15 spreker 1 en 2 · 16:30 afsluiting, 15 min uitloop · 16:45 ambtenaar vertrekt (precies 45 min), Yara kondigt de trapfoto aan",
+  "act": "15:31 speech (ca. 20 min) · 15:50 geloften, eerst Anna dan Balraz · 16:00 ja-woord · 16:02 ringen · 16:05 kus · 16:08 getuigen, akte tekenen met de gemeente-BABS · 16:15 sprekers: 1 Silke (mama Anna), 2 René (getuige Balraz), 3 Maylu, daarna Hester & Tim als er tijd is (anders bij het diner) · 16:30 afsluiting, 15 min uitloop · 16:45 ambtenaar vertrekt (precies 45 min), Yara kondigt de trapfoto aan",
   "loc": "",
   "note": ""
  },
@@ -420,7 +341,7 @@ const DATA=[
   "end": "18:00",
   "who": "Allen",
   "item": "Borrel in de bovenfoyer",
-  "act": "wie alleen staat gezelschap houden",
+  "act": "wie alleen staat gezelschap houden · sprekers: 1 Edwin namens de studievrienden, 2 Hester & Tim (optie)",
   "loc": "",
   "note": ""
  },
@@ -530,7 +451,7 @@ const DATA=[
   "end": "",
   "who": "Allen",
   "item": "Diner",
-  "act": "gasten ontvangen, naar hun tafel wijzen",
+  "act": "gasten ontvangen, naar hun tafel wijzen · sprekers: 1 Anna & Balraz + bonus, 2 Michel (vader Anna), 3 Hester & Tim (als niet bij de ceremonie), 4 Mathijn, 5 Josine + vriendinnen",
   "loc": "",
   "note": ""
  },
@@ -643,11 +564,11 @@ function rowHTML(r,person){
 }
 function tableHTML(person){
   const pre=DATA.filter(r=>r.date!=='2026-10-17'), day=DATA.filter(r=>r.date==='2026-10-17');
-  let h='<table><colgroup><col style="width:19.5mm"><col style="width:24mm"><col></colgroup>'+
+  let h='<table><colgroup><col style="width:23mm"><col style="width:27mm"><col></colgroup>'+
     '<thead><tr><th>Tijd</th><th>Wie</th><th>Wat</th></tr></thead><tbody>';
   h+=day.map(r=>rowHTML(r,person)).join('');
   const preTxt=pre.map(r=>{const on=person?hasRole(r.who,person):true;return '<span class="'+(on?'on':'off')+'"><b>'+shortDate(r.date)+' '+r.start+'</b> '+esc(r.item)+(r.who?' <em>('+esc(r.who)+')</em>':'')+'</span>';}).join(' <span class="sep">&middot;</span> ');
-  return '<div class="pre"><b class="lbl">Vooraf</b>'+preTxt+'</div>'+h+'</tbody></table>';
+  return h+'</tbody></table>';
 }
 function pageHTML(person){
   const title=person?'Draaiboek <em>voor '+esc(person)+'</em>':'Draaiboek';
@@ -656,7 +577,7 @@ function pageHTML(person){
   return '<div class="page'+(person?' personal':'')+'"><div class="inner">'+
     '<div class="head"><div class="l"><div class="crest">'+CREST+'</div><div><div class="eyebrow">Anna &amp; Balraz &middot; 17 oktober 2026 &middot; Team ceremonie</div><h1>'+title+'</h1></div></div><div class="r">'+right+'</div></div>'+
     tableHTML(person)+
-    '<div class="foot">'+(person?legend:'<div><b>Sprekers</b>'+SPEAKERS+'</div><div><b>Meenemen</b>'+BRING+'</div>')+'</div>'+
+    '<div class="foot">'+(person?legend:'<div class="wide"><b>Meenemen</b>'+BRING+'</div>')+'</div>'+
     '</div></div>';
 }
 function build(){
