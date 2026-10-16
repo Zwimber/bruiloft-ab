@@ -76,8 +76,12 @@ body.ui{cursor:default}
 
 /* 1 · Echt handgeschreven: Vara.js tekent de tekst als penstreken (SVG) */
 .cap.s-pen .txt{display:none}
-.cap .pen{display:block;filter:drop-shadow(0 2px 10px rgba(0,0,0,.7))}
-.cap .pen svg{display:block;overflow:visible}
+/* Vaste breedte: Vara meet de SVG-breedte om regels af te breken. Geen CSS-filter op de container: Safari tekent de SVG dan niet. */
+.cap.s-pen{width:min(46vw,760px)}
+.cap.s-pen[data-len="heellang"]{width:min(54vw,900px)}
+.cap .pen{display:block}
+.cap .pen svg{display:block;overflow:visible;max-width:100%}
+.cap .pen path{paint-order:stroke;stroke-linecap:round;stroke-linejoin:round}
 .cap.rechts .pen svg{margin-left:auto}
 #pens{display:none}
 body.pen-on #pens{display:flex}
@@ -132,7 +136,7 @@ body.ui .ctrl{opacity:1;transform:none;pointer-events:auto}
 .ctrl button.ico{font-size:.95rem;padding:.25rem .65rem;letter-spacing:0}
 .num{position:fixed;right:1.2rem;top:.95rem;font-size:.72rem;letter-spacing:.2em;color:#b9ad8e;z-index:9;opacity:0;transition:.35s}
 body.ui .num{opacity:1}
-@media (max-width:760px){.cap{max-width:88vw!important;bottom:4vh}.cap.links{left:6vw}.cap.rechts{right:6vw}.ctrl .lbl{display:none}}
+@media (max-width:760px){.cap{max-width:88vw!important;bottom:4vh}.cap.s-pen{width:88vw}.cap.links{left:6vw}.cap.rechts{right:6vw}.ctrl .lbl{display:none}}
 </style>
 </head>
 <body>
