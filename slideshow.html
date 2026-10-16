@@ -40,6 +40,8 @@ body.ui{cursor:default}
 .gate.ready .progress,.gate.ready .count{display:none}
 .gate .hint{display:none;font-size:.85rem;color:#8f8469;font-style:italic;margin-top:1.1rem}
 .gate.ready .hint{display:block}
+.gate.ready .hint#resume[style]{display:none}
+.gate.ready.resume .hint#resume{display:block!important}
 
 /* ---------- Foto's ---------- */
 .stage{position:fixed;inset:0}
@@ -178,6 +180,7 @@ body.ui .num{opacity:1}
     <div class="progress"><i id="pbar"></i></div>
     <div class="count" id="pcount">Foto 0 van 0</div>
     <button class="btn" id="start">Start de voorstelling</button>
+    <p class="hint" id="resume" style="display:none">Er loopt al een voorstelling; de knop gaat verder waar hij was. <a href="#" id="restart" style="color:var(--gold-light)">Opnieuw beginnen in een nieuwe volgorde</a></p>
     <p class="hint">Pijltjes: vorige/volgende &middot; spatie: pauze &middot; F: volledig scherm</p>
   </div>
 </div>
@@ -216,7 +219,7 @@ body.ui .num{opacity:1}
 
 <script src="slideshow/vendor/vara.min.js"></script>
 <script>
-// Instellingen via URL: ?stijl=pen|hand|type|inkt|woord|lijn  &pen=Satisfy|Parisienne|ShadowsIntoLight|Pacifico  &pos=links|rechts  &start=12  &duur=1.3 (tijdfactor)  &auto=1 (start zonder klik)  &full=0 (geen volledig scherm)
+// Instellingen via URL: ?stijl=pen|hand|type|inkt|woord|lijn  &pen=Satisfy|Parisienne|ShadowsIntoLight|Pacifico  &pos=links|rechts  &start=12  &duur=1.3 (tijdfactor)  &auto=1 (start zonder klik)  &full=0 (geen volledig scherm)  &shuffle=0 (vaste volgorde)  &seed=123 (vaste schudvolgorde)  &nieuw=1 (opnieuw beginnen)
 var q=new URLSearchParams(location.search);
 var STYLE=q.get('stijl')||localStorage.getItem('ss-stijl')||'pen';
 var PEN=q.get('pen')||localStorage.getItem('ss-pen')||'Satisfy';
@@ -225,6 +228,25 @@ var penCount=0;
 var POS=q.get('pos')||localStorage.getItem('ss-pos')||'links';
 var TEMPO=parseFloat(q.get('duur')||'1')||1;
 var FOTOS=[], idx=-1, timer=null, paused=false, cur=null, lastShown=null, uiTimer=null;
+// Volgorde en voortgang overleven een herlaadactie: de schudvolgorde (seed) en het starttijdstip staan in localStorage.
+// Bij herladen rekenen we uit de verstreken tijd en de duur per foto uit waar de voorstelling zou zijn.
+var SESSIE_MAX=12*3600*1000; // ouder dan 12 uur = nieuwe voorstelling
+var SEED=null, START=null, CUM=[], TOTAAL=0;
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function shuffle(list,seed){var a=list.slice(),r=rng(seed);for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function laadSessie(){
+  if(q.get('nieuw')==='1'){localStorage.removeItem('ss-seed');localStorage.removeItem('ss-start');}
+  var st=parseInt(localStorage.getItem('ss-start')||'',10);
+  if(!isNaN(st)&&Date.now()-st<SESSIE_MAX){START=st;SEED=parseInt(localStorage.getItem('ss-seed')||'',10);}
+  if(q.get('seed'))SEED=parseInt(q.get('seed'),10);
+  if(isNaN(SEED)||SEED===null)SEED=Math.floor(Math.random()*1e9);
+  localStorage.setItem('ss-seed',SEED);
+}
+function bouwTijdlijn(){CUM=[];TOTAAL=0;FOTOS.forEach(function(f){CUM.push(TOTAAL);TOTAAL+=slideDur(f)*1000;});}
+// Welke foto hoort bij het huidige tijdstip, gegeven het starttijdstip?
+function indexVoorNu(){if(START===null)return 0;var t=((Date.now()-START)%TOTAAL+TOTAAL)%TOTAAL;for(var i=CUM.length-1;i>=0;i--){if(t>=CUM[i])return i;}return 0;}
+// Tijdlijn zo verschuiven dat foto i nu begint, en dat onthouden.
+function zetTijdlijn(i){START=Date.now()-CUM[i];localStorage.setItem('ss-start',START);}
 var stage=document.getElementById('stage'), bar=document.getElementById('bar'), num=document.getElementById('num');
 
 function setStyle(s){STYLE=s;localStorage.setItem('ss-stijl',s);
@@ -301,6 +323,7 @@ function makeSlide(f){
 function show(i,dir){
   if(!FOTOS.length)return;
   idx=(i+FOTOS.length)%FOTOS.length;
+  zetTijdlijn(idx);
   var f=FOTOS[idx];
   var s=makeSlide(f);
   var d=slideDur(f);
@@ -336,16 +359,22 @@ function preload(list,onProgress){
 
 fetch('slideshow/fotos.json').then(function(r){return r.json();}).then(function(list){
   FOTOS=list.map(function(f){return Object.assign({},f,{src:'slideshow/'+f.src});});
+  laadSessie();
+  if(q.get('shuffle')!=='0')FOTOS=shuffle(FOTOS,SEED);
+  bouwTijdlijn();
   var pbar=document.getElementById('pbar'),pcount=document.getElementById('pcount');
   pcount.textContent='Foto 0 van '+FOTOS.length;
   return preload(FOTOS,function(d,n){pbar.style.width=(d/n*100)+'%';pcount.textContent='Foto '+d+' van '+n;});
 }).then(function(){
-  document.getElementById('gate').classList.add('ready');
+  var gate=document.getElementById('gate');
+  gate.classList.add('ready');
+  if(START!==null){gate.classList.add('resume');document.getElementById('start').textContent='Verder gaan';}
+  document.getElementById('restart').addEventListener('click',function(e){e.preventDefault();localStorage.removeItem('ss-seed');localStorage.removeItem('ss-start');location.href=location.pathname+'?'+(location.search.replace(/^\?/,'')?location.search.replace(/^\?/,'')+'&':'')+'nieuw=1';});
   if(q.get('auto')==='1')setTimeout(function(){document.getElementById('start').click();},300);
   document.getElementById('start').addEventListener('click',function(){
-    document.getElementById('gate').classList.add('hide');
+    gate.classList.add('hide');
     if(q.get('full')!=='0'){try{fullscreen();}catch(e){}}
-    var startAt=parseInt(q.get('start')||'1',10)-1;
+    var startAt=q.get('start')?parseInt(q.get('start'),10)-1:(START!==null?indexVoorNu():0);
     show(isNaN(startAt)?0:startAt,1);
   });
 });
