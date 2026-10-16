@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draaiboek team ceremonie &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#11203F;--navy-deep:#0A1428;--gold:#C9A24B;--gold-deep:#9C7528;--ink:#202a3f;--muted:#4a5370;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#e9e6df}
+body{font-family:var(--serif-body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;background:#fff;padding:9mm 10mm 8mm;margin:0 auto;position:relative;overflow:hidden;font-size:8pt;line-height:1.2;color:var(--ink)}
+.inner{height:100%;overflow:hidden;display:flex;flex-direction:column}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;padding-bottom:1.4mm;border-bottom:1px solid var(--gold);margin-bottom:.8mm;flex:none}
+.head .l{display:flex;align-items:flex-end;gap:3mm}
+.head .crest svg{width:11mm;height:auto;display:block}
+.head .eyebrow{text-transform:uppercase;letter-spacing:.32em;font-size:.82em;color:var(--gold-deep);margin-bottom:.6mm;white-space:nowrap}
+.head h1{font-family:var(--serif-display);font-weight:600;font-size:3em;line-height:1;color:var(--navy)}
+.head h1 em{font-style:italic;font-weight:500;color:var(--gold-deep)}
+.head .r{text-align:right;font-size:.95em;color:var(--muted);font-style:italic;max-width:58mm;line-height:1.3;flex:none}
+.head .r b{display:block;font-style:normal;font-family:var(--serif-display);font-weight:600;font-size:1.5em;color:var(--navy);letter-spacing:.02em}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-family:var(--serif-body);font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:.72em;color:var(--gold-deep);text-align:left;padding:.5mm 1.2mm .7mm;border-bottom:.4pt solid var(--gold)}
+td{padding:.28mm 1.1mm;border-bottom:.3pt solid rgba(156,117,40,.28);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.t{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600;color:var(--navy)}
+td.t small{display:block;font-weight:400;color:var(--muted);font-size:.86em;line-height:1.1;letter-spacing:.02em}
+td.w{color:var(--navy);font-weight:500}
+td.w.none{color:#8f8670;font-weight:400}
+td .act{color:var(--ink)}
+td .item{font-weight:600;color:var(--navy)}
+td .loc{color:var(--gold-deep);font-style:italic}
+td .note{display:block;color:#6b7390;font-style:italic;font-size:.92em}
+
+.pre{font-size:.95em;line-height:1.3;padding:.8mm 0 1mm;border-bottom:.4pt solid var(--gold);color:var(--ink)}
+.pre .lbl{font-family:var(--serif-body);text-transform:uppercase;letter-spacing:.2em;font-size:.78em;color:var(--gold-deep);font-weight:500;margin-right:2mm}
+.pre b{font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
+.pre em{color:var(--muted)}
+.pre .sep{color:var(--gold)}
+.page.personal .pre .off{opacity:.32}
+tr.group td{padding-top:1.6mm;padding-bottom:.5mm;border-bottom:.4pt solid var(--gold);font-family:var(--serif-display);font-weight:600;font-size:1.28em;color:var(--navy);letter-spacing:.02em}
+tr.group td span{font-family:var(--serif-body);font-weight:400;font-size:.68em;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);margin-left:2mm}
+.foot{flex:none;margin-top:auto;padding-top:1.2mm;border-top:1px solid var(--gold);display:grid;grid-template-columns:1fr 1fr;gap:4mm;font-size:.9em;color:var(--muted);line-height:1.3}
+.foot b{display:block;text-transform:uppercase;letter-spacing:.2em;font-size:.78em;color:var(--gold-deep);font-weight:500;margin-bottom:.4mm}
+.foot .wide{grid-column:1/-1}
+.foot .legend{grid-column:1/-1;font-style:italic;text-align:center}
+.foot .legend i{display:inline-block;width:7mm;height:2.2mm;vertical-align:middle;margin:0 1mm 0 .5mm;background:#fff;border:.4pt solid rgba(32,42,63,.55);opacity:.32}
+.foot .mark{display:inline-block;width:1.6mm;height:1.6mm;background:var(--gold);transform:rotate(45deg);vertical-align:middle;margin:0 1.2mm 0 .5mm}
+/* persoonlijke pagina */
+.page.personal tr.off td{opacity:.32}
+.page.personal tr.on td{background:rgba(201,162,75,.07)}
+.page.personal tr.on td.t::before{content:"";position:absolute;left:.7mm;top:1.25mm;width:1.5mm;height:1.5mm;background:var(--gold);transform:rotate(45deg)}
+.page.personal td.t{position:relative;padding-left:3.4mm}
+.page.personal tr.off td .note{display:none}
+.screen{max-width:210mm;margin:0 auto;padding:1.2rem 1rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;font-size:.95rem;color:var(--muted)}
+.screen a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.page+.page{margin-top:6mm}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff}
+  .screen{display:none}
+  .page,.page+.page{margin:0;break-after:page;page-break-after:always}
+  .page:last-child{break-after:auto;page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="screen">Draaiboek team ceremonie: per ceremoniemeester een vel, voorkant volledig, achterkant persoonlijk. Dubbelzijdig printen. <a href="borden/draaiboek-team-ceremonie.pdf" download>Download de PDF</a> &middot; <a href="borden.html">Naar de borden</a></div>
+<div id="pages"></div>
+<script>
+const TEAM=['Tim','Hester','Henry','Edwin'];
+const DATA=[
+ {
+  "date": "2026-10-17",
+  "start": "12:00",
+  "end": "",
+  "who": "Hester, Tim (?)",
+  "item": "Aankomst in De Balie",
+  "act": "zaal en techniek checken, briefjes op de stoelen, Ferrero Rocher klaarzetten",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "13:00",
+  "end": "14:00",
+  "who": "Henry",
+  "item": "Spullen naar het Okura brengen",
+  "act": "creditcard en paspoorten dubbelchecken!",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "13:30",
+  "end": "14:00",
+  "who": "",
+  "item": "Anna en Balraz lopen naar De Balie",
+  "act": "paraplu’s mee, Balraz regelt dit",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "13:30",
+  "end": "",
+  "who": "?",
+  "item": "Broodje eten voor het team (+ iets voor Silke?)",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:00",
+  "end": "",
+  "who": "Tim",
+  "item": "Wegwijzers ophangen",
+  "act": "van de hoofdingang naar De Salon / foyer links",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:00",
+  "end": "",
+  "who": "Henry",
+  "item": "Omkleden en foto’s",
+  "act": "fotograaf assisteren",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:00",
+  "end": "",
+  "who": "Allen",
+  "item": "Heel team ceremonie aanwezig in De Balie",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:15",
+  "end": "",
+  "who": "Hester",
+  "item": "Yara aanwezig; vaseline in de ring van Anna",
+  "act": "stiekem, vlak voor het moment suprême (de ringen liggen bij Yara)",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:30",
+  "end": "15:00",
+  "who": "Silke",
+  "item": "Silke brengt Ronan naar De Balie",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "14:30",
+  "end": "15:00",
+  "who": "",
+  "item": "Taxi ouders Balraz",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:00",
+  "end": "",
+  "who": "Tim",
+  "item": "Inloop: cava en Ferrero Rocher",
+  "act": "playlist exact om 15.00 aan, deuren De Salon open, PPT-show aan",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:00",
+  "end": "",
+  "who": "Henry",
+  "item": "Let op: de BABS komt binnen",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:15",
+  "end": "15:25",
+  "who": "Henry",
+  "item": "Gasten uitnodigen om te gaan zitten",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:25",
+  "end": "15:30",
+  "who": "Hester",
+  "item": "Vertalingen van speeches en geloften uitdelen",
+  "act": "via de microfoon vragen wie er een wil",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:28",
+  "end": "",
+  "who": "Henry",
+  "item": "Deuren sluiten",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:29",
+  "end": "",
+  "who": "Edwin",
+  "item": "Welkom en huisregels",
+  "act": "telefoon stil, geen foto’s; Yara (BABS) introduceren",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:30",
+  "end": "15:40",
+  "who": "Henry",
+  "item": "Ambtenaar van de gemeente opvangen",
+  "act": "bij de hoofdingang, begeleiden",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:30",
+  "end": "",
+  "who": "Tim",
+  "item": "Abracadabra (Lady Gaga) start",
+  "act": "muziek langzaam wat harder",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:30",
+  "end": "",
+  "who": "Henry, Hester",
+  "item": "Deuren open",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:30",
+  "end": "15:35",
+  "who": "",
+  "item": "Entree bruidspaar",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:31",
+  "end": "16:45",
+  "who": "Yara (BABS)",
+  "item": "Ceremonie, geleid door Yara",
+  "act": "15:31 speech (ca. 20 min) · 15:50 geloften, eerst Anna dan Balraz · 16:00 ja-woord · 16:02 ringen · 16:05 kus · 16:08 getuigen, akte tekenen met de gemeente-BABS · 16:15 sprekers: 1 Silke (mama Anna), 2 René (getuige Balraz), 3 Maylu, daarna Hester & Tim als er tijd is (anders bij het diner) · 16:30 afsluiting, 15 min uitloop · 16:45 ambtenaar vertrekt (precies 45 min), Yara kondigt de trapfoto aan",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "15:35",
+  "end": "",
+  "who": "Tim",
+  "item": "Geprinte geloften aan het bruidspaar geven",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "16:30",
+  "end": "",
+  "who": "Edwin",
+  "item": "Deuren open; omroepen: verzamelen voor de groepsfoto op de trap",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "16:30",
+  "end": "16:45",
+  "who": "Allen",
+  "item": "Groepsfoto op de trap",
+  "act": "fotograaf helpen, groep compleet",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "16:45",
+  "end": "",
+  "who": "Hester",
+  "item": "Ouders Balraz in de taxi",
+  "act": "samen met Eva of Julien, bij de hoofdingang",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "16:45",
+  "end": "17:30",
+  "who": "Tim, Will",
+  "item": "Foto’s van groepjes",
+  "act": "groepjes verzamelen, fotograaf helpen",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "16:45",
+  "end": "18:00",
+  "who": "Allen",
+  "item": "Borrel in de bovenfoyer",
+  "act": "wie alleen staat gezelschap houden · sprekers: 1 Edwin namens de studievrienden, 2 Hester & Tim (optie)",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "17:30",
+  "end": "",
+  "who": "Henry",
+  "item": "Eerste team vertrekt naar Zenzero",
+  "act": "tafelnummers of een object per tafel, versiering",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "17:45",
+  "end": "",
+  "who": "Henry",
+  "item": "Eerste team aanwezig bij Zenzero",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "17:45",
+  "end": "",
+  "who": "",
+  "item": "Raimond komt aan bij Zenzero",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "17:50",
+  "end": "",
+  "who": "Henry",
+  "item": "Glazen klaarzetten voor de ‘normale’ gasten",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:00",
+  "end": "",
+  "who": "Edwin",
+  "item": "Einde borrel omroepen",
+  "act": "iedereen naar tram 19, niemand achterlaten; cadeaus, weekendtas en spullen van het bruidspaar mee",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:00",
+  "end": "18:30",
+  "who": "Allen",
+  "item": "Met tram 19 naar Zenzero",
+  "act": "Leidseplein richting Sloterdijk tot Jan van Galenstraat, dan 6 min lopen",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:15",
+  "end": "",
+  "who": "",
+  "item": "Laatste gasten komen aan bij Zenzero",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:20",
+  "end": "",
+  "who": "Henry",
+  "item": "Bruidspaar en Corrie komen aan",
+  "act": "Henry vangt Corrie op",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:25",
+  "end": "",
+  "who": "Hester",
+  "item": "Taxi bruidspaar en Corrie naar Zenzero",
+  "act": "taxi klaar laten staan, oma gaat mee",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:30",
+  "end": "",
+  "who": "",
+  "item": "Check: de restaurant-playlist staat aan",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:30",
+  "end": "",
+  "who": "Allen",
+  "item": "Diner",
+  "act": "gasten ontvangen, naar hun tafel wijzen · sprekers: 1 Anna & Balraz + bonus, 2 Michel (vader Anna), 3 Hester & Tim (als niet bij de ceremonie), 4 Mathijn, 5 Josine + vriendinnen",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:30",
+  "end": "19:00",
+  "who": "",
+  "item": "Ronan eet kinderpizza met Silke",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "18:30",
+  "end": "21:00",
+  "who": "Tim",
+  "item": "Verrassing van team ceremonie",
+  "act": "vóór het hoofdgerecht",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "19:30",
+  "end": "20:30",
+  "who": "Silke, Balraz, broertje",
+  "item": "Ronan naar bed (iemand die tilt)",
+  "act": "Silke brengt hem naar bed en voert de kat",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "19:30",
+  "end": "20:00",
+  "who": "Silke, Balraz, broertje",
+  "item": "Valt Ronan niet in slaap, dan is Balraz 30 min weg",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "20:30",
+  "end": "23:30",
+  "who": "",
+  "item": "Silke past op (babyfoon)",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "21:00",
+  "end": "",
+  "who": "",
+  "item": "Cadeaus naar binnen brengen bij Anna en Balraz",
+  "act": "vóór ze gaan slapen",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "22:00",
+  "end": "",
+  "who": "",
+  "item": "Playlist wisselt naar de after-22.00-lijst",
+  "act": "",
+  "loc": "",
+  "note": ""
+ },
+ {
+  "date": "2026-10-17",
+  "start": "23:30",
+  "end": "",
+  "who": "Edwin",
+  "item": "Bruidspaar naar het Okura",
+  "act": "taxi regelen, uitzwaaimoment, weekendtas meegeven",
+  "loc": "",
+  "note": ""
+ }
+];
+const SPEAKERS='Ceremonie: Silke (mama Anna), René (getuige), evt. Hester &amp; Tim · Borrel: Edwin · Diner: Anna &amp; Balraz, Michel (vader Anna), Mathijn, Josine c.s., Michelle (werk), spontaan';
+const BRING='Scharen, batterijen, lamineerpapier, aanstekers en sterretjes (Edwin), smintjes, perforator, champagneglazen (Edwin), polaroidvelletjes, enveloppendoos (Hester), Ferrero Rocher (bij Tim), EHBO/naaiset (Willemijn)';
+const CREST='<svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg"><g stroke="#C9A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/><circle cx="65" cy="13" r="2.3" fill="#C9A24B"/><circle cx="80" cy="7" r="2.7" fill="#C9A24B"/><circle cx="95" cy="13" r="2.3" fill="#C9A24B"/><path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/><path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/></g><g fill="#C9A24B" opacity="0.92">'+
+[[103.0,141.0,152.9],[112.0,133.4,139.5],[119.0,123.6,125.2],[123.7,112.1,110.2],[125.9,99.6,94.5],[125.3,87.0,78.7],[122.0,74.8,63.3],[116.2,64.0,48.5],[108.3,55.0,34.6],[57.0,141.0,207.1],[48.0,133.4,220.5],[41.0,123.6,234.8],[36.3,112.1,249.8],[34.1,99.6,265.5],[34.7,87.0,-78.7],[38.0,74.8,-63.3],[43.8,64.0,-48.5],[51.7,55.0,-34.6]].map(e=>'<ellipse cx="'+e[0]+'" cy="'+e[1]+'" rx="8" ry="2.7" transform="rotate('+e[2]+' '+e[0]+' '+e[1]+')"/>').join('')+
+'</g><text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="#C9A24B">A&amp;B</text></svg>';
+const DAYS=['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'];
+const MONTHS=['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function dateLabel(iso){const d=new Date(iso+'T12:00:00');return DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()];}
+function shortDate(iso){const d=new Date(iso+'T12:00:00');return DAYS[d.getDay()].slice(0,2)+' '+d.getDate()+' '+MONTHS[d.getMonth()].slice(0,3);}
+function hasRole(who,name){
+  if(!who) return false;
+  const toks=who.replace(/\(.*?\)/g,'').split(/[\s,&\/+]+/).filter(Boolean);
+  return toks.includes('Allen')||toks.includes(name);
+}
+function rowHTML(r,person){
+  const cls=person?(hasRole(r.who,person)?'on':'off'):'';
+  const rng=(r.start||'')+(r.end?'–'+r.end:'');
+  const t=(r.date==='2026-10-17')?rng:'<small>'+shortDate(r.date)+'</small>'+rng;
+  const who=r.who?esc(r.who):'–';
+  let wat='<span class="item">'+esc(r.item)+'</span>';
+  if(r.act&&r.act.toLowerCase()!==r.item.toLowerCase()) wat+=' <span class="act">'+esc(r.act)+'</span>';
+  if(r.loc) wat+=' <span class="loc">· '+esc(r.loc)+'</span>';
+  if(r.note) wat+='<span class="note">'+esc(r.note)+'</span>';
+  return '<tr class="'+cls+'"><td class="t">'+t+'</td><td class="w'+(r.who?'':' none')+'">'+who+'</td><td>'+wat+'</td></tr>';
+}
+function tableHTML(person){
+  const pre=DATA.filter(r=>r.date!=='2026-10-17'), day=DATA.filter(r=>r.date==='2026-10-17');
+  let h='<table><colgroup><col style="width:23mm"><col style="width:27mm"><col></colgroup>'+
+    '<thead><tr><th>Tijd</th><th>Wie</th><th>Wat</th></tr></thead><tbody>';
+  h+=day.map(r=>rowHTML(r,person)).join('');
+  const preTxt=pre.map(r=>{const on=person?hasRole(r.who,person):true;return '<span class="'+(on?'on':'off')+'"><b>'+shortDate(r.date)+' '+r.start+'</b> '+esc(r.item)+(r.who?' <em>('+esc(r.who)+')</em>':'')+'</span>';}).join(' <span class="sep">&middot;</span> ');
+  return h+'</tbody></table>';
+}
+function pageHTML(person){
+  const title=person?'Draaiboek <em>voor '+esc(person)+'</em>':'Draaiboek';
+  const right=person?'<b>Achterkant</b>Jouw taken staan vol en gemarkeerd; wat grijs is, is voor een ander.':'<b>Voorkant</b>Het volledige draaiboek, voor het hele team ceremonie.';
+  const legend=person?'<div class="legend"><span class="mark"></span>jouw taak &nbsp;&middot;&nbsp; <i></i>geen taak voor jou &nbsp;&middot;&nbsp; de volledige versie staat op de voorkant</div>':'';
+  return '<div class="page'+(person?' personal':'')+'"><div class="inner">'+
+    '<div class="head"><div class="l"><div class="crest">'+CREST+'</div><div><div class="eyebrow">Anna &amp; Balraz &middot; 17 oktober 2026 &middot; Team ceremonie</div><h1>'+title+'</h1></div></div><div class="r">'+right+'</div></div>'+
+    tableHTML(person)+
+    '<div class="foot">'+(person?legend:'<div class="wide"><b>Meenemen</b>'+BRING+'</div>')+'</div>'+
+    '</div></div>';
+}
+function build(){
+  const q=new URLSearchParams(location.search);
+  const who=q.get('voor');
+  const people=who?[who]:TEAM;
+  document.getElementById('pages').innerHTML=people.map(p=>pageHTML(null)+pageHTML(p)).join('');
+  fit();
+}
+function fit(){
+  document.querySelectorAll('.page').forEach(p=>{
+    const inner=p.querySelector('.inner');
+    let s=10; p.style.fontSize=s+'pt';
+    while(inner.scrollHeight>inner.clientHeight+1&&s>6.3){s-=0.1;p.style.fontSize=s.toFixed(1)+'pt';}
+    p.dataset.size=s.toFixed(1);
+  });
+}
+build();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+window.addEventListener('beforeprint',fit);
+</script>
+</body>
+</html>
