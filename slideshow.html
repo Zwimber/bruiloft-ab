@@ -43,19 +43,19 @@ body.ui{cursor:default}
 
 /* ---------- Foto's ---------- */
 .stage{position:fixed;inset:0}
-.slide{position:absolute;inset:0;display:grid;place-items:center;padding:3vmin;opacity:0;transition:opacity var(--fade) ease;pointer-events:none}
+:root{--band:21vh}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity var(--fade) ease;pointer-events:none;overflow:hidden}
 .slide.on{opacity:1}
-.slide img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;
-  box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(201,162,75,.55),0 0 0 7px rgba(10,20,40,.9),0 0 0 8px rgba(201,162,75,.35);
-  transform:scale(1);transform-origin:center}
-.slide.on img{animation:kb var(--dur,12s) linear forwards}
-@keyframes kb{from{transform:scale(1)}to{transform:scale(1.035)}}
-.scrim{position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;
-  background:linear-gradient(0deg,rgba(10,20,40,.88) 0%,rgba(10,20,40,.55) 45%,rgba(10,20,40,0) 100%);opacity:0;transition:opacity var(--fade)}
-.slide.on .scrim{opacity:1}
+/* Geblurde kopie van de foto vult het hele scherm */
+.slide .bg{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:blur(38px) brightness(.42) saturate(1.15)}
+.slide .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,40,.25) 0%,rgba(10,20,40,.15) 60%,rgba(10,20,40,.75) 100%)}
+/* De foto zelf: altijd volledig zichtbaar, in het vlak boven de tekstband */
+.slide .frame{position:absolute;left:3vw;right:3vw;top:3vh;bottom:var(--band);display:flex;align-items:center;justify-content:center}
+.slide .foto{max-width:100%;max-height:100%;width:auto;height:auto;flex:0 0 auto;object-fit:contain;display:block;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,75,.6),0 0 0 7px rgba(10,20,40,.85),0 0 0 8px rgba(201,162,75,.4)}
 
 /* ---------- Tekst ---------- */
-.cap{position:absolute;bottom:5vh;max-width:min(46vw,760px);z-index:5;text-align:left;pointer-events:none}
+.cap{position:absolute;bottom:3.5vh;max-width:min(70vw,1200px);z-index:5;text-align:left;pointer-events:none}
 .cap.links{left:5vw}
 .cap.rechts{right:5vw;text-align:right}
 .cap .txt{font-family:var(--serif-display);font-style:italic;font-weight:500;color:#fff;line-height:1.3;
@@ -65,8 +65,7 @@ body.ui{cursor:default}
 .cap[data-len="lang"] .txt{font-size:clamp(1.05rem,1.55vw,1.5rem);line-height:1.42}
 .cap[data-len="heellang"] .txt{font-size:clamp(.95rem,1.22vw,1.2rem);line-height:1.45;max-width:none}
 .cap[data-len="heellang"]{max-width:min(54vw,900px)}
-.cap .van{margin-top:.9rem;font-family:var(--serif-body);font-style:normal;font-size:clamp(.72rem,.95vw,.95rem);letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light);opacity:0;
-  animation:fadeup 1s ease forwards;animation-delay:var(--after,2s)}
+.cap .van{margin-top:.7rem;font-family:var(--serif-body);font-style:normal;font-size:clamp(.78rem,1.05vw,1.1rem);letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light)}
 .cap .van::before{content:"— ";color:var(--gold)}
 .cap .van .jaar{color:var(--gold);letter-spacing:.18em}
 @keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -77,8 +76,7 @@ body.ui{cursor:default}
 /* 1 · Echt handgeschreven: Vara.js tekent de tekst als penstreken (SVG) */
 .cap.s-pen .txt{display:none}
 /* Vaste breedte: Vara meet de SVG-breedte om regels af te breken. Geen CSS-filter op de container: Safari tekent de SVG dan niet. */
-.cap.s-pen{width:min(46vw,760px)}
-.cap.s-pen[data-len="heellang"]{width:min(54vw,900px)}
+.cap.s-pen{width:min(70vw,1200px)}
 .cap .pen{display:block}
 .cap .pen svg{display:block;overflow:visible;max-width:100%}
 .cap .pen path{paint-order:stroke;stroke-linecap:round;stroke-linejoin:round}
@@ -123,7 +121,7 @@ body.pen-on #pens{display:flex}
 .bar{position:fixed;left:0;bottom:0;height:2px;background:var(--gold);width:0;z-index:8;opacity:.8}
 .bar.run{animation:bar var(--dur,12s) linear forwards}
 @keyframes bar{from{width:0}to{width:100%}}
-.ctrl{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.8rem 1.1rem;
+.ctrl{display:none!important;position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.8rem 1.1rem;
   background:linear-gradient(180deg,rgba(10,20,40,.9),rgba(10,20,40,0));opacity:0;transform:translateY(-6px);transition:.35s;pointer-events:none}
 body.ui .ctrl{opacity:1;transform:none;pointer-events:auto}
 .ctrl a.back{color:var(--cream-text);text-decoration:none;font-size:.9rem;opacity:.85;margin-right:auto}
@@ -134,7 +132,7 @@ body.ui .ctrl{opacity:1;transform:none;pointer-events:auto}
 .ctrl button:hover{border-color:var(--gold)}
 .ctrl button.active{border-color:var(--gold);background:rgba(201,162,75,.2);color:#fff}
 .ctrl button.ico{font-size:.95rem;padding:.25rem .65rem;letter-spacing:0}
-.num{position:fixed;right:1.2rem;top:.95rem;font-size:.72rem;letter-spacing:.2em;color:#b9ad8e;z-index:9;opacity:0;transition:.35s}
+.num{display:none;position:fixed;right:1.2rem;top:.95rem;font-size:.72rem;letter-spacing:.2em;color:#b9ad8e;z-index:9;opacity:0;transition:.35s}
 body.ui .num{opacity:1}
 @media (max-width:760px){.cap{max-width:88vw!important;bottom:4vh}.cap.s-pen{width:88vw}.cap.links{left:6vw}.cap.rechts{right:6vw}.ctrl .lbl{display:none}}
 </style>
@@ -180,7 +178,7 @@ body.ui .num{opacity:1}
     <div class="progress"><i id="pbar"></i></div>
     <div class="count" id="pcount">Foto 0 van 0</div>
     <button class="btn" id="start">Start de voorstelling</button>
-    <p class="hint">Pijltjes: vorige/volgende &middot; spatie: pauze &middot; F: volledig scherm &middot; 1&ndash;6: tekststijl &middot; L/R: tekst links/rechts</p>
+    <p class="hint">Pijltjes: vorige/volgende &middot; spatie: pauze &middot; F: volledig scherm</p>
   </div>
 </div>
 
@@ -218,7 +216,7 @@ body.ui .num{opacity:1}
 
 <script src="slideshow/vendor/vara.min.js"></script>
 <script>
-// Instellingen via URL: ?stijl=pen|hand|type|inkt|woord|lijn  &pen=Satisfy|Parisienne|ShadowsIntoLight|Pacifico  &pos=links|rechts  &start=12  &duur=1.3 (tijdfactor)
+// Instellingen via URL: ?stijl=pen|hand|type|inkt|woord|lijn  &pen=Satisfy|Parisienne|ShadowsIntoLight|Pacifico  &pos=links|rechts  &start=12  &duur=1.3 (tijdfactor)  &auto=1 (start zonder klik)  &full=0 (geen volledig scherm)
 var q=new URLSearchParams(location.search);
 var STYLE=q.get('stijl')||localStorage.getItem('ss-stijl')||'pen';
 var PEN=q.get('pen')||localStorage.getItem('ss-pen')||'Satisfy';
@@ -239,14 +237,14 @@ function setPen(p){if(PENS.indexOf(p)<0)p='Satisfy';PEN=p;localStorage.setItem('
 // De Vara-lettertypen kennen alleen ASCII: accenten eraf, krulquotes recht.
 function ascii(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2018\u2019\u201A]/g,"'").replace(/[\u201C\u201D\u201E]/g,'"').replace(/\u2026/g,'...').replace(/[\u2013\u2014]/g,'-').replace(/[^\x20-\x7E]/g,'');}
 // Pen-grootte in pixels, afhankelijk van tekstlengte en schermbreedte.
-function penSize(len){var vw=window.innerWidth/100;return Math.round({kort:4.6,middel:3.3,lang:2.4,heellang:1.9}[len]*vw);}
+function penSize(len){var vw=window.innerWidth/100;return Math.round({kort:3.6,middel:3.0,lang:2.4,heellang:1.9}[len]*vw);}
 function setPos(p){POS=p;localStorage.setItem('ss-pos',p);
   document.querySelectorAll('#pos button').forEach(function(b){b.classList.toggle('active',b.dataset.pos===p);});
   if(cur)renderCap(cur);}
 
 // Hoe lang een foto blijft staan: basis plus leestijd per teken (ca. 20 tekens per seconde), met onder- en bovengrens.
-function slideDur(f){var n=(f.tekst||'').length;return Math.min(45,Math.max(7,5+n*0.05))*TEMPO;}
-function lenClass(n){return n<=60?'kort':n<=150?'middel':n<=400?'lang':'heellang';}
+function slideDur(f){var n=(f.tekst||'').length;return Math.min(20,Math.max(9,6+n*0.06))*TEMPO;}
+function lenClass(n){return n<=40?'kort':n<=150?'middel':n<=400?'lang':'heellang';}
 
 // Tekst opbouwen in woorden en letters zodat de stijlen per letter of per woord kunnen animeren.
 function buildText(el,text){
@@ -284,16 +282,19 @@ function renderCap(slide){
     new Vara('#'+id,'slideshow/vendor/'+PEN+'.json',[{text:ascii(f.tekst),fontSize:penSize(lenClass(f.tekst.length)),strokeWidth:1.6,color:'#fff',duration:pw*1000,textAlign:POS==='rechts'?'right':'left'}],{});
   }
   if(f.van||f.jaar){var van=document.createElement('div');van.className='van';van.textContent=f.van||'';
-    if(f.jaar){if(f.van)van.appendChild(document.createTextNode(' \u00b7 '));var j=document.createElement('span');j.className='jaar';j.textContent=f.jaar;van.appendChild(j);}
+    var stamp=[f.plek,f.jaar].filter(Boolean).join(', ');
+    if(stamp){if(f.van)van.appendChild(document.createTextNode(' \u00b7 '));var j=document.createElement('span');j.className='jaar';j.textContent=stamp;van.appendChild(j);}
     cap.appendChild(van);}
   if(!cap.parentNode)slide.appendChild(cap);
 }
 
 function makeSlide(f){
   var s=document.createElement('div');s.className='slide';s._f=f;
-  var img=document.createElement('img');img.src=f.src;img.alt='';
-  s.appendChild(img);
-  var sc=document.createElement('div');sc.className='scrim';s.appendChild(sc);
+  var bg=document.createElement('img');bg.className='bg';bg.src=f.src;bg.alt='';s.appendChild(bg);
+  var tint=document.createElement('div');tint.className='tint';s.appendChild(tint);
+  var fr=document.createElement('div');fr.className='frame';
+  var img=document.createElement('img');img.className='foto';img.src=f.src;img.alt='';fr.appendChild(img);
+  s.appendChild(fr);
   return s;
 }
 
@@ -340,6 +341,7 @@ fetch('slideshow/fotos.json').then(function(r){return r.json();}).then(function(
   return preload(FOTOS,function(d,n){pbar.style.width=(d/n*100)+'%';pcount.textContent='Foto '+d+' van '+n;});
 }).then(function(){
   document.getElementById('gate').classList.add('ready');
+  if(q.get('auto')==='1')setTimeout(function(){document.getElementById('start').click();},300);
   document.getElementById('start').addEventListener('click',function(){
     document.getElementById('gate').classList.add('hide');
     if(q.get('full')!=='0'){try{fullscreen();}catch(e){}}
