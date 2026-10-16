@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fotovoorstelling &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF4E6;--navy:#11203F;--navy-deep:#0A1428;--plum:#2E2148;--gold:#C9A24B;--gold-light:#E9D198;--gold-deep:#9C7528;--cream-text:#EDE2C6;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;--hand:"Caveat","Cormorant Garamond",cursive;
+  --fade:1.3s;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:var(--serif-body);color:var(--cream-text);overflow:hidden;-webkit-font-smoothing:antialiased;cursor:none;
+  background:radial-gradient(120% 80% at 50% 120%, rgba(224,164,92,.35) 0%, rgba(224,164,92,0) 46%),
+    radial-gradient(90% 70% at 50% 4%, rgba(46,33,72,.6) 0%, rgba(46,33,72,0) 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--plum) 100%);}
+body.ui{cursor:default}
+
+/* ---------- Laadscherm / titelkaart ---------- */
+.gate{position:fixed;inset:0;display:grid;place-items:center;text-align:center;z-index:30;transition:opacity 1.2s;padding:1.4rem}
+.gate.hide{opacity:0;pointer-events:none}
+.gate .crest svg{width:110px;height:auto;display:block;margin:0 auto 1.2rem}
+.eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.74rem;color:var(--gold-light);margin-bottom:.9rem}
+.gate h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.05;color:#fff}
+.divider{display:flex;align-items:center;gap:1rem;max-width:280px;margin:1.3rem auto}
+.divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.divider .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+.divider .dia{width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+.gate .lead{font-size:1.15rem;color:#d4c9aa;max-width:520px;margin:0 auto 1.8rem;font-style:italic}
+.progress{width:260px;height:1px;background:rgba(201,162,75,.25);margin:0 auto 1rem;position:relative}
+.progress i{position:absolute;left:0;top:0;bottom:0;background:var(--gold);width:0;transition:width .3s}
+.gate .count{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:#b9ad8e}
+.btn{display:none;cursor:pointer;font-family:var(--serif-body);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;padding:1rem 2.3rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;margin-top:1.6rem}
+.btn:hover{background:var(--gold);color:var(--navy-deep)}
+.gate.ready .btn{display:inline-flex}
+.gate.ready .progress,.gate.ready .count{display:none}
+.gate .hint{display:none;font-size:.85rem;color:#8f8469;font-style:italic;margin-top:1.1rem}
+.gate.ready .hint{display:block}
+.gate.ready .hint#resume[style]{display:none}
+.gate.ready.resume .hint#resume{display:block!important}
+
+/* ---------- Foto's ---------- */
+.stage{position:fixed;inset:0}
+:root{--band:21vh}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity var(--fade) ease;pointer-events:none;overflow:hidden}
+.slide.on{opacity:1}
+/* Geblurde kopie van de foto vult het hele scherm */
+.slide .bg{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;filter:blur(38px) brightness(.42) saturate(1.15)}
+.slide .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,40,.25) 0%,rgba(10,20,40,.15) 60%,rgba(10,20,40,.75) 100%)}
+/* De foto zelf: altijd volledig zichtbaar, in het vlak boven de tekstband */
+.slide .frame{position:absolute;left:3vw;right:3vw;top:3vh;bottom:var(--band);display:flex;align-items:center;justify-content:center}
+.slide .foto{max-width:100%;max-height:100%;width:auto;height:auto;flex:0 0 auto;object-fit:contain;display:block;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(201,162,75,.6),0 0 0 7px rgba(10,20,40,.85),0 0 0 8px rgba(201,162,75,.4)}
+
+/* ---------- Tekst ---------- */
+.cap{position:absolute;bottom:3.5vh;max-width:min(70vw,1200px);z-index:5;text-align:left;pointer-events:none}
+.cap.links{left:5vw}
+.cap.rechts{right:5vw;text-align:right}
+.cap .txt{font-family:var(--serif-display);font-style:italic;font-weight:500;color:#fff;line-height:1.3;
+  text-shadow:0 2px 18px rgba(0,0,0,.6),0 0 2px rgba(0,0,0,.6)}
+.cap[data-len="kort"] .txt{font-size:clamp(1.8rem,3.6vw,3.3rem)}
+.cap[data-len="middel"] .txt{font-size:clamp(1.4rem,2.5vw,2.3rem)}
+.cap[data-len="lang"] .txt{font-size:clamp(1.05rem,1.55vw,1.5rem);line-height:1.42}
+.cap[data-len="heellang"] .txt{font-size:clamp(.95rem,1.22vw,1.2rem);line-height:1.45;max-width:none}
+.cap[data-len="heellang"]{max-width:min(54vw,900px)}
+.cap .van{margin-top:.7rem;font-family:var(--serif-body);font-style:normal;font-size:clamp(.78rem,1.05vw,1.1rem);letter-spacing:.28em;text-transform:uppercase;color:var(--gold-light)}
+.cap .van::before{content:"— ";color:var(--gold)}
+.cap .van .jaar{color:var(--gold);letter-spacing:.18em}
+@keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.w{display:inline-block;white-space:nowrap}
+.c{display:inline-block}
+.sp{display:inline}
+
+/* 1 · Echt handgeschreven: Vara.js tekent de tekst als penstreken (SVG) */
+.cap.s-pen .txt{display:none}
+/* Vaste breedte: Vara meet de SVG-breedte om regels af te breken. Geen CSS-filter op de container: Safari tekent de SVG dan niet. */
+.cap.s-pen{width:min(70vw,1200px)}
+.cap .pen{display:block}
+.cap .pen svg{display:block;overflow:visible;max-width:100%}
+.cap .pen path{paint-order:stroke;stroke-linecap:round;stroke-linejoin:round}
+.cap.rechts .pen svg{margin-left:auto}
+#pens{display:none}
+body.pen-on #pens{display:flex}
+
+/* 2 · Handschrift, letter voor letter 'getekend' in een handschriftletter */
+.cap.s-hand .txt{font-family:var(--hand);font-style:normal;font-weight:500;line-height:1.25;letter-spacing:.005em}
+.cap.s-hand[data-len="kort"] .txt{font-size:clamp(2.4rem,4.6vw,4.3rem)}
+.cap.s-hand[data-len="middel"] .txt{font-size:clamp(1.9rem,3.2vw,3rem)}
+.cap.s-hand[data-len="lang"] .txt{font-size:clamp(1.4rem,2vw,2rem);line-height:1.3}
+.cap.s-hand[data-len="heellang"] .txt{font-size:clamp(1.2rem,1.55vw,1.55rem);line-height:1.32}
+.cap.s-hand .c{opacity:0;clip-path:inset(-1em 100% -1em -.5em);animation:pen var(--cd,.12s) ease-out forwards;animation-delay:calc(var(--i) * var(--st,.04s))}
+@keyframes pen{0%{opacity:1;clip-path:inset(-1em 100% -1em -.5em);filter:blur(.6px)}100%{opacity:1;clip-path:inset(-1em -1em -1em -.5em);filter:blur(0)}}
+
+/* 3 · Typemachine: letter voor letter, met een gouden streepje dat meeloopt */
+.cap.s-type .txt{font-family:var(--serif-body);font-style:normal}
+.cap.s-type .c{opacity:0;animation:tick .01s steps(1) forwards;animation-delay:calc(var(--i) * var(--st,.04s))}
+@keyframes tick{to{opacity:1}}
+.cap.s-type .txt::after{content:"";display:inline-block;width:2px;height:.9em;background:var(--gold);vertical-align:-.12em;margin-left:.12em;animation:blink .8s steps(1) infinite,gone .01s forwards;animation-delay:0s,calc(var(--after,2s) + .2s)}
+@keyframes blink{50%{opacity:0}}
+@keyframes gone{to{opacity:0;display:none}}
+
+/* 4 · Inkt: de hele zin komt uit een gouden waas tevoorschijn */
+.cap.s-inkt .txt{opacity:0;animation:inkt 2.4s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes inkt{0%{opacity:0;filter:blur(16px);letter-spacing:.09em;color:var(--gold-light)}60%{opacity:1;color:var(--gold-light)}100%{opacity:1;filter:blur(0);letter-spacing:0;color:#fff}}
+
+/* 5 · Woord voor woord: elk woord komt van onderen omhoog */
+.cap.s-woord .w{opacity:0;animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--wi) * .11s)}
+@keyframes rise{from{opacity:0;transform:translateY(.6em)}to{opacity:1;transform:none}}
+
+/* 6 · Gouden lijn: een lijn tekent zich, daarna schuift de tekst eronder tevoorschijn */
+.cap.s-lijn::before{content:"";display:block;height:1px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-light),transparent);margin-bottom:1rem;animation:lijn 1s ease-out forwards}
+.cap.s-lijn.rechts::before{margin-left:auto;background:linear-gradient(90deg,transparent,var(--gold-light),var(--gold))}
+@keyframes lijn{to{width:100%}}
+.cap.s-lijn .txt{clip-path:inset(0 100% 0 0);animation:wipe 1.3s cubic-bezier(.4,0,.2,1) .7s forwards}
+.cap.s-lijn.rechts .txt{clip-path:inset(0 0 0 100%)}
+@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+
+/* ---------- Voortgang en bediening ---------- */
+.bar{position:fixed;left:0;bottom:0;height:2px;background:var(--gold);width:0;z-index:8;opacity:.8}
+.bar.run{animation:bar var(--dur,12s) linear forwards}
+@keyframes bar{from{width:0}to{width:100%}}
+.ctrl{display:none!important;position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;padding:.8rem 1.1rem;
+  background:linear-gradient(180deg,rgba(10,20,40,.9),rgba(10,20,40,0));opacity:0;transform:translateY(-6px);transition:.35s;pointer-events:none}
+body.ui .ctrl{opacity:1;transform:none;pointer-events:auto}
+.ctrl a.back{color:var(--cream-text);text-decoration:none;font-size:.9rem;opacity:.85;margin-right:auto}
+.ctrl a.back:hover{opacity:1;color:#fff}
+.ctrl .grp{display:flex;gap:.3rem;align-items:center}
+.ctrl .lbl{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#b9ad8e;margin:0 .3rem 0 .6rem}
+.ctrl button{cursor:pointer;font-family:var(--serif-body);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px;border:1px solid rgba(201,162,75,.4);background:rgba(255,255,255,.05);color:var(--cream-text);transition:.25s}
+.ctrl button:hover{border-color:var(--gold)}
+.ctrl button.active{border-color:var(--gold);background:rgba(201,162,75,.2);color:#fff}
+.ctrl button.ico{font-size:.95rem;padding:.25rem .65rem;letter-spacing:0}
+.num{display:none;position:fixed;right:1.2rem;top:.95rem;font-size:.72rem;letter-spacing:.2em;color:#b9ad8e;z-index:9;opacity:0;transition:.35s}
+body.ui .num{opacity:1}
+@media (max-width:760px){.cap{max-width:88vw!important;bottom:4vh}.cap.s-pen{width:88vw}.cap.links{left:6vw}.cap.rechts{right:6vw}.ctrl .lbl{display:none}}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div>
+    <div class="crest"><svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9C7528"/><stop offset="0.35" stop-color="#E9D198"/>
+    <stop offset="0.55" stop-color="#C9A24B"/><stop offset="1" stop-color="#9C7528"/></linearGradient></defs>
+  <g stroke="url(#g)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/>
+    <circle cx="65" cy="13" r="2.3" fill="url(#g)"/><circle cx="80" cy="7" r="2.7" fill="url(#g)"/><circle cx="95" cy="13" r="2.3" fill="url(#g)"/>
+    <path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/>
+    <path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/>
+  </g>
+  <g><ellipse cx="103.0" cy="141.0" rx="8" ry="2.7" transform="rotate(152.9 103.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="112.0" cy="133.4" rx="8" ry="2.7" transform="rotate(139.5 112.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="119.0" cy="123.6" rx="8" ry="2.7" transform="rotate(125.2 119.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="123.7" cy="112.1" rx="8" ry="2.7" transform="rotate(110.2 123.7 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.9" cy="99.6" rx="8" ry="2.7" transform="rotate(94.5 125.9 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.3" cy="87.0" rx="8" ry="2.7" transform="rotate(78.7 125.3 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="122.0" cy="74.8" rx="8" ry="2.7" transform="rotate(63.3 122.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="116.2" cy="64.0" rx="8" ry="2.7" transform="rotate(48.5 116.2 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="108.3" cy="55.0" rx="8" ry="2.7" transform="rotate(34.6 108.3 55.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="57.0" cy="141.0" rx="8" ry="2.7" transform="rotate(207.1 57.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="48.0" cy="133.4" rx="8" ry="2.7" transform="rotate(220.5 48.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="41.0" cy="123.6" rx="8" ry="2.7" transform="rotate(234.8 41.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="36.3" cy="112.1" rx="8" ry="2.7" transform="rotate(249.8 36.3 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.1" cy="99.6" rx="8" ry="2.7" transform="rotate(265.5 34.1 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.7" cy="87.0" rx="8" ry="2.7" transform="rotate(-78.7 34.7 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="38.0" cy="74.8" rx="8" ry="2.7" transform="rotate(-63.3 38.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="43.8" cy="64.0" rx="8" ry="2.7" transform="rotate(-48.5 43.8 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="51.7" cy="55.0" rx="8" ry="2.7" transform="rotate(-34.6 51.7 55.0)" fill="url(#g)" opacity="0.92"/></g>
+  <text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="url(#g)">A&amp;B</text>
+</svg></div>
+    <div class="eyebrow">Herinneringen van vrienden en familie</div>
+    <h1>Anna &amp; Balraz</h1>
+    <div class="divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>
+    <p class="lead">Even geduld, alle foto&rsquo;s worden alvast geladen zodat de voorstelling straks vloeiend loopt.</p>
+    <div class="progress"><i id="pbar"></i></div>
+    <div class="count" id="pcount">Foto 0 van 0</div>
+    <button class="btn" id="start">Start de voorstelling</button>
+    <p class="hint" id="resume" style="display:none">Er loopt al een voorstelling; de knop gaat verder waar hij was. <a href="#" id="restart" style="color:var(--gold-light)">Opnieuw beginnen in een nieuwe volgorde</a></p>
+    <p class="hint">Pijltjes: vorige/volgende &middot; spatie: pauze &middot; F: volledig scherm</p>
+  </div>
+</div>
+
+<div class="stage" id="stage"></div>
+<div class="bar" id="bar"></div>
+<div class="num" id="num"></div>
+
+<div class="ctrl" id="ctrl">
+  <a class="back" href="/">&larr; Terug naar de uitnodiging</a>
+  <div class="grp">
+    <button class="ico" data-act="prev" title="Vorige (←)">&larr;</button>
+    <button class="ico" data-act="pause" id="pausebtn" title="Pauze (spatie)">&#10074;&#10074;</button>
+    <button class="ico" data-act="next" title="Volgende (→)">&rarr;</button>
+  </div>
+  <div class="grp" id="styles"><span class="lbl">Tekst</span>
+    <button data-style="pen">1 Echt handgeschreven</button>
+    <button data-style="hand">2 Handschrift</button>
+    <button data-style="type">3 Typemachine</button>
+    <button data-style="inkt">4 Inkt</button>
+    <button data-style="woord">5 Woord voor woord</button>
+    <button data-style="lijn">6 Gouden lijn</button>
+  </div>
+  <div class="grp" id="pens"><span class="lbl">Pen</span>
+    <button data-pen="Satisfy">Satisfy</button>
+    <button data-pen="Parisienne">Parisienne</button>
+    <button data-pen="ShadowsIntoLight">Shadows</button>
+    <button data-pen="Pacifico">Pacifico</button>
+  </div>
+  <div class="grp" id="pos"><span class="lbl">Positie</span>
+    <button data-pos="links">Links</button>
+    <button data-pos="rechts">Rechts</button>
+  </div>
+  <div class="grp"><button class="ico" data-act="full" title="Volledig scherm (F)">&#x26F6;</button></div>
+</div>
+
+<script src="slideshow/vendor/vara.min.js"></script>
+<script>
+// Instellingen via URL: ?stijl=pen|hand|type|inkt|woord|lijn  &pen=Satisfy|Parisienne|ShadowsIntoLight|Pacifico  &pos=links|rechts  &start=12  &duur=1.3 (tijdfactor)  &auto=1 (start zonder klik)  &full=0 (geen volledig scherm)  &shuffle=0 (vaste volgorde)  &seed=123 (vaste schudvolgorde)  &nieuw=1 (opnieuw beginnen)
+var q=new URLSearchParams(location.search);
+var STYLE=q.get('stijl')||localStorage.getItem('ss-stijl')||'pen';
+var PEN=q.get('pen')||localStorage.getItem('ss-pen')||'Satisfy';
+var PENS=['Satisfy','Parisienne','ShadowsIntoLight','Pacifico'];
+var penCount=0;
+var POS=q.get('pos')||localStorage.getItem('ss-pos')||'links';
+var TEMPO=parseFloat(q.get('duur')||'1')||1;
+var FOTOS=[], idx=-1, timer=null, paused=false, cur=null, lastShown=null, uiTimer=null;
+// Volgorde en voortgang overleven een herlaadactie: de schudvolgorde (seed) en het starttijdstip staan in localStorage.
+// Bij herladen rekenen we uit de verstreken tijd en de duur per foto uit waar de voorstelling zou zijn.
+var SESSIE_MAX=12*3600*1000; // ouder dan 12 uur = nieuwe voorstelling
+var SEED=null, START=null, CUM=[], TOTAAL=0;
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function shuffle(list,seed){var a=list.slice(),r=rng(seed);for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function laadSessie(){
+  if(q.get('nieuw')==='1'){localStorage.removeItem('ss-seed');localStorage.removeItem('ss-start');}
+  var st=parseInt(localStorage.getItem('ss-start')||'',10);
+  if(!isNaN(st)&&Date.now()-st<SESSIE_MAX){START=st;SEED=parseInt(localStorage.getItem('ss-seed')||'',10);}
+  if(q.get('seed'))SEED=parseInt(q.get('seed'),10);
+  if(isNaN(SEED)||SEED===null)SEED=Math.floor(Math.random()*1e9);
+  localStorage.setItem('ss-seed',SEED);
+}
+function bouwTijdlijn(){CUM=[];TOTAAL=0;FOTOS.forEach(function(f){CUM.push(TOTAAL);TOTAAL+=slideDur(f)*1000;});}
+// Welke foto hoort bij het huidige tijdstip, gegeven het starttijdstip?
+function indexVoorNu(){if(START===null)return 0;var t=((Date.now()-START)%TOTAAL+TOTAAL)%TOTAAL;for(var i=CUM.length-1;i>=0;i--){if(t>=CUM[i])return i;}return 0;}
+// Tijdlijn zo verschuiven dat foto i nu begint, en dat onthouden.
+function zetTijdlijn(i){START=Date.now()-CUM[i];localStorage.setItem('ss-start',START);}
+var stage=document.getElementById('stage'), bar=document.getElementById('bar'), num=document.getElementById('num');
+
+function setStyle(s){STYLE=s;localStorage.setItem('ss-stijl',s);
+  document.querySelectorAll('#styles button').forEach(function(b){b.classList.toggle('active',b.dataset.style===s);});
+  document.body.classList.toggle('pen-on',s==='pen');
+  if(cur)renderCap(cur);}
+function setPen(p){if(PENS.indexOf(p)<0)p='Satisfy';PEN=p;localStorage.setItem('ss-pen',p);
+  document.querySelectorAll('#pens button').forEach(function(b){b.classList.toggle('active',b.dataset.pen===p);});
+  if(cur&&STYLE==='pen')renderCap(cur);}
+// De Vara-lettertypen kennen alleen ASCII: accenten eraf, krulquotes recht.
+function ascii(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2018\u2019\u201A]/g,"'").replace(/[\u201C\u201D\u201E]/g,'"').replace(/\u2026/g,'...').replace(/[\u2013\u2014]/g,'-').replace(/[^\x20-\x7E]/g,'');}
+// Pen-grootte in pixels, afhankelijk van tekstlengte en schermbreedte.
+function penSize(len){var vw=window.innerWidth/100;return Math.round({kort:3.6,middel:3.0,lang:2.4,heellang:1.9}[len]*vw);}
+function setPos(p){POS=p;localStorage.setItem('ss-pos',p);
+  document.querySelectorAll('#pos button').forEach(function(b){b.classList.toggle('active',b.dataset.pos===p);});
+  if(cur)renderCap(cur);}
+
+// Hoe lang een foto blijft staan: basis plus leestijd per teken (ca. 20 tekens per seconde), met onder- en bovengrens.
+function slideDur(f){var n=(f.tekst||'').length;return Math.min(20,Math.max(9,6+n*0.06))*TEMPO;}
+function lenClass(n){return n<=40?'kort':n<=150?'middel':n<=400?'lang':'heellang';}
+
+// Tekst opbouwen in woorden en letters zodat de stijlen per letter of per woord kunnen animeren.
+function buildText(el,text){
+  el.textContent='';
+  var words=text.split(/\s+/).filter(Boolean), ci=0;
+  words.forEach(function(w,wi){
+    var ws=document.createElement('span');ws.className='w';ws.style.setProperty('--wi',wi);
+    Array.from(w).forEach(function(ch){var c=document.createElement('span');c.className='c';c.textContent=ch;c.style.setProperty('--i',ci++);ws.appendChild(c);});
+    el.appendChild(ws);
+    if(wi<words.length-1){var sp=document.createElement('span');sp.className='sp';sp.textContent=' ';el.appendChild(sp);}
+  });
+  return ci;
+}
+
+function renderCap(slide){
+  var old=slide.querySelector('.cap');if(old)old.remove();
+  var f=slide._f; if(!f.tekst&&!f.van&&!f.jaar)return;
+  var cap=document.createElement('div');cap.className='cap s-'+STYLE+' '+POS;cap.setAttribute('data-len',lenClass((f.tekst||'').length));
+  var txt=document.createElement('div');txt.className='txt';
+  var n=buildText(txt,f.tekst||'');
+  // Schrijf-/typtijd: tussen 1,5 en 7 seconden voor de hele zin, verdeeld over de letters.
+  var write=Math.min(7,Math.max(1.5,n*0.045));
+  var st=write/Math.max(1,n);
+  cap.style.setProperty('--st',st+'s');
+  cap.style.setProperty('--cd',Math.max(.12,st*3)+'s');
+  var after={hand:write+.2,type:write+.2,inkt:1.9,woord:Math.min(4,(f.tekst||'').split(/\s+/).length*0.11+.6),lijn:2.1}[STYLE]||2;
+  cap.style.setProperty('--after',after+'s');
+  cap.appendChild(txt);
+  if(STYLE==='pen'&&f.tekst){
+    var id='pen'+(++penCount);
+    var pen=document.createElement('div');pen.className='pen';pen.id=id;cap.appendChild(pen);
+    var pw=Math.min(9,Math.max(2,n*0.06));
+    cap.style.setProperty('--after',(pw+.3)+'s');
+    slide.appendChild(cap);
+    new Vara('#'+id,'slideshow/vendor/'+PEN+'.json',[{text:ascii(f.tekst),fontSize:penSize(lenClass(f.tekst.length)),strokeWidth:1.6,color:'#fff',duration:pw*1000,textAlign:POS==='rechts'?'right':'left'}],{});
+  }
+  if(f.van||f.jaar){var van=document.createElement('div');van.className='van';van.textContent=f.van||'';
+    var stamp=[f.plek,f.jaar].filter(Boolean).join(', ');
+    if(stamp){if(f.van)van.appendChild(document.createTextNode(' \u00b7 '));var j=document.createElement('span');j.className='jaar';j.textContent=stamp;van.appendChild(j);}
+    cap.appendChild(van);}
+  if(!cap.parentNode)slide.appendChild(cap);
+}
+
+function makeSlide(f){
+  var s=document.createElement('div');s.className='slide';s._f=f;
+  var bg=document.createElement('img');bg.className='bg';bg.src=f.src;bg.alt='';s.appendChild(bg);
+  var tint=document.createElement('div');tint.className='tint';s.appendChild(tint);
+  var fr=document.createElement('div');fr.className='frame';
+  var img=document.createElement('img');img.className='foto';img.src=f.src;img.alt='';fr.appendChild(img);
+  s.appendChild(fr);
+  return s;
+}
+
+function show(i,dir){
+  if(!FOTOS.length)return;
+  idx=(i+FOTOS.length)%FOTOS.length;
+  zetTijdlijn(idx);
+  var f=FOTOS[idx];
+  var s=makeSlide(f);
+  var d=slideDur(f);
+  s.style.setProperty('--dur',d+'s');
+  stage.appendChild(s);
+  // Oude dia na de overgang opruimen
+  if(cur){var prev=cur;prev.classList.remove('on');setTimeout(function(){prev.remove();},1400);}
+  cur=s;
+  setTimeout(function(){s.classList.add('on');renderCap(s);},40);
+  num.textContent=(idx+1)+' / '+FOTOS.length;
+  bar.classList.remove('run');void bar.offsetWidth;bar.style.setProperty('--dur',d+'s');
+  if(!paused)bar.classList.add('run');
+  clearTimeout(timer);
+  if(!paused)timer=setTimeout(function(){show(idx+1,1);},d*1000);
+}
+function next(){show(idx+1,1);}
+function prev(){show(idx-1,-1);}
+function togglePause(){paused=!paused;
+  document.getElementById('pausebtn').innerHTML=paused?'&#9654;':'&#10074;&#10074;';
+  if(paused){clearTimeout(timer);bar.style.animationPlayState='paused';}
+  else{bar.style.animationPlayState='';show(idx,1);}
+  showUI();}
+function fullscreen(){var el=document.documentElement;if(!document.fullscreenElement){(el.requestFullscreen||el.webkitRequestFullscreen).call(el);}else{(document.exitFullscreen||document.webkitExitFullscreen).call(document);}}
+function showUI(){document.body.classList.add('ui');clearTimeout(uiTimer);uiTimer=setTimeout(function(){document.body.classList.remove('ui');},2800);}
+
+// Alles vooraf laden
+function preload(list,onProgress){
+  var done=0;
+  return Promise.all(list.map(function(f){return new Promise(function(res){
+    var im=new Image();im.onload=im.onerror=function(){done++;onProgress(done,list.length);res();};im.src=f.src;
+  });}));
+}
+
+fetch('slideshow/fotos.json').then(function(r){return r.json();}).then(function(list){
+  FOTOS=list.map(function(f){return Object.assign({},f,{src:'slideshow/'+f.src});});
+  laadSessie();
+  if(q.get('shuffle')!=='0')FOTOS=shuffle(FOTOS,SEED);
+  bouwTijdlijn();
+  var pbar=document.getElementById('pbar'),pcount=document.getElementById('pcount');
+  pcount.textContent='Foto 0 van '+FOTOS.length;
+  return preload(FOTOS,function(d,n){pbar.style.width=(d/n*100)+'%';pcount.textContent='Foto '+d+' van '+n;});
+}).then(function(){
+  var gate=document.getElementById('gate');
+  gate.classList.add('ready');
+  if(START!==null){gate.classList.add('resume');document.getElementById('start').textContent='Verder gaan';}
+  document.getElementById('restart').addEventListener('click',function(e){e.preventDefault();localStorage.removeItem('ss-seed');localStorage.removeItem('ss-start');location.href=location.pathname+'?'+(location.search.replace(/^\?/,'')?location.search.replace(/^\?/,'')+'&':'')+'nieuw=1';});
+  if(q.get('auto')==='1')setTimeout(function(){document.getElementById('start').click();},300);
+  document.getElementById('start').addEventListener('click',function(){
+    gate.classList.add('hide');
+    if(q.get('full')!=='0'){try{fullscreen();}catch(e){}}
+    var startAt=q.get('start')?parseInt(q.get('start'),10)-1:(START!==null?indexVoorNu():0);
+    show(isNaN(startAt)?0:startAt,1);
+  });
+});
+
+setStyle(STYLE);setPos(POS);setPen(PEN);
+document.getElementById('ctrl').addEventListener('click',function(e){
+  var b=e.target.closest('button');if(!b)return;
+  if(b.dataset.style)setStyle(b.dataset.style);
+  else if(b.dataset.pos)setPos(b.dataset.pos);
+  else if(b.dataset.pen)setPen(b.dataset.pen);
+  else if(b.dataset.act==='prev')prev();
+  else if(b.dataset.act==='next')next();
+  else if(b.dataset.act==='pause')togglePause();
+  else if(b.dataset.act==='full')fullscreen();
+  showUI();
+});
+document.addEventListener('mousemove',showUI);
+document.addEventListener('touchstart',showUI,{passive:true});
+stage.addEventListener('click',function(e){if(idx>=0)next();});
+document.addEventListener('keydown',function(e){
+  if(idx<0)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){next();showUI();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){prev();showUI();}
+  else if(e.key===' '){e.preventDefault();togglePause();}
+  else if(e.key==='f'||e.key==='F'){fullscreen();}
+  else if(e.key>='1'&&e.key<='6'){setStyle(['pen','hand','type','inkt','woord','lijn'][e.key-1]);showUI();}
+  else if(e.key==='l'||e.key==='L'){setPos('links');showUI();}
+  else if(e.key==='r'||e.key==='R'){setPos('rechts');showUI();}
+});
+</script>
+</body>
+</html>
