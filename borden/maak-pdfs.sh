@@ -1,7 +1,8 @@
 #!/bin/zsh
 # Maakt van elk bord in borden.html een PDF (A4) met headless Chrome, plus alle-borden.pdf,
 # ceremonie-alle-richtingen.pdf (links, rechtdoor, rechts), verdragen.pdf (alle acht hoofdstukken van artikel-1710.html)
-# en draaiboek-team-ceremonie.pdf (draaiboek.html: per ceremoniemeester voorkant volledig, achterkant persoonlijk).
+# draaiboek-team-ceremonie.pdf (draaiboek.html: per ceremoniemeester voorkant volledig, achterkant persoonlijk)
+# en gastenlijst.pdf (gastenlijst.html: gasten per tafel met vlaggetje, smoelenboek en vakje voor het artikel).
 # Gebruik: ./borden/maak-pdfs.sh   (vanuit de hoofdmap van de site; python3 met pypdf nodig voor verdragen.pdf)
 set -e
 cd "$(dirname "$0")/.."
@@ -18,6 +19,7 @@ done
 for s in $PLAIN; do bord "$s" "print=$s"; done
 bord alle-borden "print=all"
 mkpdf "file://$PWD/draaiboek.html" "$PWD/borden/draaiboek-team-ceremonie.pdf"
+mkpdf "file://$PWD/gastenlijst.html" "$PWD/borden/gastenlijst.pdf"
 
 # Verdragsvellen: per hoofdstuk twee pagina's (artikel + overige bepalingen), samengevoegd tot één PDF.
 TMP="$(mktemp -d)"
