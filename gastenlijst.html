@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gastenlijst &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#11203F;--navy-deep:#0A1428;--gold:#C9A24B;--gold-deep:#9C7528;--ink:#202a3f;--muted:#4a5370;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#e9e6df}
+body{font-family:var(--serif-body);color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;background:#fff;padding:9mm 10mm 8mm;margin:0 auto;position:relative;overflow:hidden;font-size:10pt;line-height:1.25;color:var(--ink)}
+.inner{height:100%;overflow:hidden;display:flex;flex-direction:column}
+.head{display:flex;align-items:flex-end;justify-content:space-between;gap:4mm;padding-bottom:1.4mm;border-bottom:1px solid var(--gold);margin-bottom:1mm;flex:none}
+.head .l{display:flex;align-items:flex-end;gap:3mm}
+.head .crest svg{width:11mm;height:auto;display:block}
+.head .eyebrow{text-transform:uppercase;letter-spacing:.32em;font-size:.82em;color:var(--gold-deep);margin-bottom:.6mm;white-space:nowrap}
+.head h1{font-family:var(--serif-display);font-weight:600;font-size:3em;line-height:1;color:var(--navy)}
+.head h1 em{font-style:italic;font-weight:500;color:var(--gold-deep)}
+.head .r{text-align:right;font-size:.95em;color:var(--muted);font-style:italic;max-width:62mm;line-height:1.3;flex:none}
+.head .r b{display:block;font-style:normal;font-family:var(--serif-display);font-weight:600;font-size:1.5em;color:var(--navy);letter-spacing:.02em}
+table{width:100%;border-collapse:collapse;table-layout:fixed}
+th{font-family:var(--serif-body);font-weight:500;text-transform:uppercase;letter-spacing:.2em;font-size:.72em;color:var(--gold-deep);text-align:left;padding:.5mm 1.2mm .7mm;border-bottom:.4pt solid var(--gold)}
+th.c,td.c{text-align:center}
+th{white-space:nowrap;overflow:visible}
+th.c{letter-spacing:.1em}
+td{padding:.55mm 1.2mm;border-bottom:.3pt solid rgba(156,117,40,.28);vertical-align:middle}
+td.n{font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+td.f{text-align:center}
+td.tbl{text-align:center;font-variant-numeric:tabular-nums;color:var(--muted)}
+td.s{color:var(--ink);font-size:.94em;line-height:1.2}
+td.s i{color:#6b7390}
+td.s .seat{color:var(--gold-deep);font-style:italic;white-space:nowrap}
+.flag{display:inline-block;width:6mm;height:3.7mm;vertical-align:middle;border:.3pt solid rgba(32,42,63,.45);
+  background:linear-gradient(180deg,#111 0 33.4%,#d0021b 33.4% 66.7%,#f5c400 66.7% 100%)}
+.box{display:inline-block;width:4.6mm;height:4.6mm;border:.6pt solid var(--navy);border-radius:.4mm;vertical-align:middle;background:#fff}
+tr.group td{padding-top:2mm;padding-bottom:.6mm;border-bottom:.4pt solid var(--gold);font-family:var(--serif-display);font-weight:600;font-size:1.3em;color:var(--navy);letter-spacing:.02em;white-space:nowrap}
+tr.group td span{font-family:var(--serif-body);font-weight:400;font-size:.62em;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);margin-left:2mm}
+.foot{flex:none;margin-top:auto;padding-top:1.2mm;border-top:1px solid var(--gold);display:flex;justify-content:space-between;gap:4mm;font-size:.9em;color:var(--muted);line-height:1.3;font-style:italic}
+.foot .flag,.foot .box{transform:scale(.8);margin:0 .5mm 0 0}
+.screen{max-width:210mm;margin:0 auto;padding:1.2rem 1rem;display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;font-size:.95rem;color:var(--muted)}
+.screen a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold)}
+.page+.page{margin-top:6mm}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff}
+  .screen{display:none}
+  .page,.page+.page{margin:0;break-after:page;page-break-after:always}
+  .page:last-child{break-after:auto;page-break-after:auto}
+}
+</style>
+</head>
+<body>
+<div class="screen">Gastenlijst voor het diner: per tafel, met vlaggetje voor de Duitstalige gasten, een korte omschrijving en een vakje om af te vinken wie een artikel heeft geschreven. <a href="borden/gastenlijst.pdf" download>Download de PDF</a> &middot; <a href="borden.html">Naar de borden</a></div>
+<div id="pages"></div>
+<script>
+const CREST='<svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg"><g stroke="#C9A24B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/><circle cx="65" cy="13" r="2.3" fill="#C9A24B"/><circle cx="80" cy="7" r="2.7" fill="#C9A24B"/><circle cx="95" cy="13" r="2.3" fill="#C9A24B"/><path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/><path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/></g><g fill="#C9A24B" opacity="0.92">'+
+[[103.0,141.0,152.9],[112.0,133.4,139.5],[119.0,123.6,125.2],[123.7,112.1,110.2],[125.9,99.6,94.5],[125.3,87.0,78.7],[122.0,74.8,63.3],[116.2,64.0,48.5],[108.3,55.0,34.6],[57.0,141.0,207.1],[48.0,133.4,220.5],[41.0,123.6,234.8],[36.3,112.1,249.8],[34.1,99.6,265.5],[34.7,87.0,-78.7],[38.0,74.8,-63.3],[43.8,64.0,-48.5],[51.7,55.0,-34.6]].map(e=>'<ellipse cx="'+e[0]+'" cy="'+e[1]+'" rx="8" ry="2.7" transform="rotate('+e[2]+' '+e[0]+' '+e[1]+')"/>').join('')+
+'</g><text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="#C9A24B">A&amp;B</text></svg>';
+// Uit de sheet TROUWEN 2026, tabblad Gastenlijst (17 oktober 2026). Anna en Balraz (tafel 1, podium) staan er niet tussen.
+// [naam, duits, tafel, omschrijving, plek]
+const GUESTS=[
+ ['Ronan',0,2,'Baby. Op schoot bij oma Silke, kinderstoel naast haar',''],
+ ['Silke Lange',0,2,'Moeder Anna, ex van Michel. Duits. Past op Ronan. Kan niet lang staan','naast Susi en Ronan'],
+ ['Michel Ranzijn',0,2,'Vader Anna, ex van Silke. Komt met Corrie',''],
+ ['Julien Ranzijn',0,2,'Broer Anna',''],
+ ['Eva Ensing',0,2,'Vriendin van Julien',''],
+ ['Wiebe Ranzijn',0,2,'Broer Anna',''],
+ ['Corrie Ranzijn',0,2,'Oma Anna (vaderskant), komt met Michel. Ziet slecht, kan niet lang staan. Gaat rond 20.00 met taxi naar Heiloo',''],
+ ['Uta Lange',1,2,'Oma Anna (moederskant). Duits, beetje Engels. Kan niet lang staan',''],
+ ['Andreas Lange',1,2,'Partner van Uta (niet opa). Duits, beetje Engels',''],
+ ['Garnet Lange',1,2,'Tante Anna (moederskant). Duits, prima Engels',''],
+ ['Markus Mathiessen',1,2,'Partner van Garnet. Duits, prima Engels',''],
+ ['Madita Mathiessen',1,2,'Dochter van Garnet en Markus (17). Duits, prima Engels, beetje Spaans',''],
+ ['Susi',1,2,'Stiefmoeder van Silke. Alleen Duits. Ziet slecht. Blijft veel bij Silke','naast Silke'],
+ ['Tim Leunissen',0,3,'',''],
+ ['Willemijn Gelissen',0,3,'',''],
+ ['Hester van Trommel',0,3,'',''],
+ ['Patrick Volkers',0,3,'',''],
+ ['Maylu',0,3,'Getuige en vriendin Anna',''],
+ ['Lidia',0,3,'Partner van Maylu. Spreekt alleen Spaans',''],
+ ['Henry',0,3,'Mi brada',''],
+ ['Lisa (van Henry)',0,3,'Half Duits, net als Anna',''],
+ ['Ed',0,3,'Mi brada',''],
+ ['Nicolien',0,3,'Vrouw van Ed',''],
+ ['Rene',0,3,'Vriend Balraz, studententijd, oud-huisgenoot. Kent meerdere vriendengroepen',''],
+ ['Berbel',0,3,'Vriendin van Rene',''],
+ ['Michelle',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Willemijn (OM)',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Ylonka',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Parla',0,4,'Vriendin Anna, oud-collega OM. Drinkt niet',''],
+ ['Liza (van OM)',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Mariette',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Merel',0,4,'Vriendin Anna, oud-collega OM',''],
+ ['Joan',0,4,'Vriendin Anna, kent geen andere gasten. In september derde kind gekregen',''],
+ ['Josine',0,5,'Vriendin Anna, middelbare school. In augustus zoontje gekregen',''],
+ ['Nienke',0,5,'Vriendin Anna, middelbare school',''],
+ ['Anouk',0,5,'Vriendin Anna, middelbare school. In mei dochter gekregen',''],
+ ['Jessie',0,5,'Vriendin Anna, middelbare school',''],
+ ['Marissa',0,5,'Vriendin Anna, middelbare school',''],
+ ['Frouke',0,5,'Vriendin Anna, middelbare school',''],
+ ['Shanice',0,5,'Vriendin Anna, middelbare school',''],
+ ['Noortje',0,6,'Vriendin Anna, kent weinig andere gasten',''],
+ ['Sophie',0,6,'Vriendin Anna, kent een paar andere gasten (o.a. Yara)',''],
+ ['Tijn',0,6,'Partner van Sophie',''],
+ ['Yara',0,6,'Vriendin Anna, de BABS','naast Michael'],
+ ['Michael',0,6,'Vriend Balraz, oud-collega EVBox','naast Yara'],
+ ['Rowald',0,6,'Vriend Balraz, oud-collega Shell',''],
+ ['Bart (van Balraz)',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Hanna',0,7,'Vriendin van Bart',''],
+ ['Jeroen',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Claudia',0,7,'Vrouw van Jeroen',''],
+ ['Remy',0,7,'Vriend Balraz, studententijd',''],
+ ['Rachel',0,7,'Vrouw van Remy',''],
+ ['Wolter',0,7,'Vriend Balraz, studententijd',''],
+ ['Marielle',0,7,'Vriendin van Wolter',''],
+ ['Marijn',0,7,'Vriend Balraz, oud-collega PwC','naast Martijn'],
+ ['Micha',0,7,'Vriend Balraz, studententijd',''],
+ ['Amber',0,7,'Vrouw van Micha',''],
+ ['Jesse',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Geerte',0,7,'Vrouw van Jesse',''],
+ ['Jasper',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Esther',0,7,'Vriendin van Jasper',''],
+ ['Martijn',0,7,'Vriend Balraz, oud-collega PwC','naast Marijn'],
+ ['Miranda',0,7,'Vrouw van Martijn',''],
+ ['RJ',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Frederick',0,7,'Vriend Balraz, studententijd, groepje “rey de reyes”',''],
+ ['Tim',0,7,'Vriend Balraz, studententijd. Kent meerdere vriendengroepen',''],
+ ['Ilse',0,7,'Vrouw van Frederick',''],
+];
+const PAGES=[[2,3,4],[5,6,7]];
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function rowHTML(g){
+  const [name,de,tbl,desc,seat]=g;
+  return '<tr><td class="n">'+esc(name)+'</td><td class="f">'+(de?'<span class="flag" title="Duitstalig"></span>':'')+'</td>'+
+    '<td class="tbl">'+tbl+'</td><td class="s">'+esc(desc)+(seat?(desc?' <i>&middot;</i> ':'')+'<span class="seat">'+esc(seat)+'</span>':'')+'</td>'+
+    '<td class="c"><span class="box"></span></td></tr>';
+}
+function tableHTML(tables){
+  let h='<table><colgroup><col style="width:36mm"><col style="width:12mm"><col style="width:12mm"><col><col style="width:16mm"></colgroup>'+
+    '<thead><tr><th>Naam</th><th class="c">Duits</th><th class="c">Tafel</th><th>Smoelenboek</th><th class="c">Artikel</th></tr></thead><tbody>';
+  for(const t of tables){
+    const rows=GUESTS.filter(g=>g[2]===t);
+    h+='<tr class="group"><td colspan="5">Tafel '+t+'<span>'+rows.length+' gasten</span></td></tr>'+rows.map(rowHTML).join('');
+  }
+  return h+'</tbody></table>';
+}
+function pageHTML(tables,i,n){
+  const de=GUESTS.filter(g=>g[1]).length;
+  return '<div class="page"><div class="inner">'+
+    '<div class="head"><div class="l"><div class="crest">'+CREST+'</div><div><div class="eyebrow">Anna &amp; Balraz &middot; 17 oktober 2026 &middot; Diner</div><h1>Gastenlijst <em>tafel '+tables[0]+' t/m '+tables[tables.length-1]+'</em></h1></div></div>'+
+    '<div class="r"><b>Blad '+(i+1)+' van '+n+'</b>'+GUESTS.length+' gasten aan tafel 2 t/m 7, Anna en Balraz aan tafel 1 op het podium.</div></div>'+
+    tableHTML(tables)+
+    '<div class="foot"><div><span class="flag"></span> Duitstalig ('+de+' gasten) &nbsp;&middot;&nbsp; <span class="box"></span> afvinken als het artikel geschreven is</div><div>Bron: sheet Trouwen 2026, tabblad Gastenlijst</div></div>'+
+    '</div></div>';
+}
+function build(){
+  document.getElementById('pages').innerHTML=PAGES.map((t,i)=>pageHTML(t,i,PAGES.length)).join('');
+  fit();
+}
+function fit(){
+  document.querySelectorAll('.page').forEach(p=>{
+    const inner=p.querySelector('.inner');
+    let s=10.5; p.style.fontSize=s+'pt';
+    while(inner.scrollHeight>inner.clientHeight+1&&s>6.3){s-=0.1;p.style.fontSize=s.toFixed(1)+'pt';}
+    p.dataset.size=s.toFixed(1);
+  });
+}
+build();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(fit);}
+window.addEventListener('beforeprint',fit);
+</script>
+</body>
+</html>
