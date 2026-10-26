@@ -1,8 +1,12 @@
 #!/bin/zsh
 # Maakt van elk bord in borden.html een PDF (A4) met headless Chrome, plus alle-borden.pdf,
 # ceremonie-alle-richtingen.pdf (links, rechtdoor, rechts), verdragen.pdf (alle acht hoofdstukken van artikel-1710.html)
-# draaiboek-team-ceremonie.pdf (draaiboek.html: per ceremoniemeester voorkant volledig, achterkant persoonlijk)
+# draaiboek-team-ceremonie.pdf (draaiboek.html: per ceremoniemeester voorkant volledig, achterkant persoonlijk),
+# draaiboek-<naam>.pdf (hetzelfde vel voor één persoon, via draaiboek.html?voor=Naam)
 # en gastenlijst.pdf (gastenlijst.html: gasten per tafel met vlaggetje, smoelenboek en vakje voor het artikel).
+# Niet door dit script gemaakt: ceremonie-nl.pdf, ceremonie-de.pdf en speech-rene.pdf zijn exports van de Google Docs
+# "Trouwceremonie Anna & Balraz (NL)", "Trauzeremonie Anna & Balraz (DE)" en "Speech René – Anna & Balraz (NL)".
+# Alle PDF's staan op een rij op documenten.html.
 # Gebruik: ./borden/maak-pdfs.sh   (vanuit de hoofdmap van de site; python3 met pypdf nodig voor verdragen.pdf)
 set -e
 cd "$(dirname "$0")/.."
@@ -19,6 +23,7 @@ done
 for s in $PLAIN; do bord "$s" "print=$s"; done
 bord alle-borden "print=all"
 mkpdf "file://$PWD/draaiboek.html" "$PWD/borden/draaiboek-team-ceremonie.pdf"
+for p in Tim Hester Henry Edwin; do mkpdf "file://$PWD/draaiboek.html?voor=$p" "$PWD/borden/draaiboek-${p:l}.pdf"; done
 mkpdf "file://$PWD/gastenlijst.html" "$PWD/borden/gastenlijst.pdf"
 
 # Verdragsvellen: per hoofdstuk twee pagina's (artikel + overige bepalingen), samengevoegd tot één PDF.
