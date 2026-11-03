@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Declaratie &middot; Anna &amp; Balraz</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=EB+Garamond:ital,wght@0,400;0,500&display=swap" rel="stylesheet">
+<style>
+:root{--ivory:#FAF4E6;--navy:#11203F;--navy-deep:#0A1428;--plum:#2E2148;--gold:#C9A24B;--gold-light:#E9D198;--gold-deep:#9C7528;--cream-text:#EDE2C6;
+  --serif-display:"Cormorant Garamond",Georgia,serif;--serif-body:"EB Garamond",Georgia,serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--serif-body);color:var(--cream-text);font-size:19px;line-height:1.7;min-height:100vh;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(120% 80% at 50% 120%, rgba(224,164,92,.4) 0%, rgba(224,164,92,0) 46%),
+    radial-gradient(90% 70% at 50% 4%, rgba(46,33,72,.6) 0%, rgba(46,33,72,0) 55%),
+    linear-gradient(180deg,var(--navy-deep) 0%, var(--navy) 55%, var(--plum) 100%);}
+.bar{max-width:820px;margin:0 auto;padding:1rem 1.4rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.bar a.back{color:var(--cream-text);text-decoration:none;font-size:.95rem;letter-spacing:.04em;opacity:.85;transition:.25s}
+.bar a.back:hover{opacity:1;color:#fff}
+.flags{display:flex;gap:.4rem}
+.flag{display:flex;align-items:center;gap:.4rem;cursor:pointer;padding:.28rem .55rem;border-radius:999px;border:1px solid transparent;background:rgba(255,255,255,.05);transition:.25s}
+.flag svg{width:22px;height:14px;border-radius:2px;display:block;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+.flag .lbl{color:var(--cream-text);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+.flag.active{border-color:var(--gold);background:rgba(201,162,75,.16)}
+.wrap{max-width:600px;margin:0 auto;padding:2rem 1.4rem 5rem;text-align:center}
+.crest{width:104px;margin:1rem auto 1.1rem}
+.crest svg{width:104px;height:auto;display:block;margin:0 auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.72rem;color:var(--gold-light);margin-bottom:.8rem}
+h1{font-family:var(--serif-display);font-weight:600;font-size:clamp(2.3rem,8vw,3.4rem);line-height:1.05;color:#fff}
+.divider{display:flex;align-items:center;gap:1rem;max-width:280px;margin:1.3rem auto}
+.divider .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.divider .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+.divider .dia{width:8px;height:8px;background:var(--gold);transform:rotate(45deg)}
+.lead{font-size:1.1rem;color:#d4c9aa;max-width:520px;margin:0 auto 2.2rem}
+form{text-align:left;display:block}
+label{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.4rem}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(201,162,75,.4);color:var(--cream-text);font-family:var(--serif-body);font-size:1.05rem;padding:.75rem .95rem;border-radius:1px}
+select option{color:#111;background:#fff}
+input[type=text]:focus,input[type=email]:focus,input[type=tel]:focus,select:focus,textarea:focus,input[type=file]:focus{outline:none;border-color:var(--gold)}
+input[type=file]{width:100%;background:rgba(255,255,255,.05);border:1px dashed rgba(201,162,75,.55);color:var(--cream-text);font-family:var(--serif-body);font-size:.95rem;padding:.8rem .95rem;border-radius:1px}
+input[type=file]::file-selector-button{font-family:var(--serif-body);background:transparent;border:1px solid var(--gold);color:var(--gold-light);padding:.4rem .9rem;border-radius:1px;margin-right:.9rem;cursor:pointer}
+.field{margin-bottom:1.2rem}
+.photo-slot{border:1px solid rgba(201,162,75,.28);border-radius:4px;padding:1.1rem;display:grid;gap:1rem;margin-bottom:1.1rem}
+.slot-head{font-family:var(--serif-display);font-size:1.35rem;color:var(--gold-light)}
+.preview{display:none;align-items:center;gap:.9rem}
+.preview img{width:104px;height:78px;object-fit:cover;border-radius:3px;border:2px solid var(--gold);display:block}
+.preview .fsize{font-size:.85rem;color:#b9ad8e;font-style:italic}
+.addphoto{display:inline-flex;align-items:center;gap:.5rem;cursor:pointer;background:none;border:1px dashed rgba(201,162,75,.5);color:var(--gold-light);font-family:var(--serif-body);font-size:.95rem;letter-spacing:.04em;padding:.7rem 1.2rem;border-radius:2px;margin-bottom:1.3rem}
+.addphoto:hover{border-color:var(--gold);background:rgba(201,162,75,.08)}
+#status{display:none;font-size:.95rem;font-style:italic;color:#b9ad8e;margin:.2rem 0 1rem;line-height:1.5}
+#status.err{color:#e5a3a3}
+.preview .fsize.err{color:#e5a3a3}
+.btn{display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:var(--serif-body);font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;padding:1rem 2.1rem;border:1px solid var(--gold);color:var(--gold-light);background:transparent;transition:.3s;border-radius:1px;width:100%}
+.btn:hover{background:var(--gold);color:var(--navy-deep)}
+.note{font-size:.9rem;color:#b9ad8e;font-style:italic;margin-top:.9rem;line-height:1.6}
+.amount{display:flex;align-items:stretch}
+.amount span{display:flex;align-items:center;padding:0 .9rem;border:1px solid rgba(201,162,75,.4);border-right:0;color:var(--gold-light);background:rgba(255,255,255,.03)}
+.hint{font-size:.85rem;color:#b9ad8e;font-style:italic;margin-top:.35rem}
+.hint.err{color:#e5a3a3}
+.thanks{display:none;text-align:center}
+.thanks h2{font-family:var(--serif-display);font-weight:600;font-size:2rem;color:var(--gold-light);margin-bottom:.8rem}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a class="back" href="/">&larr; Terug naar de uitnodiging</a>
+</div>
+
+<div class="wrap">
+  <div class="crest"><svg viewBox="0 0 160 178" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#9C7528"/><stop offset="0.35" stop-color="#E9D198"/>
+    <stop offset="0.55" stop-color="#C9A24B"/><stop offset="1" stop-color="#9C7528"/></linearGradient></defs>
+  <g stroke="url(#g)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M60 33 L65 15 L73 25 L80 9 L87 25 L95 15 L100 33 Z"/><path d="M58 33 H102"/>
+    <circle cx="65" cy="13" r="2.3" fill="url(#g)"/><circle cx="80" cy="7" r="2.7" fill="url(#g)"/><circle cx="95" cy="13" r="2.3" fill="url(#g)"/>
+    <path d="M101.6 141.9 A 46 52 0 0 0 101.6 50.1" stroke-width="1.1"/>
+    <path d="M58.4 141.9 A 46 52 0 0 1 58.4 50.1" stroke-width="1.1"/>
+  </g>
+  <g><ellipse cx="103.0" cy="141.0" rx="8" ry="2.7" transform="rotate(152.9 103.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="112.0" cy="133.4" rx="8" ry="2.7" transform="rotate(139.5 112.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="119.0" cy="123.6" rx="8" ry="2.7" transform="rotate(125.2 119.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="123.7" cy="112.1" rx="8" ry="2.7" transform="rotate(110.2 123.7 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.9" cy="99.6" rx="8" ry="2.7" transform="rotate(94.5 125.9 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="125.3" cy="87.0" rx="8" ry="2.7" transform="rotate(78.7 125.3 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="122.0" cy="74.8" rx="8" ry="2.7" transform="rotate(63.3 122.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="116.2" cy="64.0" rx="8" ry="2.7" transform="rotate(48.5 116.2 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="108.3" cy="55.0" rx="8" ry="2.7" transform="rotate(34.6 108.3 55.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="57.0" cy="141.0" rx="8" ry="2.7" transform="rotate(207.1 57.0 141.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="48.0" cy="133.4" rx="8" ry="2.7" transform="rotate(220.5 48.0 133.4)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="41.0" cy="123.6" rx="8" ry="2.7" transform="rotate(234.8 41.0 123.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="36.3" cy="112.1" rx="8" ry="2.7" transform="rotate(249.8 36.3 112.1)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.1" cy="99.6" rx="8" ry="2.7" transform="rotate(265.5 34.1 99.6)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="34.7" cy="87.0" rx="8" ry="2.7" transform="rotate(-78.7 34.7 87.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="38.0" cy="74.8" rx="8" ry="2.7" transform="rotate(-63.3 38.0 74.8)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="43.8" cy="64.0" rx="8" ry="2.7" transform="rotate(-48.5 43.8 64.0)" fill="url(#g)" opacity="0.92"/>
+    <ellipse cx="51.7" cy="55.0" rx="8" ry="2.7" transform="rotate(-34.6 51.7 55.0)" fill="url(#g)" opacity="0.92"/></g>
+  <text x="80" y="108" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="40" font-weight="600" fill="url(#g)">A&amp;B</text>
+</svg></div>
+  <div class="eyebrow">Anna &amp; Balraz</div>
+  <h1>Declaratie</h1>
+  <div class="divider"><span class="ln"></span><span class="dia"></span><span class="ln r"></span></div>
+  <p class="lead">Heeft u iets voorgeschoten voor de bruiloft? Vul hieronder uw gegevens in, dan maken wij het bedrag zo snel mogelijk naar u over. Anna en Balraz bedanken u hartelijk voor uw bijdrage.</p>
+
+  <form id="declaratie" name="declaratie" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data">
+    <input type="hidden" name="form-name" value="declaratie">
+    <p style="display:none"><label>Niet invullen: <input name="bot-field"></label></p>
+    <div class="field"><label>Uw naam</label><input type="text" name="naam" required autocomplete="name"></div>
+    <div class="field"><label>E-mailadres</label><input type="email" name="email" required autocomplete="email"></div>
+    <div class="field"><label>IBAN</label><input type="text" name="iban" id="iban" required placeholder="NL00 BANK 0123 4567 89" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:.06em">
+      <div class="hint" id="ibanhint"></div></div>
+    <div class="field"><label>Ten name van</label><input type="text" name="tenaamstelling" required placeholder="Naam van de rekeninghouder"></div>
+    <div class="field"><label>Bedrag</label><div class="amount"><span>&euro;</span><input type="text" name="bedrag" id="bedrag" required inputmode="decimal" placeholder="0,00"></div></div>
+    <div class="field"><label>Waarvoor?</label><textarea name="omschrijving" rows="3" required placeholder="Bijvoorbeeld: bloemen voor de ceremonie"></textarea></div>
+    <div class="field"><label>Bonnetje of factuur (optioneel)</label><input type="file" name="bon" id="bon" accept="image/*,application/pdf">
+      <div class="hint">Foto of PDF, maximaal 7,5 MB.</div></div>
+    <div id="status"></div>
+    <button class="btn" type="submit">Verstuur declaratie</button>
+    <p class="note">Uw gegevens worden alleen gebruikt om uw declaratie uit te betalen.</p>
+  </form>
+
+  <div class="thanks" id="thanks">
+    <h2>Dank u wel!</h2>
+    <p class="lead">Wij hebben uw declaratie ontvangen en maken het bedrag zo snel mogelijk over. Anna en Balraz bedanken u hartelijk voor uw bijdrage.</p>
+    <a class="btn" href="/" style="width:auto;text-decoration:none">Terug naar de uitnodiging</a>
+  </div>
+</div>
+<script>
+// IBAN-controle met de mod-97-check, zodat tikfouten meteen opvallen.
+function ibanOk(v){
+  v=v.replace(/\s+/g,'').toUpperCase();
+  if(!/^[A-Z]{2}\d{2}[A-Z0-9]{10,30}$/.test(v))return false;
+  var s=(v.slice(4)+v.slice(0,4)).replace(/[A-Z]/g,function(c){return c.charCodeAt(0)-55;});
+  var r=0;for(var i=0;i<s.length;i++)r=(r*10+ +s[i])%97;
+  return r===1;
+}
+var form=document.getElementById('declaratie'),iban=document.getElementById('iban'),hint=document.getElementById('ibanhint');
+function status(msg){var el=document.getElementById('status');el.textContent=msg||'';el.className=msg?'err':'';el.style.display=msg?'block':'none';}
+iban.addEventListener('blur',function(){
+  var v=iban.value.replace(/\s+/g,'').toUpperCase();
+  if(!v){hint.textContent='';return;}
+  iban.value=v.replace(/(.{4})/g,'$1 ').trim();
+  var ok=ibanOk(v);hint.textContent=ok?'':'Dit IBAN lijkt niet te kloppen. Controleert u het nog even?';hint.className=ok?'hint':'hint err';
+});
+form.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!ibanOk(iban.value)){status('Dit IBAN lijkt niet te kloppen. Controleert u het nog even?');iban.focus();return;}
+  var bedrag=form.elements.bedrag.value.replace(/\s|€/g,'').replace(',','.');
+  if(!/^\d+(\.\d{1,2})?$/.test(bedrag)||+bedrag<=0){status('Vul een geldig bedrag in, bijvoorbeeld 24,95.');form.elements.bedrag.focus();return;}
+  var bon=document.getElementById('bon').files[0];
+  if(bon&&bon.size>7.5*1048576){status('Het bonnetje is te groot (max. 7,5 MB).');return;}
+  var btn=form.querySelector('button[type=submit]');btn.disabled=true;status('');
+  fetch('/',{method:'POST',body:new FormData(form)}).then(function(r){
+    if(!r.ok)throw new Error(r.status);
+    form.style.display='none';document.getElementById('thanks').style.display='block';window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(){btn.disabled=false;status('Versturen is niet gelukt. Controleer uw verbinding en probeer het nog eens.');});
+});
+</script>
+</body>
+</html>
